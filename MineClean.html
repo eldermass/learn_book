@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>MineGame</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			.btn{
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				height: 30px;
+				width: 75px;
+				background: rgba(0,0,0,0.6);
+				color: white;
+				border-radius: 10px;
+				border: 2px solid deepskyblue;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.btn:hover{
+				background: rgba(0,0,0,0.3);
+				box-shadow: 0 0 11px darkorange inset;
+			}
+			.init{
+				position: absolute;
+				top: 60px;
+				left: 20px;
+				height: 100px;
+				width: 110px;
+				display: flex;
+				flex-wrap: wrap;
+				align-content: space-around;
+			}
+			.setMine,.setSize{
+				box-shadow: 0 0 3px #aaa;
+				box-sizing: border-box;
+				width: 100%;
+				height: 30px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#setMine,#setSize{
+				border: none;
+				width: 20px;
+				display: inline-block;
+			}
+			
+			.showmines{
+				height: 40px;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}		
+			#Client{
+				margin: auto;
+				margin-top: 35px;
+				display: flex;
+				flex-wrap: wrap;
+				transform: perspective(500px) rotateX(45deg);
+				border: 1px solid #aaa;
+				box-shadow: 3px 3px 3px rgba(0,0,0,0.4);
+				display: none;
+			}
+			.box{
+				background: #ccc;
+				display: flex;
+				justify-content: center;
+				align-items: ;
+				box-sizing: border-box;
+				width: 30px;
+				height: 30px;
+				border: 1px solid #aaa;
+				box-shadow: 0 0 5px orange inset; 		
+			}
+			.checked{
+				background: white;
+			}
+			.mine{
+				/*background: red;*/
+			}
+			.warnflag{
+				background: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="btn" onclick="begin();">Begin</div>
+			<div class="init">
+				<div class="setMine">
+					设置雷数：<input type="text" id="setMine" value="10"  />
+				</div>
+				<div class="setSize">
+					地图大小：<input type="text" id="setSize" value="10"  />
+				</div>
+			</div>
+			<div class="showmines">当前雷数:<span class="showmine"></span></div>
+			<div id="Client" oncontextmenu="return false;">
+				
+			</div>			
+		</div>
+	</body>
+	<script>
+		var client=document.getElementById('Client');
+		var showmines=document.getElementsByClassName('showmine')[0];
+		var mines=10;
+		var size=10;
+		function begin(){
+			mines=document.getElementById('setMine').value;
+			size=document.getElementById('setSize').value;
+			showmines.innerHTML=mines;
+			client.style.display='flex';
+			if(confirm('确认开始游戏？')){
+				client.innerHTML='';
+				createBox(size)
+			}else{
+				return false;
+			}
+			
+			client.onmousedown=function(e){
+				if(e.which==1){
+					leftClick(e.target);
+				}
+				if(e.which==3){
+					rightClick(e.target);
+				}
+				var hadcheck=document.getElementsByClassName('checked');
+				if(mines==0 || hadcheck.length==size*size-mines){
+					alert('you win');
+				}
+			}
+		}
+		
+		function createBox(n){
+			for(var i=0;i<n;i++){
+				for(var j=0;j<n;j++){
+					var newBox=document.createElement('div');
+					newBox.classList.add('box');
+					newBox.setAttribute('id',i+'-'+j);
+					client.appendChild(newBox);
+				}
+			}
+			client.style.width=30*n+'px';
+			putMine(n*n,mines);
+		}
+		
+		function putMine(boxes,mines){
+			var box=document.getElementsByClassName('box');
+			while(mines){
+				var num=rand();
+				if(!box[num].classList.contains('mine')){
+					box[num].classList.add('mine');
+					mines--;
+				}
+			}
+			function rand(){
+				return Math.floor(Math.random()*boxes);
+			}
+		}
+		
+		
+		
+		function leftClick(dom){
+			if(dom && dom.classList.contains('warnflag')){
+				return false;
+			}
+			//var isMine=document.getElementsByClassName('mine');
+			dom && dom.classList.add('checked');
+			
+			if(dom&&dom.classList.contains('mine')){
+				console.log('踩雷了，游戏结束');
+				var allMine=document.getElementsByClassName('mine');
+				for(var i=0;i<allMine.length;i++){
+					allMine[i].style.background='red';
+				}
+				client.onmousedown=function(){
+					return false;
+				}
+				setTimeout(function(){
+					alert('you lose');
+				},700);
+				//return;
+			}
+			if(dom && !dom.classList.contains('mine')){
+				var n=0;
+				var posArr=dom&&dom.getAttribute('id').split('-');
+				var posX=posArr && +posArr[0];
+				var posY=posArr && +posArr[1];
+				for(var i=posX-1;i<=posX+1;i++){
+					for(var j=posY-1;j<=posY+1;j++){
+						var aroundBox=document.getElementById(i+'-'+j);
+						if(aroundBox && aroundBox.classList.contains('mine')){
+							n++;
+						}
+					}
+				}
+				dom && (dom.innerHTML=n);
+				if(n==0){
+					for(var i=posX-1;i<=posX+1;i++){
+						for(var j=posY-1;j<=posY+1;j++){
+							var nearBox=document.getElementById(i+'-'+j);
+							if(nearBox && !nearBox.classList.contains('checked')){
+								leftClick(nearBox);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		function rightClick(dom){
+			if(dom && !dom.classList.contains('checked')){
+				dom.classList.toggle('warnflag');
+				if(dom.classList.contains('warnflag') && dom.classList.contains('mine')){
+					mines--;
+				}
+				if(!dom.classList.contains('warnflag') && dom.classList.contains('mine')){
+					mines++;
+				}
+				showmines.innerHTML=mines;
+			}
+		}
+		
+	</script>
+</html>
