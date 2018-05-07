@@ -5,6 +5,12 @@
 		<title>MineGame</title>
 		<style>
 			*{margin: 0;padding: 0;}
+			body{
+				height: 923px;
+				width: 100%;
+				background: url('./img/bg.jpg') no-repeat;
+				background-size: 100% 100%;
+			}
 			.btn{
 				position: absolute;
 				top: 20px;
@@ -66,7 +72,8 @@
 				display: none;
 			}
 			.box{
-				background: #ccc;
+				background: url('./img/1.jpg');
+				background-size: 100% 100%;
 				display: flex;
 				justify-content: center;
 				align-items: ;
@@ -80,10 +87,11 @@
 				background: white;
 			}
 			.mine{
-				/*background: red;*/
+				/* background: darkgoldenrod; */
 			}
 			.warnflag{
-				background: pink;
+				background:url('./img/3.jpg');
+				background-size: 100% 100%;
 			}
 		</style>
 	</head>
@@ -175,7 +183,8 @@
 				console.log('踩雷了，游戏结束');
 				var allMine=document.getElementsByClassName('mine');
 				for(var i=0;i<allMine.length;i++){
-					allMine[i].style.background='red';
+					allMine[i].style.background="url('./img/2.jpg')";
+					allMine[i].style.backgroundSize="100% 100%";
 				}
 				client.onmousedown=function(){
 					return false;
@@ -225,5 +234,6 @@
 			}
 		}
 		
+	
 	</script>
 </html>
