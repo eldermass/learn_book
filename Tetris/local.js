@@ -9,6 +9,7 @@ let Local =function (){
 						game.left()
 					break;
 				case 38://up
+						game.rotate()
 					break;
 				case 39://right
 						game.right()
@@ -17,6 +18,7 @@ let Local =function (){
 						game.down();
 					break;
 				case 32://space
+						game.fall()
 					break;
 				default:
 					break;

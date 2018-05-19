@@ -89,7 +89,7 @@ const Game = function(){
 			console.log(4)
 			return false;
 		}else if(gameMap[pos.y+x][pos.x+y] ==2){
-			console.log(5)//?????
+			console.log(5)//是否已经有灰色块
 			return false
 		}else{
 			console.log(6)
@@ -141,20 +141,33 @@ const Game = function(){
 			clear(cur.data,gameMap,cur.origin)	
 			cur.down();	
 			copy(cur.data,gameMap,cur.origin)
-		}	
-			
+			return true;
+		}else{
+			return false;
+		}
 	}
 	function left(){	
+		if(cur.canLeft(isValid)){
 			clear(cur.data,gameMap,cur.origin)
-			cur.origin.x--;
+			cur.left();
 			copy(cur.data,gameMap,cur.origin)
+		}
+			
 	}
 	function right(){	
+		if(cur.canRight(isValid)){
 			clear(cur.data,gameMap,cur.origin)
-			cur.origin.x++;
+			cur.right();
 			copy(cur.data,gameMap,cur.origin)
+		}
 	}
-	
+	function rotate(){	
+		if(cur.canRotate(isValid)){
+			clear(cur.data,gameMap,cur.origin)
+			cur.rotate();
+			copy(cur.data,gameMap,cur.origin)
+		}
+	}
 	
 	//初始化
 	function init(doms){
@@ -174,4 +187,8 @@ const Game = function(){
 	this.down = down;
 	this.left = left;
 	this.right = right;
+	this.rotate = rotate;
+	this.fall =function(){
+		while(down());
+	}
 }
