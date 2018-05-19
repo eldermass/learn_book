@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#cont{
+				height: 400px;
+				width: 300px;
+				margin: auto;
+				position: relative;
+			}
+			.game{
+				height: 400px;
+				width: 200px;
+				border: 1px solid #000;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				border: 1px solid #ccc;
+			}
+			.next{
+				height: 80px;
+				width: 80px;
+				position: absolute;
+				left: 230px;
+				top: 20px;
+				border: 1px solid #ccc;
+			}
+			.mes{
+				height: 60px;
+				width: 100px;
+				position: absolute;
+				left: 220px;
+				top: 120px;
+			}
+			.none,.current,.done{
+				height: 20px;
+				width: 20px;
+				position: absolute;
+				box-sizing: border-box;
+			}
+			.none{
+				background: ;
+			}
+			.current{
+				background: pink;
+				border: 1px solid #aaa;
+			}
+			.done{
+				background: gray;
+				border: 1px solid #aaa;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="cont">
+			<div id="game" class="game"></div>
+			<div id="next" class="next"></div>
+			<div class="mes">
+				<p>time: <span>0</span> s</p>
+				<p>score: <span>0</span></p>
+			</div>
+		</div>
+		<script src="square.js"></script>
+		<script src="game.js"></script>
+		<script src="local.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
