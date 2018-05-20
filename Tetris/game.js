@@ -3,6 +3,10 @@ const Game = function(){
 	//盒子Box
 	let gameBox;
 	let nextBox;
+	let timeDiv;
+	let scoreDiv;
+	let resultDiv;
+	let score = 0;
 	//地图矩阵
 	let gameMap =[
 				[0,0,0,0,0,0,0,0,0,0],
@@ -183,6 +187,7 @@ const Game = function(){
 	}
 	//消行
 	function checkClear(){
+		let line = 0;
 		for(let i = gameMap.length - 1;i >= 0;i--){
 			var clear =true;
 			for(let j = 0 ;j<gameMap[0].length;j++){
@@ -192,6 +197,7 @@ const Game = function(){
 				}
 			}
 			if(clear){
+				line++;
 				for(let m = i;m>0 ; m--){
 					for(let n = 0;n<gameMap[0].length;n++){
 						gameMap[m][n]=gameMap[m-1][n]
@@ -203,6 +209,7 @@ const Game = function(){
 				i++;
 			}
 		}
+		return line;
 	}
 	//检查游戏结束
 	function checkGameOver(){
@@ -211,6 +218,9 @@ const Game = function(){
 			if(gameMap[1][i] == 2){
 				gameOver = true
 			}
+		}
+		if(gameMap[2][4] == 2 || gameMap[2][5] == 2 ){
+			gameOver = true;
 		}
 		return gameOver;
 	}
@@ -222,18 +232,40 @@ const Game = function(){
 		refreshDiv(gameMap,gameDivs)
 		refreshDiv(next.data,nextDivs)
 	}
+	//设置时间
+	function setTime(time){
+		timeDiv.innerHTML = time;
+	}
+	//加分
+	function addScore(line){
+		let s = 0;
+		line==1 && (s=10);
+		line==2 && (s=30);
+		line==3 && (s=60);
+		line==4 && (s=100);
+		score += s;
+		scoreDiv.innerHTML = score;
+	}
+	//游戏结束
+	function gameOver(win){
+		if(win){
+			resultDiv.innerHTML = '你赢了'
+		}else{
+			resultDiv.innerHTML = '你输了'
+		}
+	}
 	//初始化
-	function init(doms){
+	function init(doms,type,dir){
 		gameBox = doms.gameBox;
 		nextBox = doms.nextBox;
-		cur = SquareFactory.prototype.make(2,3)
-		next = SquareFactory.prototype.make(3,3)
+		timeDiv = doms.timeDiv;
+		resultDiv = doms.resultDiv;
+		scoreDiv = doms.scoreDiv;
+		next = SquareFactory.prototype.make(type,dir)
 
 		initDiv(gameBox,gameMap,gameDivs)
 		initDiv(nextBox,next.data,nextDivs)
-		refreshDiv(gameMap,gameDivs)
 		refreshDiv(next.data,nextDivs)
-		copy(cur.data,gameMap,cur.origin)
 	}
 	//导出API
 	this.init = init;
@@ -245,6 +277,9 @@ const Game = function(){
 	this.performNext = performNext;
 	this.checkClear = checkClear;
 	this.checkGameOver =checkGameOver;
+	this.setTime = setTime;
+	this.addScore = addScore;
+	this.gameOver =gameOver;
 	this.fall =function(){
 		while(down());
 	}

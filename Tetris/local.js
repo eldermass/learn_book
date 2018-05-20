@@ -4,6 +4,10 @@ let Local =function (){
 	//时间间隔
 	let INTERVAL = 200;
 	let timer =null
+	//时间计数器
+	let timeCount = 0;
+	//时间
+	let time = 0;
 	//绑定键盘事件
 	let keyEvent=function(){
 		document.onkeydown=function(e){
@@ -29,17 +33,31 @@ let Local =function (){
 		}
 	}
 	let move =function(){
+		timeFunc();
 		if(!game.down()){
 			game.fixed();
-			game.checkClear();
+			let line = game.checkClear();
+			if(line){
+				game.addScore(line)
+			}
 			let gameOver = game.checkGameOver();
 			if(gameOver){
+				game.gameOver(false);
 				stop();
 			}else{
 				game.performNext(generateType(),generateDir());
 			}
 		}
 
+	}
+	//时间函数
+	function timeFunc(){
+		timeCount++;
+		if(timeCount==5){
+			timeCount = 0;
+			time++;
+			game.setTime(time);
+		}
 	}
 	//生成方块类型
 	function generateType(){
@@ -61,11 +79,15 @@ let Local =function (){
 	let start =function(){
 		let doms ={
 			gameBox:document.getElementById('game'),
-			nextBox:document.getElementById('next')
+			nextBox:document.getElementById('next'),
+			timeDiv:document.getElementById('time'),
+			scoreDiv:document.getElementById('score'),
+			resultDiv:document.getElementById('gameover'),			
 		}
 		game = new Game()
-		game.init(doms)
+		game.init(doms,generateType(),generateDir())
 		keyEvent()
+		game.performNext(generateType(),generateDir());
 		timer = setInterval(move,INTERVAL)
 	}
 	
