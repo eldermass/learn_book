@@ -74,7 +74,7 @@ const Game = function(){
 			}
 		}
 	}
-	//检查远点是否合法
+	//检查方块是否合法
 	function check(pos,x,y){//cur.origin   i j 遍历小方块
 		if(pos.y + x <0){
 			console.log(1)
@@ -168,13 +168,66 @@ const Game = function(){
 			copy(cur.data,gameMap,cur.origin)
 		}
 	}
-	
+	//掉落定型
+	let fixed = function(){
+		for(let i = 0 ;i<cur.data.length;i++){
+			for(let j =0 ; j<cur.data[0].length;j++){
+				if(check(cur.origin,i,j)){
+					if(gameMap[cur.origin.y+i][cur.origin.x+j]==1){
+						gameMap[cur.origin.y+i][cur.origin.x+j]=2
+					}
+				}
+			}
+		}
+		refreshDiv(gameMap,gameDivs)
+	}
+	//消行
+	function checkClear(){
+		for(let i = gameMap.length - 1;i >= 0;i--){
+			var clear =true;
+			for(let j = 0 ;j<gameMap[0].length;j++){
+				if(gameMap[i][j] != 2){
+					clear = false ;
+					break;
+				}
+			}
+			if(clear){
+				for(let m = i;m>0 ; m--){
+					for(let n = 0;n<gameMap[0].length;n++){
+						gameMap[m][n]=gameMap[m-1][n]
+					}
+				}
+				for(let n = 0;n<gameMap[0].length;n++){
+						gameMap[0][n]=0
+				}
+				i++;
+			}
+		}
+	}
+	//检查游戏结束
+	function checkGameOver(){
+		let gameOver = false ;
+		for(let i = 0; i<gameMap[0].length;i++){
+			if(gameMap[1][i] == 2){
+				gameOver = true
+			}
+		}
+		return gameOver;
+	}
+	//产生新的方块
+	function performNext(type,dir){
+		cur = next
+//		setData();
+		next = new SquareFactory.prototype.make(type,dir)
+		refreshDiv(gameMap,gameDivs)
+		refreshDiv(next.data,nextDivs)
+	}
 	//初始化
 	function init(doms){
 		gameBox = doms.gameBox;
 		nextBox = doms.nextBox;
-		cur = new Square()
-		next = new Square()
+		cur = SquareFactory.prototype.make(2,3)
+		next = SquareFactory.prototype.make(3,3)
 
 		initDiv(gameBox,gameMap,gameDivs)
 		initDiv(nextBox,next.data,nextDivs)
@@ -188,6 +241,10 @@ const Game = function(){
 	this.left = left;
 	this.right = right;
 	this.rotate = rotate;
+	this.fixed = fixed;
+	this.performNext = performNext;
+	this.checkClear = checkClear;
+	this.checkGameOver =checkGameOver;
 	this.fall =function(){
 		while(down());
 	}
