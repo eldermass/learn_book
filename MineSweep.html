@@ -97,7 +97,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="btn" onclick="begin();">Begin</div>
+			<div class="btn" onclick="confirm('确认开始游戏？')?begin():''">Begin</div>
 			<div class="init">
 				<div class="setMine">
 					设置雷数：<input type="text" id="setMine" value="10"  />
@@ -122,12 +122,12 @@
 			size=document.getElementById('setSize').value;
 			showmines.innerHTML=mines;
 			client.style.display='flex';
-			if(confirm('确认开始游戏？')){
+//			if(confirm('确认开始游戏？')){
 				client.innerHTML='';
 				createBox(size)
-			}else{
-				return false;
-			}
+//			}else{
+//				return false;
+//			}
 			
 			client.onmousedown=function(e){
 				if(e.which==1){
@@ -233,7 +233,7 @@
 				showmines.innerHTML=mines;
 			}
 		}
-		
+		begin()
 	
 	</script>
 </html>
