@@ -29,7 +29,7 @@
 			
 			#author {
 				position: absolute;
-				right: 5%;
+				right: 3%;
 				top: 0;
 				font-family: "楷体";
 				font-size: 18px;
@@ -59,8 +59,7 @@
 				animation-play-state: paused;
 			}
 			
-			.img li,
-			img {
+			.img li,img {
 				float: left;
 				box-sizing: border-box;
 				float: left;
@@ -74,14 +73,41 @@
 				width: 348px;
 			}
 			
-			#cont2 {}
-			
-			#list {
-				width: 160px;
+			#cont2 {
+				width: 170px;
 				background: rgba(200, 200, 200, 0.2);
 			}
+			#outlist{
+				position: relative;
+			}
+			.inspan{
+				display: block;
+				color: black;
+				border: 1px solid #DEB887;
+				width: 150px;
+				height: 30px;
+				border-radius: 10px;
+				box-shadow: 0 0 5px red inset;
+				background: skyblue;
+				text-align: center;
+				line-height: 30px;
+				margin: 5px;
+
+			}
+			.inspan:hover{
+				box-shadow: 0 0 3px red;
+				background: deepskyblue;
+				color:rgb(235, 45, 61);
+				font-weight: bold;
+			}
+
+			.list {
+				display: none;
+				position: absolute;
+				width: 100%;
+			}
 			
-			#list li a {
+			.list li a {
 				display: block;
 				color: black;
 				border: 1px solid #DEB887;
@@ -95,7 +121,7 @@
 				margin: 5px;
 			}
 			
-			#list li:hover a {
+			.list li:hover a {
 				background: hotpink;
 				color: white;
 				font-weight: bold;
@@ -146,19 +172,53 @@
 			</ul>
 		</div>
 		<div id="cont2">
-			<ul id="list">
-				<li>
-					<a href="/MineSweep.html">扫雷</a>
+			<ul id="outlist">
+				<li class="lists">
+					<span class="inspan">小游戏</span>
+					<ul class="list">
+						<li>
+							<a href="/MineSweep.html">扫雷</a>
+						</li>
+						<li>
+							<a href="">贪吃蛇</a>
+						</li>
+						<li>
+							<a href="/Tetris/index.html">俄罗斯方块</a>
+						</li>
+					</ul>
 				</li>
-				<li>
-					<a href="">贪吃蛇</a>
-				</li>
-				<li>
-					<a href="/Tetris/index.html">俄罗斯方块</a>
+				<li class="lists">
+					<span class="inspan">nothing</span>
+					<ul class="list">
+						<li>
+							<a href=""></a>
+						</li>
+						<li>
+							<a href=""></a>
+						</li>
+						<li>
+							<a href=""></a>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</div>
 
 	</body>
-
+	<script>
+		let lists = document.querySelectorAll('.lists');
+		for(let i = 0; i<lists.length;i++){
+			lists[i].onmouseover = function(){
+				this.children[1].style.display ='block'
+				this.children[1].style.left = this.clientLeft+this.offsetWidth+'px'
+				this.children[1].style.top = this.offsetTop*i-3+'px'
+			}
+			lists[i].onmouseout = function(){
+				this.children[1].style.display ='none'
+			}
+		}
+		
+	
+		
+	</script>
 </html>
