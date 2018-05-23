@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				overflow: hidden;
+			}
+			#waiting{
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				width: 100%;
+				position: absolute;
+				margin: auto;
+				top: -60px;
+			}
+			#cont{
+				margin-top: 100px;
+				width: 1200px;
+				display: flex;
+				justify-content: space-between;
+			}
+			#local,#remote{
+				border: 1px solid #ccc;
+				height: 400px;
+				width: 320px;
+				margin: auto;
+				position: relative;
+			}
+			.game{
+				height: 400px;
+				width: 200px;
+				border: 1px solid #000;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				border: 1px solid #ccc;
+			}
+			.next{
+				height: 80px;
+				width: 80px;
+				position: absolute;
+				left: 230px;
+				top: 20px;
+				border: 1px solid #ccc;
+			}
+			.mes{
+				height: 60px;
+				width: 100px;
+				position: absolute;
+				left: 220px;
+				top: 120px;
+			}
+			.none,.current,.done{
+				height: 20px;
+				width: 20px;
+				position: absolute;
+				box-sizing: border-box;
+			}
+
+			.current{
+				background: pink;
+				border: 1px solid #aaa;
+			}
+			.done{
+				background: gray;
+				border: 1px solid #aaa;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="cont">
+			<div id="local">
+				<div id="waiting"></div>
+				<div id="local_game" class="game"></div>
+				<div id="local_next" class="next"></div>
+				<div class="mes">
+					<p>time: <span id="local_time">0</span> s</p>
+					<p>score: <span id="local_score">0</span></p>
+					<div id='local_gameover'></div>
+				</div>
+			</div>
+			<div id="remote">
+				<div id="remote_game" class="game"></div>
+				<div id="remote_next" class="next"></div>
+				<div class="mes">
+					<p>time: <span id="remote_time">0</span> s</p>
+					<p>score: <span id="remote_score">0</span></p>
+					<div id='remote_gameover'></div>
+					<button id="left">left</button>
+					<button id="performNext">performNext</button>
+					<button id="down">down</button>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+		<script src="js/square.js"></script>
+		<script src="js/SquareFactory.js"></script>
+		<script src="js/game.js"></script>
+		<script src="js/local.js"></script>
+		<script src="js/remote.js"></script>
+		<script src="js/script.js"></script>
+	</body>
+</html>
