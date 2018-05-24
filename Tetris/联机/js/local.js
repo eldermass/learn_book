@@ -50,6 +50,8 @@ let Local =function (socket){
 			let gameOver = game.checkGameOver();
 			if(gameOver){
 				game.gameOver(false);
+				document.getElementById('remote_gameover').innerHTML = '你赢了';
+				socket.emit('lose')
 				stop();
 			}else{
 				let type2 = generateType();
@@ -83,9 +85,7 @@ let Local =function (socket){
 			timeCount = 0;
 			time++;
 			game.setTime(time);
-			if(time % 10 == 0){
-				game.addTailLines(generataBottomLine(1));
-			}
+			socket.emit('time',time);
 		}
 	}
 	//生成方块类型
@@ -130,5 +130,14 @@ let Local =function (socket){
 	socket.on('start',function(){
 		document.getElementById('waiting').innerHTML = 'start';
 		start();
+	})
+	socket.on('lose',function(){
+		game.gameOver(true)
+		stop()
+	})
+	socket.on('leave',function(){
+		document.getElementById('local_gameover').innerHTML='对方掉线';
+		document.getElementById('remote_gameover').innerHTML='已经掉线';		
+		stop()
 	})
 }

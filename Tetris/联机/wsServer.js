@@ -12,9 +12,9 @@ app.listen(PORT)
 function bindListener(socket,event){
     socket.on(event,function(data){
         if(socket.clientNum % 2 == 0){
-            socketMap[socket.clientNum - 1].emit(event,data);
+            socketMap[socket.clientNum - 1] && socketMap[socket.clientNum - 1].emit(event,data);
         }else{
-            socketMap[socket.clientNum + 1].emit(event,data);
+            socketMap[socket.clientNum + 1] && socketMap[socket.clientNum + 1].emit(event,data);
         }
     })
 }
@@ -32,8 +32,12 @@ io.on('connection',function(socket){
         socket.emit('waiting','waiting for another player !')
     }else{
     //如果时偶数个时，就配对开始游戏
-        socket.emit('start')
-        socketMap[(clientCount - 1)].emit('start')
+        if(socketMap[(clientCount - 1)]){
+            socket.emit('start')
+            socketMap[(clientCount - 1)].emit('start')
+        }else{
+            socket.emit('leave')
+        }
     }
     // //接收开始消息
     // socket.on('init',function(data){
@@ -52,6 +56,8 @@ io.on('connection',function(socket){
     bindListener(socket,'fall')
     bindListener(socket,'fixed')
     bindListener(socket,'line')
+    bindListener(socket,'time')
+    bindListener(socket,'lose')
     // //接收下一个消息
     // socket.on('next',function(data){
     //     if(socket.clientNum % 2 == 0){
@@ -62,7 +68,12 @@ io.on('connection',function(socket){
     // })
     //退出游戏时
     socket.on('disconnect',function(){
-
+        if(socket.clientNum % 2 == 0){
+            socketMap[socket.clientNum - 1] && socketMap[socket.clientNum - 1].emit('leave');
+        }else{
+            socketMap[socket.clientNum + 1] && socketMap[socket.clientNum + 1].emit('leave');
+        }
+        delete(socketMap[socket.clientNum])
     })
 })
 

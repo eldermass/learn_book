@@ -31,6 +31,12 @@ let Remote = function (socket){
             game.checkClear();
             game.addScore(data);
         })
+        socket.on('time',function(data){
+            game.setTime(data)
+        })
+        socket.on('lose',function(){
+            game.gameOver(false)
+        })
     }
 
     //开始
