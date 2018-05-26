@@ -68,7 +68,7 @@ class Cube{
         front.innerHTML = (parseInt(n))>(max-1)?((parseInt(n))-max):(parseInt(n))        
     
         if(color=='white'){  
-            front.style.color =color;
+            front.style.color ='#f3f3f3';
             front.style.textShadow =''
         }
         if(color=='black'){
@@ -83,7 +83,7 @@ class Cube{
     //初始偏移量
     start(){
         //this.num 是初始时间值
-        this.swing(10,10)
+        this.swing(-10,10)
         let num =parseInt(this.num)
         this.addTime('.cube_front',num,'black');
         this.addTime('.cube_top',num+1,'black');
