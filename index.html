@@ -4,196 +4,60 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>My_Git</title>
-		<style type="text/css">
-			body {
-				background: #f3f3f3;
-				overflow: hidden;
-			}
-			
-			header {
-				height: 45px;
-				background: white;
-				line-height: 35px;
-				font-size: 45px;
-				font-weight: bold;
-				font-family: "华文行楷";
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			
-			#welcome {
-				text-align: center;
-				width: 160px;
-				line-height: 45px;
-				z-index: 99;
-				animation: roShow 4s;
-				background: linear-gradient(red,yellow,green);
-				color:green;
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;				
-			}
-			
-			#author {
-				position: absolute;
-				right: 3%;
-				top: 0;
-				font-family: "楷体";
-				font-size: 18px;
-			}
-			
-			* {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-				text-decoration: none;
-			}
-			
-			#cont1 {
-				height: 200px;
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+		<style>
+			#cont3{
+				height: 450px;
 				width: 100%;
-				border: 1px solid #aaa;
-				overflow: hidden;
-			}
-			
-			.img {
-				height: 200px;
-				width: 3996px;
-				animation: roll 8s infinite linear;
-			}
-			
-			.img:hover {
-				animation-play-state: paused;
-			}
-			
-			.img li,img {
-				float: left;
 				box-sizing: border-box;
-				float: left;
-				height: 200px;
-				width: 333px;
 			}
-			
-			.img li:hover img {
-				transition: all 1s;
-				height: 210px;
-				width: 348px;
+			.cont3_nav,.cont3_nav ul{
+				height: 60px;
+				background: #dfdfdf;				
 			}
-			
-			#cont2 {
-				background: white;
-			}
-			#outlist{
-				position: relative;
-				display: flex;
-			}
-			
-			.inspan{
-				display: block;
-				color: black;
-				border: 1px solid #DEB887;
-				width: 150px;
-				height: 30px;
-				border-radius: 10px;
-				box-shadow: 0 0 5px red inset;
-				background: skyblue;
-				text-align: center;
-				line-height: 30px;
-				margin: 5px;
-
-			}
-			.inspan:hover{
-				box-shadow: 0 0 3px red;
-				background: deepskyblue;
-				color:rgb(235, 45, 61);
-				font-weight: bold;
-			}
-
-			.list {
-				display: none;
-				position: absolute;
-			}
-			
-			.list li a {
-				display: block;
-				color: black;
-				border: 1px solid #DEB887;
-				width: 150px;
-				height: 30px;
-				border-radius: 10px;
-				box-shadow: 0 0 5px deepskyblue inset;
-				background: pink;
-				text-align: center;
-				line-height: 30px;
-				margin: 5px;
-			}
-			
-			.list li:hover a {
-				background: hotpink;
-				color: white;
-				font-weight: bold;
-			}
-
-			#cube{
-				height: 150px;
-				width: 100%;
+			.cont3_nav ul{
 				display: flex;
 				justify-content: center;
-				align-items: center;
-				position: fixed;
-				bottom: 0px;
+				align-items: flex-end;
+				flex-wrap: wrap;
 			}
-			.cube_time{
-				margin: 40px;
-				font-size: 25px;
-				font-weight: bold;
+			.tags{
+				box-sizing: border-box;
+				height: 60px;
+				line-height: 60px;
 				text-align: center;
-				line-height: 90px; 
-				float: left;       
+				width: 100px;
+				border-radius: 15px 15px 0 0;
+				background: #dfdfdf;
 			}
-			.cube_front,.cube_top,.cube_back,.cube_bottom{
-				transition: color 1s;
-			
+			.tags_active{
+				background: #f1f1f1;
+				border-top: 2px solid pink;
 			}
-
-			@keyframes roShow {
-				0% {
-					transform: translateY(400px) rotate(720deg);
-					height: 150px;
-					line-height: 150px;
-					font-size: 150px;
-					text-align: center;
-					width: 560px;
-				}
-				30% {
-					transform: translateY(400px) rotate(360deg);
-					height: 150px;
-					line-height: 150px;
-					font-size: 150px;
-					text-align: center;
-					width: 560px;
-				}
-				50% {
-					transform: translateY(400px) rotate(360deg);
-					height: 150px;
-					line-height: 150px;
-					font-size: 150px;
-					text-align: center;
-					width: 560px;
-				}
+			.tags:hover{
+				background: #f1f1f1;
 			}
-			
-			@keyframes roll {
-				from {
-					transform: translateX(0);
-				}
-				to {
-					transform: translateX(-1998px);
-				}
+			.cont3_art{
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 20% ;
+			}
+			.cont3_art ul{
+				height: 500px;
+			}
+			.cont3_art ul li{
+				border-left: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+				height: 100%;
+			}
+			.arts_nactive{
+				display: none;
+			}
+			.arts_active{
+				display: block;
 			}
 		</style>
-	</head>
-
 	<body>
 
 		<header>
@@ -268,6 +132,26 @@
 				</li>
 			</ul>
 		</div>
+		<div id="cont3">
+			<div class="cont3_nav">
+				<ul>
+					<li class="tags tags_active">111</li>
+					<li class="tags">222</li>
+					<li class="tags">333</li>
+					<li class="tags">444</li>
+					<li class="tags">555</li>
+				</ul>
+			</div>
+			<div class="cont3_art">
+				<ul>
+					<li class="arts arts_active">1111111111111</li>
+					<li class="arts arts_nactive">2222222222222</li>
+					<li class="arts arts_nactive">3333333333333</li>
+					<li class="arts arts_nactive">4444444444444</li>
+					<li class="arts arts_nactive">5555555555555</li>
+				</ul>
+			</div>
+		</div>
 		<div id="cube">
 			<div id="cube_hour1" class="cube_time"></div>    
 			<div id="cube_hour2" class="cube_time"></div>    
@@ -278,90 +162,34 @@
 		</div>
 	</body>
 	<script src="js/cube.js"></script>
+	<script src="js/index.js"></script>
 	<script>
-		let lists = document.querySelectorAll('.lists');
-		for(let i = 0; i<lists.length;i++){
-			lists[i].onmouseover = function(){
-				this.children[1].style.display ='block'
-				this.children[1].style.left = this.offsetLeft+'px'
-				this.children[1].style.top = this.offsetTop+this.offsetHeight+'px'
-			}
-			lists[i].onmouseout = function(){
-				this.children[1].style.display ='none'
+		let nav3 = document.querySelector('.cont3_nav');
+		let tags = document.querySelectorAll('.tags');
+		let art3 = document.querySelector('.cont3_art');
+		let arts = document.querySelectorAll('.arts')
+		for(let [index,art] of arts.entries()){
+			art.setAttribute('key',index)
+		}
+		for(let [index,tag] of tags.entries()){
+			tag.setAttribute('key',index)
+			tag.onclick = function(){
+				for(let val of tags){
+					val.classList.remove('tags_active')
+				}
+				this.classList.add('tags_active');
+				for(let art of arts){
+					if(this.getAttribute('key') == art.getAttribute('key')){
+						for(let val of arts){
+							val.classList.remove('arts_active')
+							val.classList.add('arts_nactive')							
+						}
+						art.classList.add('arts_active')
+					}
+				}
+
+				
 			}
 		}
-		
-			
-			function begin(){
-				let seconds = 0;
-            //获取初始时间
-            let now = new Date()
-			let sec = now.getSeconds().toString()
-			let sec1 = 0
-			sec.length==2 && (sec1 = sec.substr(0,1))
-            let sec2 = sec.substr(-1,1)
-
-            let min = now.getMinutes().toString();
-            let min1 = 0;
-            min.length == 2 && (min1 = min.substr(0,1))
-            let min2 = min.substr(-1,1)
-
-            let hour = now.getHours().toString();
-            let hour1 = 0;
-            hour.length == 2 && (hour1 = hour.substr(0,1))
-            let hour2 = hour.substr(-1,1)
-
-            //实例化对象 
-             //元素名   高   宽   初始时间值  影藏时间    最大进位数 
-            let hourCube1 = new Cube('#cube_hour1',80,80,hour1,36000000,3,'lightgreen')
-            let hourCube2 = new Cube('#cube_hour2',80,80,hour2,3600000,10,'lightgreen')            
-            let minCube1 = new Cube('#cube_min1',80,80,min1,600000,6,'skyblue')
-            let minCube2 = new Cube('#cube_min2',80,80,min2,60000,10,'skyblue')
-            let secCube1 = new Cube('#cube_sec1',80,80,sec1,10000,6)            
-            let secCube2 = new Cube('#cube_sec2',80,80,sec2)
-            // 改变阴影颜色
-            minCube1.changeShadow(`#228DFF`)
-            minCube2.changeShadow(`#228DFF`)
-            hourCube1.changeShadow(`green`)
-            hourCube2.changeShadow(`green`)
-
-            setInterval(function(){
-                seconds++;
-                let now = new Date()
-				let sec = now.getSeconds().toString()
-				let sec1 = 0
-				sec.length==2 && (sec1 = sec.substr(0,1))
-                let sec2 = sec.substr(-1,1)
-                let min = now.getMinutes().toString();
-                let min1 = 0;
-                min.length == 2 && (min1 = min.substr(0,1))
-                let min2 = min.substr(-1,1)
-
-                let hour = now.getHours().toString();
-                let hour1 = 0;
-                hour.length == 2 && (hour1 = hour.substr(0,1))
-                let hour2 = hour.substr(-1,1)
-                //调用函数
-                secCube2.roCube(sec2)
-                if(sec2 == 9){
-                    secCube1.roCube(sec1,20000,6)
-                }
-                if(sec1 == 5 && sec2 == 9){
-                    minCube2.roCube(min2,60000)
-                }
-                if(min2 == 9 && sec1 == 5 && sec2 == 9){
-                    minCube1.roCube(min1,600000,6)
-                }
-                if(min1 == 5 && min2 == 9 && sec1 == 5 && sec2 == 9){
-                    hourCube2.roCube(hour2,3600000)
-                }
-                if(hour2 == 9 && min1 == 5 && min2 == 9 && sec1 == 5 && sec2 == 9){
-                    hourCube1.roCube(hour1,36000000,3)
-                }
-            },1000)
-			}
-			begin();
-	
-		
 	</script>
 </html>

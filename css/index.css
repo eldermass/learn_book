@@ -1,0 +1,185 @@
+body {
+    background: #f3f3f3;
+}
+
+header {
+    height: 45px;
+    background: white;
+    line-height: 35px;
+    font-size: 45px;
+    font-weight: bold;
+    font-family: "华文行楷";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome {
+    width: 180px;
+    text-align: center;
+    line-height: 45px;
+    z-index: 99;
+    animation: roShow 4s;
+    background: linear-gradient(-20deg,red,yellow,green);
+    color:green;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;				
+}
+
+#author {
+    position: absolute;
+    right: 3%;
+    top: 0;
+    font-family: "楷体";
+    font-size: 18px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+#cont1 {
+    height: 200px;
+    width: 100%;
+    border: 1px solid #aaa;
+    overflow: hidden;
+}
+
+.img {
+    height: 200px;
+    width: 3996px;
+    animation: roll 8s infinite linear;
+}
+
+.img:hover {
+    animation-play-state: paused;
+}
+
+.img li,img {
+    float: left;
+    box-sizing: border-box;
+    float: left;
+    height: 200px;
+    width: 333px;
+}
+
+.img li:hover img {
+    transition: all 1s;
+    height: 210px;
+    width: 348px;
+}
+
+#cont2 {
+    background: #dfdfdf;
+}
+#outlist{
+    position: relative;
+    display: flex;
+}
+
+.inspan{
+    display: block;
+    color: black;
+    border: 1px solid #DEB887;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px red inset;
+    background: skyblue;
+    text-align: center;
+    line-height: 30px;
+    margin: 5px;
+
+}
+.inspan:hover{
+    box-shadow: 0 0 3px red;
+    background: deepskyblue;
+    color:rgb(235, 45, 61);
+    font-weight: bold;
+}
+
+.list {
+    display: none;
+    position: absolute;
+}
+
+.list li a {
+    display: block;
+    color: black;
+    border: 1px solid #DEB887;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px deepskyblue inset;
+    background: pink;
+    text-align: center;
+    line-height: 30px;
+    margin: 5px;
+}
+
+.list li:hover a {
+    background: hotpink;
+    color: white;
+    font-weight: bold;
+}
+
+#cube{
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0px;
+}
+.cube_time{
+    margin: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 90px; 
+    float: left;       
+}
+.cube_front,.cube_top,.cube_back,.cube_bottom{
+    transition: color 1s;
+
+}
+
+@keyframes roShow {
+    0% {
+        transform: translateY(400px) rotate(720deg);
+        height: 150px;
+        line-height: 150px;
+        font-size: 150px;
+        text-align: center;
+        width: 660px;
+    }
+    30% {
+        transform: translateY(400px) rotate(360deg);
+        height: 150px;
+        line-height: 150px;
+        font-size: 150px;
+        text-align: center;
+        width: 660px;
+    }
+    50% {
+        transform: translateY(400px) rotate(360deg);
+        height: 150px;
+        line-height: 150px;
+        font-size: 150px;
+        text-align: center;
+        width: 660px;
+    }
+}
+
+@keyframes roll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-1998px);
+    }
+}
