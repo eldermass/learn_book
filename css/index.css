@@ -15,11 +15,12 @@ header {
 }
 
 #welcome {
+    z-index: 1000;
     width: 180px;
     text-align: center;
     line-height: 45px;
     z-index: 99;
-    animation: roShow 4s;
+    animation: roShow 4s 1s;
     background: linear-gradient(-20deg,red,yellow,green);
     color:green;
     -webkit-background-clip: text;
@@ -150,6 +151,7 @@ header {
 
 @keyframes roShow {
     0% {
+        z-index: 1000;
         transform: translateY(400px) rotate(720deg);
         height: 150px;
         line-height: 150px;
@@ -158,6 +160,7 @@ header {
         width: 660px;
     }
     30% {
+        z-index: 1000;
         transform: translateY(400px) rotate(360deg);
         height: 150px;
         line-height: 150px;
@@ -166,6 +169,7 @@ header {
         width: 660px;
     }
     50% {
+        z-index: 1000;
         transform: translateY(400px) rotate(360deg);
         height: 150px;
         line-height: 150px;

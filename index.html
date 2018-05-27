@@ -57,9 +57,29 @@
 			.arts_active{
 				display: block;
 			}
+			.smoke{
+				z-index: 999;
+				width: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				mix-blend-mode: screen;
+			}
+			.smoke_bg{
+				background-image: url('./img/bg.jpg');
+				width: 100%;
+				height: 900px;
+				z-index: 888;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
 		</style>
 	<body>
-
+		<video src="video/smoke.mp4" class="smoke" autoplay></video>
+		<div class="smoke_bg"></div>
 		<header>
 			<p id="welcome">Welcome!</p>
 			<p id="author">陈越</p>
@@ -191,5 +211,11 @@
 				
 			}
 		}
+		//隐藏
+		document.querySelector('video').addEventListener('ended',function(){
+			this.style.display = 'none';
+			document.querySelector('.smoke_bg').style.display = 'none'
+		})
+
 	</script>
 </html>
