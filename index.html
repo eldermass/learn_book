@@ -28,12 +28,12 @@
 				line-height: 60px;
 				text-align: center;
 				width: 100px;
-				border-radius: 15px 15px 0 0;
+				border-radius: 10px 10px 0 0;
 				background: #dfdfdf;
 			}
 			.tags_active{
 				background: #f1f1f1;
-				border-top: 2px solid pink;
+				border-top: 3px solid pink;
 			}
 			.tags:hover{
 				background: #f1f1f1;
@@ -80,8 +80,8 @@
 			}
 		</style>
 	<body>
-		<video src="video/smoke.mp4" class="smoke" autoplay></video>
-		<div class="smoke_bg"></div>
+		<!-- <video src="video/smoke.mp4" class="smoke" autoplay></video>
+		<div class="smoke_bg"></div> -->
 		<header>
 			<p id="welcome">Welcome!</p>
 			<p id="author">陈越</p>
@@ -214,10 +214,10 @@
 			}
 		}
 		//隐藏
-		document.querySelector('video').addEventListener('ended',function(){
-			this.style.display = 'none';
-			document.querySelector('.smoke_bg').style.display = 'none'
-		})
+		// document.querySelector('video').addEventListener('ended',function(){
+		// 	this.style.display = 'none';
+		// 	document.querySelector('.smoke_bg').style.display = 'none'
+		// })
 
 	</script>
 </html>
