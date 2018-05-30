@@ -34,6 +34,11 @@ header {
     font-family: "楷体";
     font-size: 18px;
 }
+#author a{
+	position: relative;
+	top: -2px;
+	right: -20px;
+}
 
 * {
     margin: 0;
