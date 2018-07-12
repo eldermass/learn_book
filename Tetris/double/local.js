@@ -50,6 +50,20 @@ let Local =function (){
 		}
 
 	}
+	//生成随机干扰行
+	function generataBottomLine(lineNum){
+		let lines =[];
+		for(let i = 0;i<lineNum;i++){
+			let line = [];
+			for(let j = 0;j<10;j++){
+				let t = Math.ceil(Math.random()*2)-1;
+				t == 1 && (t = 2)
+				line.push(t)
+			}
+			lines.push(line);
+		}
+		return lines;
+	}
 	//时间函数
 	function timeFunc(){
 		timeCount++;
@@ -57,6 +71,9 @@ let Local =function (){
 			timeCount = 0;
 			time++;
 			game.setTime(time);
+			if(time % 10 == 0){
+				game.addTailLines(generataBottomLine(1));
+			}
 		}
 	}
 	//生成方块类型
@@ -78,11 +95,11 @@ let Local =function (){
 	//本地开始游戏
 	let start =function(){
 		let doms ={
-			gameBox:document.getElementById('game'),
-			nextBox:document.getElementById('next'),
-			timeDiv:document.getElementById('time'),
-			scoreDiv:document.getElementById('score'),
-			resultDiv:document.getElementById('gameover'),			
+			gameBox:document.getElementById('local_game'),
+			nextBox:document.getElementById('local_next'),
+			timeDiv:document.getElementById('local_time'),
+			scoreDiv:document.getElementById('local_score'),
+			resultDiv:document.getElementById('local_gameover'),			
 		}
 		game = new Game()
 		game.init(doms,generateType(),generateDir())

@@ -4,9 +4,19 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<style type="text/css">
+			body{
+				overflow: hidden;
+			}
 			#cont{
+				margin-top: 100px;
+				width: 1200px;
+				display: flex;
+				justify-content: space-between;
+			}
+			#local,#remote{
+				border: 1px solid #ccc;
 				height: 400px;
-				width: 300px;
+				width: 320px;
 				margin: auto;
 				position: relative;
 			}
@@ -41,7 +51,7 @@
 				box-sizing: border-box;
 			}
 			.none{
-				background: ;
+				
 			}
 			.current{
 				background: pink;
@@ -55,18 +65,32 @@
 	</head>
 	<body>
 		<div id="cont">
-			<div id="game" class="game"></div>
-			<div id="next" class="next"></div>
-			<div class="mes">
-				<p>time: <span id="time">0</span> s</p>
-				<p>score: <span id="score">0</span></p>
-				<div id='gameover'></div>
+			<div id="local">
+				<div id="local_game" class="game"></div>
+				<div id="local_next" class="next"></div>
+				<div class="mes">
+					<p>time: <span id="local_time">0</span> s</p>
+					<p>score: <span id="local_score">0</span></p>
+					<div id='local_gameover'></div>
+				</div>
+			</div>
+			<div id="remote">
+				<div id="remote_game" class="game"></div>
+				<div id="remote_next" class="next"></div>
+				<div class="mes">
+					<p>time: <span id="remote_time">0</span> s</p>
+					<p>score: <span id="remote_score">0</span></p>
+					<div id='remote_gameover'></div>
+					<button id="left">left</button>
+					<button id="performNext">performNext</button>
+				</div>
 			</div>
 		</div>
 		<script src="square.js"></script>
 		<script src="SquareFactory.js"></script>
 		<script src="game.js"></script>
 		<script src="local.js"></script>
+		<script src="remote.js"></script>
 		<script src="script.js"></script>
 	</body>
 </html>

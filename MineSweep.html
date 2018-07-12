@@ -76,7 +76,6 @@
 				background-size: 100% 100%;
 				display: flex;
 				justify-content: center;
-				align-items: ;
 				box-sizing: border-box;
 				width: 30px;
 				height: 30px;
@@ -122,12 +121,14 @@
 			size=document.getElementById('setSize').value;
 			showmines.innerHTML=mines;
 			client.style.display='flex';
-			//if(confirm('确认开始游戏？')){
+
+//			if(confirm('确认开始游戏？')){
 				client.innerHTML='';
 				createBox(size)
-			//}else{
-			//	return false;
-			//}
+//			}else{
+//				return false;
+//			}
+
 			
 			client.onmousedown=function(e){
 				if(e.which==1){
@@ -233,7 +234,9 @@
 				showmines.innerHTML=mines;
 			}
 		}
-		begin();
+
+		begin()
+
 	
 	</script>
 </html>

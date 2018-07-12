@@ -27,8 +27,8 @@ const Game = function(){
 				[0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0],
-				[0,0,0,0,2,0,0,0,0,0],
-				[0,2,2,2,2,2,2,2,0,0]
+				[0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0]
 			]
 	let nextMap=[
 		[0,1,0,0],
@@ -61,7 +61,7 @@ const Game = function(){
 	//刷新
 	function refreshDiv(data,divs){
 		for(let i=0;i<data.length;i++){
-			for(let j=0;j<data[0].length;j++){
+			for(let j = 0;j < data[0].length;j++){
 				switch(data[i][j]){
 					case 0:
 						divs[i][j].className='none';
@@ -81,22 +81,22 @@ const Game = function(){
 	//检查方块是否合法
 	function check(pos,x,y){//cur.origin   i j 遍历小方块
 		if(pos.y + x <0){
-			console.log(1)
+			// console.log(1)
 			return false;
 		}else if(pos.y + x >= gameMap.length){
-			console.log(2)
+			// console.log(2)
 			return false;
 		}else if(pos.x + y < 0){
-			console.log(3)
+			// console.log(3)
 			return false;
 		}else if(pos.x + y >= gameMap[0].length){
-			console.log(4)
+			// console.log(4)
 			return false;
 		}else if(gameMap[pos.y+x][pos.x+y] ==2){
-			console.log(5)//是否已经有灰色块
+			// console.log(5)//是否已经有灰色块
 			return false
 		}else{
-			console.log(6)
+			// console.log(6)
 			return true
 		}
 	}
@@ -230,6 +230,7 @@ const Game = function(){
 //		setData();
 		next = new SquareFactory.prototype.make(type,dir)
 		refreshDiv(gameMap,gameDivs)
+		copy(cur.data,gameMap,cur.origin);
 		refreshDiv(next.data,nextDivs)
 	}
 	//设置时间
@@ -253,6 +254,18 @@ const Game = function(){
 		}else{
 			resultDiv.innerHTML = '你输了'
 		}
+	}
+	//添加干扰行
+	function addTailLines(lines){
+		for(let i =0 ; i<gameMap.length-lines.length;i++){
+			gameMap[i]=gameMap[i+lines.length]
+		}
+		for(let i= 0;i<lines.length;i++){
+			gameMap[gameMap.length - lines.length + i] =lines[i];
+		}
+		cur.origin.y = cur.origin.y - lines.length;
+		if(cur.origin.y < 0)cur.origin.y = 0;
+		refreshDiv(gameMap,gameDivs);
 	}
 	//初始化
 	function init(doms,type,dir){
@@ -280,6 +293,7 @@ const Game = function(){
 	this.setTime = setTime;
 	this.addScore = addScore;
 	this.gameOver =gameOver;
+	this.addTailLines= addTailLines;
 	this.fall =function(){
 		while(down());
 	}
