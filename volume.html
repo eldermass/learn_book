@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			div{
+				position: absolute;
+				height: 150px;
+				width: 150px;
+				box-shadow: 0 0 10px #42B983; 
+				line-height: 150px;
+				text-align: center;	
+			}		
+			#box1{
+				background: skyblue;	
+				border-radius: 50%;	
+				left: 400px;
+				top: 100px;
+			}	
+			#box2{
+				background: pink;
+				left: 100px;
+				top: 300px;
+			}
+			#box3{
+				background: lightgreen;
+				left: 700px;
+				top: 300px;
+			}
+			#show{
+				position:static;
+				height: 30px;
+				width: 100px;
+				margin: auto;
+				text-align: center;
+				line-height: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1">Drag me to play</div>
+		<div id="box2">Muisc1</div>
+		<div id="box3">Muisc2</div>
+		<div id="show">音量:0.00%</div>
+		<audio src="http://music.163.com/song/media/outer/url?id=476592630.mp3" 
+			 autoplay="autoplay" loop="loop"></audio>
+		<script>
+			class Drag{
+				constructor(el){
+					this.el = document.querySelector(el)
+					this.position = {
+						x:this.el.offsetLeft,
+						y:this.el.offsetTop
+					}
+					this.dis = {
+						x:0,y:0
+					}
+					this.init()
+				}	
+				init(){
+					this.el.onmousedown = function (e){
+						this.dis.x = e.clientX - this.el.offsetLeft
+						this.dis.y = e.clientY - this.el.offsetTop
+						this.el.style.zIndex = parseInt(this.el.style.zIndex?this.el.style.zIndex:0) + 1
+						document.onmousemove = this.fnMove.bind(this)
+						document.onmouseup = this.fnStop.bind(this)
+					}.bind(this)
+				}
+				fnMove(e){
+					this.position.x = this.el.offsetLeft
+					this.position.y = this.el.offsetTop
+					this.el.style.left = e.clientX - this.dis.x + 'px'
+					this.el.style.top = e.clientY - this.dis.y + 'px'
+					if(this.el.offsetLeft <= 0)this.el.style.left = 0
+					if(this.el.offsetTop <= 0)this.el.style.top = 0
+					document.addEventListener('mousemove',overArea,false)
+				}
+				fnStop(){
+					document.removeEventListener('mousemove',overArea,false)
+					document.onmousemove = null
+					document.onmouseup= null
+				}
+			}
+			let timer = null,lastTime = 0
+			let over = [0,0]
+			let music = [{
+				url:'http://music.163.com/song/media/outer/url?id=476592630.mp3',
+				x:false,
+				y:false
+			},{
+				url:'http://music.163.com/song/media/outer/url?id=34341364.mp3',
+				x:false,
+				y:false
+			}]
+			let box1 = new Drag('#box1')
+			let box2 = new Drag('#box2')
+			let box3 = new Drag('#box3')
+			let audios = document.getElementsByTagName('audio')[0]
+			audios.volume = 0
+			function overArea(){
+				if(Math.abs(box1.position.x - box2.position.x) <= 150 && 
+				(box1.position.x < box3.position.x - 150)){
+					over[0] = 150-Math.abs(box1.position.x - box2.position.x)
+					music[0].x = true
+//					console.log('x0='+ music[0].x)
+				}else if(Math.abs(box1.position.x - box3.position.x) <= 150 &&
+				(box1.position.x > box2.position.x + 150)){
+					over[0] = 150-Math.abs(box1.position.x - box3.position.x)
+					music[1].x = true
+//					console.log('x1='+ music[1].x)
+					
+				}else{
+					over[0] =0
+					music[0].x = false
+					music[1].x = false
+//					console.log('xx')
+				}
+				
+				if((Math.abs(box1.position.y - box2.position.y) <= 150) && music[0].x){
+					over[1] = 150-Math.abs(box1.position.y - box2.position.y)
+					music[0].y = true
+//					console.log('y0='+ music[0].y)
+					
+				}else if(Math.abs(box1.position.y - box3.position.y) <= 150 && music[1].x){
+					over[1] = 150-Math.abs(box1.position.y - box3.position.y)
+					music[1].y = true
+//					console.log('y1='+ music[1].y)
+					
+				}else{
+					over[1] = 0
+					music[1].y = false
+					music[1].y = false
+//					console.log('yy')
+				}
+//				over[0] = (Math.abs(box1.position.x - box2.position.x) <= 150)
+//						?150-Math.abs(box1.position.x - box2.position.x)
+//						:(Math.abs(box1.position.x - box3.position.x) <= 150)
+//						?150-Math.abs(box1.position.x - box3.position.x)
+//						:0;
+//				over[1] = (Math.abs(box1.position.y - box2.position.y) <= 150)
+//						?150-Math.abs(box1.position.y - box2.position.y)
+//						:(Math.abs(box1.position.y - box3.position.y) <= 150)
+//						?150-Math.abs(box1.position.y - box3.position.y)
+//						:0;
+				//节流						
+				setTimeout(function(){
+					let nowTime = new Date().getTime()
+					if(nowTime - lastTime > 50){
+						let percent = (over[0]*over[1] /(15*15)).toFixed(2) 
+						audios.volume = percent/100
+						for(let i = 0 ;i <music.length;i++){
+							if(music[i].x && music[i].y){
+								audios.src == music[i].url || (audios.src = music[i].url)
+							}
+						}
+						document.getElementById('show').innerHTML = '音量:' + percent + '%'
+						lastTime = nowTime	
+					}
+				},50)//34341364
+				//http://music.163.com/song/media/outer/url?id=476592630.mp3
+			}
+		</script>
+	</body>
+</html>
