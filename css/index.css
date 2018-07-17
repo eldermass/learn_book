@@ -20,7 +20,7 @@ header {
     text-align: center;
     line-height: 45px;
     z-index: 99;
-    animation: roShow 4s ease,slip 8s 4s linear infinite;
+    animation: roShow 4s ease,slip 8s .6s linear infinite;
     background: linear-gradient(-20deg,red,yellow,green);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;				
