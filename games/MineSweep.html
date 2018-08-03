@@ -8,7 +8,7 @@
 			body{
 				height: 923px;
 				width: 100%;
-				background: url('./img/bg.jpg') no-repeat;
+				background: url('../img/bg.jpg') no-repeat;
 				background-size: 100% 100%;
 			}
 			.btn{
@@ -72,7 +72,7 @@
 				display: none;
 			}
 			.box{
-				background: url('./img/1.jpg');
+				background: url('../img/1.jpg');
 				background-size: 100% 100%;
 				display: flex;
 				justify-content: center;
@@ -89,7 +89,7 @@
 				/* background: darkgoldenrod; */
 			}
 			.warnflag{
-				background:url('./img/3.jpg');
+				background:url('../img/3.jpg');
 				background-size: 100% 100%;
 			}
 		</style>
@@ -184,7 +184,7 @@
 				console.log('踩雷了，游戏结束');
 				var allMine=document.getElementsByClassName('mine');
 				for(var i=0;i<allMine.length;i++){
-					allMine[i].style.background="url('./img/2.jpg')";
+					allMine[i].style.background="url('../img/2.jpg')";
 					allMine[i].style.backgroundSize="100% 100%";
 				}
 				client.onmousedown=function(){

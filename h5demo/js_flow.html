@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			.container{
+				position: relative;
+				margin:auto;
+			}
+			.box{
+				padding: 10px 0 0 10px;
+				/*float: left;*/
+			}
+			.box img{
+				border-radius: 10px;
+				box-shadow: 0 0 5px #aaa;
+				padding: 10px;
+				width: 300px;
+				height: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id ='container' class="container">
+			<div class="box">
+				<img src="./img/1.jpg" />
+			</div><div class="box">
+				<img src="./img/2.jpg" />
+			</div><div class="box">
+				<img src="./img/3.jpg" />
+			</div><div class="box">
+				<img src="./img/4.jpg" />
+			</div><div class="box">
+				<img src="./img/5.jpg" />
+			</div><div class="box">
+				<img src="./img/6.jpg" />
+			</div><div class="box">
+				<img src="./img/7.jpg" />
+			</div><div class="box">
+				<img src="./img/8.jpg" />
+			</div><div class="box">
+				<img src="./img/9.jpg" />
+			</div><div class="box">
+				<img src="./img/10.jpg" />
+			</div><div class="box">
+				<img src="./img/11.jpg" />
+			</div><div class="box">
+				<img src="./img/12.jpg" />
+			</div><div class="box">
+				<img src="./img/13.jpg" />
+			</div><div class="box">
+				<img src="./img/14.jpg" />
+			</div><div class="box">
+				<img src="./img/15.jpg" />
+			</div><div class="box">
+				<img src="./img/16.jpg" />
+			</div><div class="box">
+				<img src="./img/10.jpg" />
+			</div><div class="box">
+				<img src="./img/11.jpg" />
+			</div><div class="box">
+				<img src="./img/12.jpg" />
+			</div><div class="box">
+				<img src="./img/13.jpg" />
+			</div><div class="box">
+				<img src="./img/14.jpg" />
+			</div><div class="box">
+				<img src="./img/15.jpg" />
+			</div><div class="box">
+				<img src="./img/16.jpg" />
+			</div>
+		</div>
+		<script>
+			window.onload = function (){
+				let container = document.getElementById('container')
+				function sortImg(parentEl,className){
+					let boxes = [...parentEl.childNodes].filter(val=>{
+						return val.className == className 
+					})
+					//单个图片宽度
+					let oWidth = 330
+//					console.log(oWidth)
+					//列数
+					let cols = parseInt(document.documentElement.clientWidth /oWidth)
+					//每列高度
+					let hArr = []
+//					console.log(cols)
+					container.style.width = cols*oWidth + 'px'
+					boxes.map((val,index)=>{
+						val.style.position = 'absolute'
+						if(index < cols ){
+							val.style.left = index*oWidth +'px'
+							hArr.push(val.offsetHeight)
+						}else{
+							let minH = Math.min.apply(null,hArr)
+							let minIndex = hArr.findIndex(val=>{
+								return val == minH
+							})
+							val.style.left = minIndex*oWidth +'px'
+							val.style.top = hArr[minIndex] + 'px'
+							hArr[minIndex] += val.offsetHeight
+						}
+					})
+//					console.log(hArr)
+					
+				}
+				sortImg(container,'box')
+				//添加图片时
+				function addImg(parentEl,className){
+					let imgData = ['./img/15.jpg','./img/16.jpg','./img/7.jpg','./img/13.jpg','./img/1.jpg','./img/3.jpg','./img/5.jpg','./img/4.jpg',]
+					for(let val of imgData){
+						let oDiv = document.createElement('div')
+						oDiv.className = className
+						let oImg = document.createElement('img')
+						oImg.src = val
+						oDiv.appendChild(oImg)
+						parentEl.appendChild(oDiv)
+					}
+					sortImg(container,'box')
+				}
+				addImg(container,'box')
+				window.onscroll =function (){
+					if(window.innerHeight + window.pageYOffset > container.lastElementChild.offsetTop
+					+ container.lastElementChild.offsetHeight/2){
+						addImg(container,'box')
+					}
+				}
+			}
+		</script>
+		
+	</body>
+</html>
