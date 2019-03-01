@@ -1,2 +1,0 @@
-
-    bindListener(socket,'down')
