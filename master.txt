@@ -39,7 +39,7 @@ git reset --hard HEAD~1
  git branch --set-upstream-to  origin master/origin
  关联并推送远程分支
  git push --set-upstream origin cy
-
+洒水多阿萨德阿萨德
 
 CMD:
  type nul>index.html  创建一个文件
