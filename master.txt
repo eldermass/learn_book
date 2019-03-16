@@ -42,5 +42,4 @@ git reset --hard HEAD~1
  清除本地修改
  git reset --hard
 CMD:
- type nul>index.html  创建一个文件
- 或echo "# GitLearn" >> README.md
+  我切换到了紧急事件分支
