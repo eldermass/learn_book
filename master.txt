@@ -44,3 +44,7 @@ git reset --hard HEAD~1
 CMD:
  type nul>index.html  创建一个文件
  或echo "# GitLearn" >> README.md
+
+分支管理: 
+        git checkout -b branchname   // 切换到新的分支开始工作
+        
