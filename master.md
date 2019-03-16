@@ -1,11 +1,13 @@
 
 ## 分支管理: 
-    git branch 查看本地
+### 基本操作
+    1. git branch 查看本地
         -a 远程
         -v 分支版本信息
         -d 删除
         --merged 已经合并
         --no-merged 查看没有合并
+    2. 
 ### 场景
     1. 切换到新的分支开始工作
         git checkout -b branchname  
