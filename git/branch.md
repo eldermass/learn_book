@@ -1,10 +1,10 @@
 
 ## 分支管理
 ### 一、基本操作
-1. 
+1. [分支管理](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86)
 ```     
-git branch 本地分支   
-    -a 远程
+git branch 显示本地分支   
+    -a 带上远程
     -v 分支版本信息
     -d 删除
     --merged 已经合并
@@ -16,7 +16,7 @@ git checkout 切换分支
 2. [远程分支](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)    
 在本地命名为 origin/master，就是远程分支，只有标记不可操作，fetch可得到远程指针标记
 ```
-    创建远程链接
+    创建远程仓库链接
     git remote add branch_name https.. 
 
     推送到某分支 本地：远程
@@ -35,6 +35,13 @@ git checkout 切换分支
     
     删除远程分支
     git push origin :serverfix
+```
+3. [变基操作](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA)
+```
+    在某个分支, 然后把其变基到主干
+    ![rebase](https://git-scm.com/figures/18333fig0329-tn.png)
+    git checkout experiment 
+    git rebase master
 ```
 ### 场景
     1. 切换到新的分支开始工作
