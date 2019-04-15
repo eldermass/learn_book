@@ -43,6 +43,30 @@ git checkout 切换分支
     git checkout experiment 
     git rebase master
 ```
+4. [版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
+```
+    查看HEAD中有,远程master里不同的内容
+    git show origin/master..HEAD
+
+    查看refB中有,远程refA里没有的提交
+    $ git log refA..refB
+    $ git log ^refA refB
+    $ git log refB --not refA
+
+    交互式添加
+    git add -i
+
+    储藏工作状态
+    git stash
+        stash list 查看储藏列表
+        stash apply stash@版本 不跟版本就应用最近的
+                            --index 回到之前的位置,如 保留add追踪状态
+        stash drop 移除apply遗留在栈上的版本
+        
+    git stash pop 可以在应用的同时移除栈上的版本
+
+    
+```
 ### 场景
     1. 切换到新的分支开始工作
         git checkout -b branchname  
