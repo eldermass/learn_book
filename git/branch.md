@@ -65,7 +65,11 @@ git checkout 切换分支
         
     git stash pop 可以在应用的同时移除栈上的版本
 
-    stash test
+    查看应用的储藏内容,取消储藏
+    git stash show -p | git apply -R
+
+    从储藏中创建分支
+    git stash branch name
 ```
 ### 场景
     1. 切换到新的分支开始工作
