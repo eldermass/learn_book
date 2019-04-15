@@ -65,7 +65,7 @@ git checkout 切换分支
         
     git stash pop 可以在应用的同时移除栈上的版本
 
-    
+    stash test
 ```
 ### 场景
     1. 切换到新的分支开始工作
