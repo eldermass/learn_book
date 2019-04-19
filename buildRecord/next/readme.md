@@ -31,6 +31,14 @@ npm install --save next react react-dom
 4. i18next
 ```
   安装
+  npm install react-i18next i18next --save-dev
+  // 3步独立
+  // 1. 传入react-i18next
+  // 2. 初始化i18n
+        i18next.init(option, callback)
+  // 3. 使用 hoc hook renderProp
+  
+  也可以使用'i18next-xhr-backend'; 从Api获取翻译数据
 
 ```
 
