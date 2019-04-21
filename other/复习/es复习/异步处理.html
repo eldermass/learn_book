@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script>
+    // async 可以让一个普通的函数变为promise对象
+    async function fn(){
+        // return 'aaa'
+        throw new Error('wrong bbb') 
+    }
+    fn().then(res=>{
+        console.log('res = '+res);
+    }).catch(err=>{
+        console.log(err)
+    })
+
+    function get(){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('something')
+            }, 1000)
+        })
+    }
+
+    async function show(){
+        let res = await get()
+        // 之后的函数都会等待get执行完毕
+        console.log(res)
+        console.log('after')
+    }
+    show()
+
+    async function getData(username){
+        let res = await axios.get(`https://api.github.com/users/${username}`)
+        let img = document.createElement('img')
+        img.src = res.data.avatar_url
+        document.body.appendChild(img)
+        console.log('图片装在完毕'+ img.src )
+    }
+    getData('riseupcy')
+</script>
+</body>
+</html>

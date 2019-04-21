@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 作用域链 [[scopes]] 执行期上下文 函数可访问的作用域
+    // 所有的值或属性，都能在[[scopes]] 链中找到
+    let demo = (function () { 
+        let count = 0;
+        return function test() {
+            console.log(test.prototype)
+            console.log(count++)
+        }
+    })()
+    demo()
+
+    //类似proxy代理
+    let mine = {
+        _name:'黄宇荐',
+        get name(){
+            return 'getter' + this._name
+        },
+        set name(val){
+            this._name = 'setter' + val
+        }
+    }
+    class You {
+        get name(){
+            return 'setter'
+        }
+    }
+</script>
+</body>
+</html>

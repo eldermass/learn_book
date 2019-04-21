@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    let count = 0
+    // let cache = {}
+    // function jie(n){
+    //     if(cache[n]){
+    //         return cache[n]
+    //     }
+    //     count++
+    //     if(n == 1){
+    //         return 1
+    //     }
+    //     cache[n] = n * jie(n - 1)
+    //     return cache[n]
+    // }
+    // let num = jie(5)
+    // let num2 = jie(7)
+    // console.log(count, num, num2)
+
+
+    function memorize(fn) {
+        let cache = {}
+        //只能记录 参数不变对应的值
+        return function (){
+            let key = arguments.length + Array.prototype.join.call(arguments)
+            if(cache[key]){
+                return cache[key]
+            }else{
+                // 只能用于一般函数，递归不行
+                // 由于递归调用原函数，所以只能记忆最外层函数，原函数也需要是记忆函数，就能达到双重记忆
+                cache[key] = fn.apply(this, arguments)
+                return cache[key]
+            }
+        }
+    }
+    function jie(n){
+        console.log( ++count )
+        if(n == 1){
+            return 1
+        }
+        return n * jie( n - 1 )
+    }
+    let j = memorize(jie)
+    console.time(1)
+    j(500)
+    console.timeEnd(1)
+    console.time(2)
+    j(500)
+    console.timeEnd(2)
+</script>
+</body>
+</html>

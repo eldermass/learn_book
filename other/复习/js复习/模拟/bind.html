@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    Function.prototype.newBind = function (target, ...args){
+        target = target || window
+        let self = this
+        let temp = function (){}
+        
+        let F = function (...args2) {
+            return self.apply(this instanceof temp ? this : target, args.concat(args2))
+        }
+        // 由于返回的F函数与show不同原型
+        temp.prototype = this.prototype
+        F.prototype = new temp()
+        return F
+    }
+
+    let str = {a: 'as'}
+    let show = function (...a){
+        this.name = 'jack'
+        console.log(this, a)
+    }.newBind(str, 123, 456)
+    show()
+    let os = new show()
+</script>    
+</body>
+</html>

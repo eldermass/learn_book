@@ -1,0 +1,35 @@
+一. 直接启动
+    mongod --dbpath ../data/db
+
+二. mongod -f ../etc/mongo.conf  使用配置文件的方式启动服务
+        --smallfiles 空间不够时可用
+    1.编写配置文件 一般放在根目录 etc/mongodb.conf
+        logpath=../log/mongodb.log      // log地址
+        logappend=false                 // log是否追加到之前的文件
+        dbpath=../data/db               // 数据存放位置
+        fork=false                      // 进程是否保留在后台
+        port = 27017
+    2.配置完成后，执行以下命令 安装到服务
+        mongod --config "F:\mongoDB\mongodb/etc/mongo.conf" --install
+        // 或者 直接输入以下命令
+        mongod --bind_ip 127.0.0.1 --logpath F:\mongoDB\mongodb\log\log.txt --logappend --dbpath "F:\mongoDB\mongodb\data\db" --directoryperdb --serviceName MongoDB --install
+        // 删除
+        mongod --remove
+    3.配置环境变量
+
+三. 安装好服务后，如果服务是手动启动，net start MongoDB
+
+这样就开启了后台服务了
+
+// mongo.conf文件的内容  绝对路径
+
+systemLog:
+    destination: file
+    path: F:\mongoDB\mongodb\log\log.txt
+    logAppend: true
+storage:
+    journal:
+        enabled: true
+    dbPath: F:\mongoDB\mongodb\data\db\
+net: 
+    port: 27017

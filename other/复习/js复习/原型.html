@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+//原型是一个对象构造后的实例的公共祖先，实例是构造函数运行过后的子集
+//除Object.create(null) , 都是继承自Object.prototype
+
+//模拟构造过程
+function Person(){
+    // 1.生成一个this对象
+    // let this = {
+    //     由于实例没有原型，让__proto__ 指向到实例的公有祖先（原型）
+    //     相当于赋 引用值  __proto__ = Person.prototype
+    //     __proto__: Person.prototype
+    // }
+    // 或者 let this = Object.create(Person.prototype)  
+    this.name = 'person'
+    // 2.返回实例对象
+    // return this
+}
+Person.prototype.name = 'proto'
+let p = new Person()
+
+//原型的引用改变，指向了新的空间，所以p2 和 p 的原型指向不同
+Person.prototype = {
+    name: 'proto2'
+}
+let p2 = new Person()
+
+// 原型链
+
+// 对象A本身就是原型对象，相当于Person.prototype
+let A = {
+    show(){
+        console.log('show');
+    }
+}
+//如此的类本质是函数，但其原型的constructor是一个很复杂的关系
+class B{
+    constructor(name){
+        this.name = name 
+    }
+    // 一般方法在原型上
+    tag(){
+        console.log('tag')
+    }
+    // 静态方法在原型的constructor里
+    static show(){
+        console.log('show')
+    }
+}
+
+</script>
+</body>
+</html>

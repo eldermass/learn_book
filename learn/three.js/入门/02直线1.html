@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #canvas-wrapper{
+            border: 1px solid;
+            cursor: pointer;
+            width: 1000px;height: 700px;
+            background-color: #f1f1f1
+        }
+    </style>
+</head>
+<body onload="init()">
+    <div id="canvas-wrapper"></div>
+    <script src='../js/three.js'></script>
+    <script>
+        let wrapper = document.getElementById('canvas-wrapper')
+        let width = wrapper.clientWidth
+        let height = wrapper.clientHeight
+
+        let renderer
+        function initThree () {
+            renderer = new THREE.WebGLRenderer({antialias: true})
+            renderer.setSize(width, height)
+            renderer.setClearColor(0xffffff, 1.0)
+            wrapper.appendChild(renderer.domElement)
+        }
+        let camera
+        function initCamera () {
+            camera = new THREE.PerspectiveCamera(45, width/height, 1, 10000)
+            // 高空俯视
+            camera.position.x = 200
+            camera.position.y = 0
+            camera.position.z = 1000
+            
+            // 相机顶部的方向
+            // camera.up.x = 0
+            // camera.up.y = 0
+            // camera.up.z = 1
+            
+            // 相机镜头对准的方向
+            // camera.lookAt({x: 0,y: 0,z: 0})
+        }
+        let scene 
+        function initScene () {
+            scene = new THREE.Scene()
+        }
+        let light
+        function initLight () {
+            light = new THREE.DirectionalLight(0xff0000, 1.0, 0)
+            light.position.set(100, 100, 200)
+            scene.add(light)
+        }
+        function initObject () {
+            let geometry = new THREE.Geometry()
+            // 几何体必须包含3个要素，
+            /*
+                点： vertices 
+                色:  colors
+                面:  faces
+            */
+            let col1 = new THREE.Color(0x444444)
+            let col2 = new THREE.Color(0xff0000)
+            let col3 = new THREE.Color(0xff00ff)
+            // 三维坐标种创建点
+            let p1 = new THREE.Vector3(0, 100, 0)
+            let p2 = new THREE.Vector3(100, 0, 0)
+            let p3 = new THREE.Vector3(-100, 0, 0)
+            
+            geometry.vertices.push(p1)
+            geometry.vertices.push(p2)
+            geometry.vertices.push(p3)
+            geometry.colors.push(col1, col2, col3)
+
+            // 材质 线材质
+            // 是否使用顶点的颜色作为线的颜色， {vertexColors: fasle, color: 0xff0000}可以自定义
+            // 点的为颜色时，使用色轮连点间直线的插值
+            let meterial = new THREE.LineBasicMaterial({vertexColors: true})
+            let line = new THREE.Line(geometry, meterial, THREE.LineSegments)
+            scene.add(line)
+        }
+        function init () {
+            initThree()
+            initCamera()
+            initScene()
+            initLight()
+            initObject()
+            renderer.clear()
+            renderer.render(scene, camera)
+        }
+    </script>
+</body>
+</html>

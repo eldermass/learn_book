@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let str =  '2018-09-06'
+        let reg = /(\d{4})-(\d{2})-(\d{2})/
+        let reg1 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+        
+        let arr = str.match(reg1)
+        // let [year, month, day] = [arr[1], arr[2], arr[3]]
+        //gourps里存储了，命名捕获的结果
+        let {year, month, day} = arr.groups
+
+        // 反向引用
+        let str2 = 'welcome-welcome-welcame'
+        let reg2 = /(?<wel>welcome)-\k<wel>-/
+        // let reg2 = /(welcome)(-)\1\2/
+        console.log(str2.match(reg2))
+        
+        //替换
+        let newstr = str.replace(reg1, '$<month>/$<day>/$<year>')
+
+            
+    </script>
+</body>
+</html>

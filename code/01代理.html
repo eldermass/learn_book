@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 控制台里代理的值会显示为...
+        // vue 里使用的
+        let pro = {}
+        let vm = {
+            data: {
+                msg: 'one message'
+            }
+        }    
+        prox(vm, 'data', 'msg')
+
+        function prox (tagert, originKey, key) {
+            pro.get = function () {
+                return this[originKey][key]
+            }
+            pro.set = function (val) {
+                this[originKey][val] = val
+            }
+            Object.defineProperty(vm, key, pro)
+        }
+    </script>
+    <script>
+        // koa2 里使用的
+        let mine = {
+            _name:'huanggou',
+            get name(){
+                return 'getter---' + this._name
+            },
+            set name(val){
+                this._name = 'setter---' + val
+            }
+        }
+        // 使用defineProperty方法
+        Object.defineProperty(mine, 'tai', {
+            get () {return this._name}
+        })
+
+    </script>
+</body>
+</html>

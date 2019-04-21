@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script>
+    function * gen(){
+        let val = yield 'riseupcy';
+        yield axios.get(`https://api.github.com/users/${val}`);
+        return 'over'
+    }
+    let g = gen()
+    console.log(g.next())
+    console.log(g.next().value.then(res => {console.log(res)}))
+    // 可以控制触发函数的时机，next函数的传值，就是之后的value值
+    setTimeout(() => {
+        console.log(g.next())
+    },2000)
+
+</script>
+    
+</body>
+</html>

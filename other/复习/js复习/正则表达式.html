@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    let str = 'the-first-name'
+    let reg = /-(\w)/g
+    console.log(reg.exec(str))
+    let astr = str.replace(reg, function(val, $1, $2, $3){
+        //参数与exec里的值一一对应
+        //每成功匹配一次，调用一次函数
+        console.log(val, $1, $2, $3)
+        return $1.toUpperCase()
+    })
+    
+    let num = '100000000000'
+    let reg1 = /(?=\B(\d{3})+$)/g
+    let num1 = num.replace(reg1, (val) => {
+        return '.'
+    })
+    console.log(reg1.exec(num))
+    console.log(num1)
+
+    let str2 = 'i am tree' 
+    let reg2 = /\bam\b/
+    console.log(reg2.exec(str2))
+</script>
+</body>
+</html>
