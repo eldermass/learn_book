@@ -1,7 +1,7 @@
 # 学习笔记
 ## 基础知识记录
 ### Git
-[分支管理](./learn/git/branch.md)
+[分支管理](./learn/工具/git/branch.md)
 
 ## 构建框架记录
 ### next
