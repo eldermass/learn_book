@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//拦截空对象
+			const DOM =new Proxy({},{
+				get(target,property){
+//					console.log(target,property)
+					return function(attr={},...children){
+						const el = document.createElement(property);
+						for(let key of Object.keys(attr)){
+							el.setAttribute(key,attr[key]);
+						}
+						for(let child of children){
+							if(typeof child =='string'){
+								child = document.createTextNode(child);
+							}
+							el.appendChild(child)
+						}
+						return el;
+					}
+				}
+			})
+			
+			//dom.div()   创建标签 div  dom.ul() 创建标签   ul
+			let oDiv = DOM.div({id:'div1'},'我是div',DOM.a({href:'https://www.baidu.com'},'访问官网'));
+			console.log(oDiv)
+			window.onload = function(){
+				document.body.appendChild(oDiv)
+			}
+		</script>
+	</body>
+</html>

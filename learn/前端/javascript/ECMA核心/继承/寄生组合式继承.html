@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//寄生组合式继承
+			function inherit(Son, Father){
+				let proto = Object.create(Father.prototype)//实参就会作为proto的原型
+				//创建一个没有实参的Father实例，
+				proto.constructor = Son
+				//为proto添加 构造器
+				Son.prototype = proto
+				//将新的原型传给Son方法
+				/*{
+					constructor,是Son的构造器
+					__proto__,连接到Father.prototype
+				}*/
+				
+			}
+			
+			function Father(fa){
+				this.fa = fa
+			}
+			Father.prototype.sayFa = function (){
+				console.log(this.fa)
+			}
+			
+			function Son(so,fa){
+				Father.call(this,fa)
+				this.so = so
+			}
+			inherit(Son,Father)
+			//完成继承后，Son里的__proto__就指向了Father.prototype
+			//如果直接修改__proto__指向，就会把__proto__改为自定义属性，并继承多余的父类属性
+			
+			Son.prototype.saySo = function (){
+				console.log(this.so)
+			}
+			let s = new Son("son",'father')
+			
+		</script>
+	</body>
+</html>

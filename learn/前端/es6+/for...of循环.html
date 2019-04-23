@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let arr = ['aple','banana','pear'];
+			for(let val of arr){
+				console.log(val);
+			}
+			
+			for(let index of arr.keys()){
+				console.log(index)
+			}
+			
+			for(let item of arr.entries()){
+				console.log(item);
+			}
+			
+			for(let [key,val] of arr.entries()){
+				console.log(key,val);			
+			}
+			// 循环对象 
+			// for(let [key, val] of Object.entries(obj))
+		</script>
+	</body>
+</html>

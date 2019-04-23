@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//json 可以放在对象里
+				let set = new Set();
+				let json = {
+					a:1,b:2,c:3
+				}
+				let json2 = {
+					a:1,b:2,c:3
+				}
+				set.add(json).add(json2)
+				set.forEach(val=>{
+					console.log(val)
+				})
+			}
+		</script>
+		
+	</body>
+</html>

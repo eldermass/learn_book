@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//异步加载的3中方式，  异步-不会阻断，同时进行
+//			1.	<script defer ='defer'></ script> dom树解析完时异步加载，仅ie
+//			2. <script async ='async'></ script>  直接异步加载,所有浏览器能用 w3c标准
+
+//			3.动态创建异步加载
+			function sLoad(){
+				let script = document.createElement('script')
+				script.src = 'tools.js'  //这时会预加载    在 img.src 里常用
+				document.head.appendChild(script)  // 这时才会执行tools.js里面的内容
+				script.onload = function (){
+					//在script异步加载完后才执行
+				}
+			}
+		</script>
+	</body>
+</html>

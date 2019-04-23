@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//replace回掉函数模式 
+				let str = '2018-05-13';
+				let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+				let str2 = str.replace(reg,(...args)=>{
+					console.log(args);
+					let {year,month,day} = args[args.length - 1]
+					return `${year}/${month}/${day}`;
+				})
+				console.log(str.match(reg))
+				console.log(str2)
+			}
+		</script>
+	</body>
+</html>

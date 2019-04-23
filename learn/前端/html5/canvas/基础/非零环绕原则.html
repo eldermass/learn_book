@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border:1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        CanvasRenderingContext2D.prototype.shadow = function(x,y,blur,color){
+            this.shadowColor = color
+            this.shadowBlur = blur
+            this.shadowOffsetX = x
+            this.shadowOffsetY = y
+        }
+        
+        // 如果当前区域引出一个点，该点的边界 方向和 不为零则是向外，（同一时针方向）
+        // 用制造内阴影
+        ctx.beginPath()
+        ctx.arc(200,200,150,0,Math.PI*2)
+        ctx.arc(200,200,200,0,Math.PI*2,true)
+        ctx.fillStyle = 'steelblue'
+        ctx.shadow(10,10,10,'pink')
+        ctx.fill()
+        // ctx.stroke()
+
+    </script>
+</body>
+</html>

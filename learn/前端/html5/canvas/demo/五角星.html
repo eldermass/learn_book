@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" style="border:1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        canvas.height = 600;
+        canvas.width = 600;
+        let ctx = canvas.getContext('2d')
+        
+        for(let i = 0; i < 5; i++){
+            drawStar(300, 300, 60 * (i+1), 27 * (i+1), 0)
+        }
+
+        // 画五角星函数
+        function drawStar(x, y, R, r, ros) {
+            // 圆心，内外半径， 旋转角度
+            ctx.beginPath()
+            for(let i = 0; i < 5; i++){
+                // 外圈点
+                ctx.lineTo(
+                    x + Math.cos((ros + 18 + i*72)/180 * Math.PI) * R,
+                    y - Math.sin((ros + 18 + i*72)/180 * Math.PI) * R
+                )
+                // 内圈点
+                ctx.lineTo(
+                    x + Math.cos((ros + 54 + i*72)/180 * Math.PI) * r,
+                    y - Math.sin((ros + 54 + i*72)/180 * Math.PI) * r
+                )
+            }
+            ctx.closePath()
+            ctx.stroke()
+        }
+
+
+    </script>
+</body>
+</html>

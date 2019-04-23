@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//dotAll 模式,  .的匹配全模式
+			{//g全局  i 忽略大小写  m多行  s dotAll模式
+				//   .匹配所有,   非dotAll模式里有些会失败
+				let reg = /^\w+.\w+$/;
+				let str = 'welcome.com';
+				let str1 = 'welcome/ncom'
+				console.log(reg.test(str));
+				console.log(reg.test(str1));
+			}
+		</script>
+	</body>
+</html>

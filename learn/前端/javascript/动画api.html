@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" style="background:skyblue;height:200px;width:200px;position:absolute;top:0;left:0;"></div>
+    <script>
+        let box = document.getElementById('box')
+        // 相当于setTimeout 只调用一次
+        requestAnimationFrame(function () {
+            render()
+            // 循环调用
+            if(parseInt(box.style.left) < 300)
+                requestAnimationFrame(arguments.callee)
+        })
+        function render() {
+            box.style.left = parseInt(box.style.left) + 5 +'px'
+        }
+    </script>
+</body>
+</html>

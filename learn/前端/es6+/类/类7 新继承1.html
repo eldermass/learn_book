@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//父类
+			class Person{
+				constructor(name){
+					this.name=name;
+				}
+				showName(){
+					return this.name;
+				}
+			}
+			//子类
+			class Student extends Person{
+				constructor(name,age){
+					//super需要放在前面
+					super(name);
+					this.age =age;
+				}
+			}
+			let stu1 =new Student('Jack',23);
+			console.log(stu1);
+			console.log(stu1.showName());
+		</script>
+	</body>
+</html>

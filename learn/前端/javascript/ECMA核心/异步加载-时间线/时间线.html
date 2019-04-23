@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			console.log(document.readyState)
+			
+			document.onreadystatechange = ()=>{
+				console.log(document.readyState)
+			}
+			document.addEventListener('DOMContentLoaded',function(){
+				console.log('文档解析完毕')
+			},false)
+		</script>
+	</body>
+</html>

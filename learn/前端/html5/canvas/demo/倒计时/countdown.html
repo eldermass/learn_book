@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;box-sizing: border-box;padding: 0}
+        #toggle{
+            position: fixed;text-align: center;
+            top: 0; left: 0; right: 0;
+        }
+        .item{
+            padding: 10px;border: 1px solid skyblue;cursor: pointer;display: none;background: white;
+        }
+        .item:hover{
+            background: rgb(227, 238, 243)
+        }
+        #input{
+            position: fixed;top: 0;left: 0;right: 0;bottom: 0;border: 1px solid #ccc;
+            display: none;align-items: center;justify-content:center;
+        }
+        #input .inputer{
+            width: 300px;height: 200px; border: 1px solid #ccc;background: white;
+            display: flex;flex-direction: column;align-items: center;justify-content: space-around
+        }   
+        .btn{
+            height: 25px;width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center" id="container">
+        <canvas id="canvas" height="768" width="1280"></canvas>
+    </div>
+    <script src="./digit.js"></script>
+    <script src="./countdown.js"></script>
+    <div id="toggle">
+        <div class="item">现在</div>
+        <div id="time" class="item">时钟</div>
+        <div id="countdown" class="item">倒计时</div>
+    </div>
+    <div id="input">
+        <div class="inputer">
+            <p>倒计时</p>
+            <p>时：<input type="text" value="01" onchange="addtoTimes(this.value, 1)"></p>
+            <p>分：<input type="text" value="00" onchange="addtoTimes(this.value, 2)"></p>
+            <p>秒：<input type="text" value="00" onchange="addtoTimes(this.value, 3)"></p>
+            <p>
+                <button class="btn" onclick="cancel()">取消</button>
+                <button class="btn" onclick="confCount()">确认</button>
+            </p>
+        </div>
+    </div>
+    <script src="./controller.js"></script>
+</body>
+</html>

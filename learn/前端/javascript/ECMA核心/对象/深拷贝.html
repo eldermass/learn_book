@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+	let obj = {
+        a: '1',
+        b: [1,2,3,4,5],
+        c: {c1:'ccc'}
+    }
+	//方法一：JSON.parse()
+//	function deepClone(Origin){
+//		let obj = {}
+//		try{
+//			obj = JSON.parse(JSON.stringify(Origin))
+//		}catch(e){}
+//		return obj
+//	}
+	// 方法二 递归
+	function deepClone(Origin, Target){
+		let targ = Target || {}
+		for(let [prop, val] of Object.entries(Origin)){
+			if(Object.prototype.toString.call(val) == '[object Object]'){
+				targ[prop] = deepClone(val)
+			}else if(Object.prototype.toString.call(val) == '[object Array]'){
+				targ[prop] = deepClone(val, [])
+			}else{
+				targ[prop] = val
+			}
+		}
+		return targ
+	}
+
+
+
+	let obj2 = deepClone(obj)
+	obj2.b[1] = 'test'
+	
+</script>
+
+</body>
+</html>

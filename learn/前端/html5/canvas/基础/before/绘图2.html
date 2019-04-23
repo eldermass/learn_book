@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>123</title>
+		<script type="text/javascript" src="js/jquery-1.11.2.min.js" ></script>
+		<style>
+			*{margin: 0;padding: 0;}
+			img{position: absolute;}
+			canvas{float: left;margin-left: 8px;box-shadow: 2px 2px 2px salmon;margin-top: 5px;}
+		</style>
+	</head>
+	<body>
+		<img src="../../css3/3D特效/img/6.jpg" height="150px" id="img1" />
+		<div id="d1">
+			<canvas id="can1" width="400px" height="400px"></canvas>
+			<canvas id="can2" width="400px" height="400px"></canvas>
+			<canvas id="can3" width="400px" height="400px"></canvas>
+		</div>
+		<div id="d2">
+			<canvas id="can4" width="400px" height="400px"></canvas>
+			<canvas id="can5" width="400px" height="400px"></canvas>
+			<canvas id="can6" width="400px" height="400px"></canvas>
+		</div>
+	</body>
+	<script>//first canvas 时钟
+		hour=0;min=0;sec=0;
+		setInterval(function(){
+			var dat=new Date();
+			hour=dat.getHours();
+			min=dat.getMinutes();
+			sec=dat.getSeconds();
+			document.title=hour+":"+min+":"+sec;
+		},1000)
+		
+		var c1=document.getElementById('can1').getContext('2d');
+		
+		function dra(x,y,z,i,w,r){
+			c1.beginPath();
+			c1.arc(200,200,r,(i-1)/120*Math.PI,((i+1)/120*Math.PI),false);
+			c1.strokeStyle="rgb("+x+","+y+","+z+")";
+			c1.shadowOffsetX="5";
+			c1.shadowOffsetY="5";
+			c1.shadowBlur="5";
+			c1.shadowColor="#FFC0CB";
+			c1.lineWidth=w;
+			c1.stroke();
+		}
+		function drap(x,y,z,i,w,r){
+			c1.beginPath();
+			c1.arc(200,200,r,(i-61)/120*Math.PI,((i-59)/120*Math.PI),false);
+			c1.strokeStyle="rgb("+x+","+y+","+z+")";
+			c1.shadowOffsetX="5";
+			c1.shadowOffsetY="5";
+			c1.shadowBlur="5";
+			c1.shadowColor="#FFC0CB";
+			c1.lineWidth=w;
+			c1.stroke();
+		}
+		function timer(){
+			for(i=0;i<240;i=i+4)
+			dra(0,0,0,i,10,150);
+			for(i=0;i<240;i=i+20)
+			dra(0,0,0,i,25,142);
+		}
+	
+		x=0,y=0,z=0;i=0;w=0;j=0;
+		setInterval(function(){
+			if(z<=256){
+				z=z+16;
+			}else{
+				z=0;y=y+16;
+			}
+			if(y>256){y=0;z=z+16}
+			if(x>256){x=0;y=0;z=0;}
+			c1.clearRect(0,0,400,400);
+			drap(x,y,z,4*sec,120,50);
+			drap(y,x,z,4*min,70,40);
+			drap(z,y,x,(hour*20+min/4),50,30);
+			timer();
+		},1000);
+	</script>
+	<script>//渐变
+		var c2=document.getElementById('can2').getContext('2d');
+		var c2g=c2.createLinearGradient(20,20,170,170);
+		c2g.addColorStop(0,"#f00");
+		c2g.addColorStop(0.5,"#0f0");
+		c2g.addColorStop(1,"#00f");
+		c2.strokeStyle=c2g;
+		c2.fillStyle=c2g;
+		c2.fillRect(0,0,200,200);
+		//径向渐变
+		crg=c2.createRadialGradient(300,100,5,300,100,110);
+		crg.addColorStop(0,"#fff");
+		crg.addColorStop(0.5,"#f00");
+		crg.addColorStop(1,"#000");
+		c2.fillStyle=crg;
+		c2.fillstroke=crg;
+		c2.fillRect(210,0,190,200);
+		//填充图案
+		var img=document.getElementById('img1');
+		var pat=c2.createPattern(img,"repeat");
+		c2.beginPath();
+		c2.rect(0,200,400,200);
+		c2.fillStyle=pat;
+		c2.fill();
+		c2.stroke();
+	</script>
+	<script>//绘制图形
+		var c3=document.getElementById("can3").getContext('2d');
+		var oimg=new Image();
+		oimg.src="img/pf21.jpg";
+		oimg.onload=function(){
+//			c3.drawImage(oimg,10,10)
+			c3.drawImage(oimg,0,0,200,200);
+			c3.drawImage(oimg,0,0,250,250,200,0,200,200);//cut and copyto
+		};
+		
+		c3.font="italic 40px Arial";
+		c3.strokeStyle="#FA8072";
+		c3.lineWidth="2";
+		c3.shadowOffsetX="2";
+		c3.shadowOffsetY="2";
+		c3.shadowBlur="2";
+		c3.shadowColor="#FA8072"
+		c3.strokeText("hello world!",100,270);
+		
+		c3.font="italic 40px Arial";
+		c3.fillStyle="bisque";
+		c3.fillText("Hello World!",100,340);
+		
+		
+	</script>
+	<script>//变幻图形
+		i=0;j=0;
+		var c4=document.getElementById("can4").getContext("2d");
+		c4.fillStyle="#FFC0CB";
+		c4.translate(200,200);//左上角为点
+		c4.rotate(0.25*Math.PI);//画布的基准点
+//		c4.scale(1.2,1.2);
+		c4.fillRect(-50,-50,100,100);
+		
+		function draw(r,g,b,i){
+			c4.fillStyle="rgb("+r+","+g+","+b+")";
+//			c4.translate(200,200);
+			c4.rotate(i);
+//			c4.scale(1.2,1.2);
+			c4.fillRect(-50,-50,100,100);
+		}
+		function rand(n){
+			return(Math.floor(Math.random()*n+1));
+		}
+		setInterval(function(){
+			r=rand(256);g=rand(256);b=rand(256);
+			c4.clearRect(-60,-60,400,400);
+			draw(r,g,b,i);
+			i=i+15;
+		},100);
+		
+		
+		
+	</script>
+	<script>
+		hour=0;min=0;sec=0;
+		setInterval(function(){
+			var dat=new Date();
+			hour=dat.getHours();
+
+			min=dat.getMinutes();
+			sec=dat.getSeconds();
+			hour=hour>12?hour-12+min/60:(hour+min/60);
+			
+			rr=rand(256);gg=rand(256);bb=rand(256);
+			rrr=rand(256);ggg=rand(256);bbb=rand(256);
+			r=rand(256);g=rand(256);b=rand(256);
+			
+			c5.save();c5.save();c5.save();
+			c5.clearRect(0,0,400,400);
+			outer();
+			poi(-10,60,6,"rgb("+r+","+g+","+b+")",hour);
+			c5.restore();
+			po(-15,90,4,"rgb("+rr+","+gg+","+bb+")",min);
+			c5.restore();
+			po(-20,120,2,"rgb("+rrr+","+ggg+","+bbb+")",sec);
+			c5.restore();
+		},1000)
+		var c5=document.getElementById("can5").getContext('2d');
+		m=(Math.PI)/120;
+		function rand(x){
+			return(parseInt(x*Math.random()));
+		}
+		function shad(n){
+			c5.shadowColor="#FA8072";
+			c5.shadowOffsetX=n;
+			c5.shadowOffsetY=n;
+			c5.shadowBlur=n;
+			c5.globalAlpha=0.8;
+		}
+		function circle(){
+			c5.beginPath();
+			c5.lineWidth="5";
+			shad(4);
+			c5.strokeStyle="#002";
+			c5.arc(200,200,150,0,360,false);
+			c5.stroke();
+			
+		}
+		function biao(i,w,r){
+			c5.beginPath();
+			c5.lineWidth=w;
+			shad(1);
+			c5.arc(200,200,r,i/6*Math.PI-m,(i/6*Math.PI),false);
+			c5.stroke();
+		}
+		function outer(){
+			circle();
+			for(i=0;i<12;i++)
+			biao(i,18,134);
+			for(j=0;j<12;j=j+1/5)
+			biao(j,10,140);
+			for(i=0;i<12;i++)
+			biao(i,18,134);
+		}
+		
+		function po(l,ll,wi,co,n){
+			c5.translate(200,200);
+			c5.rotate((n-15)/30*Math.PI);
+			c5.beginPath();
+			c5.moveTo(l,0);
+			c5.lineTo(ll,0);
+			if(wi==2){
+				c5.fillStyle="#fff";
+				c5.strokeStyle="#000";
+				c5.arc(0,0,5,0,360,false);
+			}
+			c5.lineWidth=wi;
+			c5.strokeStyle=co;
+			c5.stroke();
+			c5.fill();
+		}	
+		function poi(l,ll,wi,co,n){
+			c5.translate(200,200);
+			c5.rotate((n-3)/6*Math.PI);
+			c5.beginPath();
+			c5.moveTo(l,0);
+			c5.lineTo(ll,0);
+			c5.lineWidth=wi;
+			c5.strokeStyle=co;
+			c5.stroke();
+			c5.fill();
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+	</script>
+</html>

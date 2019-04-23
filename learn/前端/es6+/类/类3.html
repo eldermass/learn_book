@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//类里的可变函数
+			let aaa='func';
+			class Person{
+				constructor(name,age){
+					[this.name=name,this.age=age] = [name,age];
+					this.gesome = 'ddd';
+				}
+				showName(){
+					return `my name is ${this.name}`;
+				}
+				[aaa](){
+					return '我是一个可变函数';
+				}
+			}
+			let p1=new Person('Jack',23);
+			console.log(p1.func());
+			// 属性，方法名称可以是表达式  写在[]里   可以得到解析后的key值
+			//json 里也可以这么用
+			console.log(p1[aaa]());
+			console.log(p1.gesome);
+		</script>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//设计模式之一     代理模式
+			//proxy扩展增强  对象，，Vue 框架里就有
+			//作用:代理拦截，预警，上报，统计，扩展功能  
+			{
+				let json1 = {
+					name:'Chenyue',
+					age:80
+				};
+				//拦截 访问
+//				let obj = new Proxy(target,handler)    被代理对象，，对代理对象的操作
+				let obj = new Proxy(json1,{
+					get(target,property){		//代理对象，   访问属性
+						console.log(target,property)  
+						return `你访问了${property}属性`
+					}
+				})
+				
+//				handler:{
+//					set(){},
+//					get(){},
+//					deleteProperty(){},
+//					has(){},
+//					apply(){}
+//					...
+//				}
+				console.log(obj.name)
+				
+			}
+			
+		</script>
+	</body>
+</html>

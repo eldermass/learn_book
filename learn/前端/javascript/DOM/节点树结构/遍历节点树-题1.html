@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<div>
+				<span>
+					<i></i>
+				</span>
+				<a></a>
+			</div>
+			<ul></ul>
+			<div></div>
+		</div>
+		<script>
+			let ul = document.getElementsByTagName('ul')[0]
+			let iTag = document.getElementsByTagName('i')[0]
+			let demo = document.getElementById('demo')
+			//返回第n个祖先
+			function retAncestor(el,n){
+				if(el == null) return null
+				if(n == 0){
+					return el
+				}
+				return retAncestor(el.parentNode,n-1)
+			}
+			let pa = retAncestor(iTag,1)
+			
+			//给元素添加myChildren方法，no children() 
+			Element.prototype.myChildren = retChildElement
+			function retChildElement(){
+				let arr = {
+					length:0,
+					push:Array.prototype.push,
+					splice:Array.prototype.splice
+				}
+				let nodes = this.childNodes
+				for(let i in nodes){
+					if(nodes[i].nodeType == 1){
+						arr.push(nodes[i])
+					}
+				}
+				return arr
+			}
+			let son = demo.myChildren()
+			
+			//返回第n个前后兄弟节点的方法
+			function retSiblings(el,n){
+				if(el == null) return null;
+				if(n == 0){
+					return el
+				}
+				if(n < 0){
+					return retSiblings(el.previousElementSibling,n+1)
+				}
+				if(n > 0){
+					return retSiblings(el.nextElementSibling,n-1)
+				}
+			}
+//			for(e = e.nextSibling;e.nodeType != 1;e = e.nextSibling) //类似直接找ElementSibling
+			let sb = retSiblings(ul,1)
+		</script>
+	</body>
+</html>

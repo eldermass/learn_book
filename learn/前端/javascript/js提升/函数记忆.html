@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//缓存数据，优化函数性能
+			let count = 0 //记录运行次数
+			let cache = {} //缓存记忆记运算过的值
+			
+			function factorial(n){
+				count++
+				if(cache[n]){ 
+					return cache[n]
+				}
+				if(n == 1 || n ==0){
+					cache[n] = 1
+					return 1
+				}
+				cache[n] = n * factorial(n-1)
+				return cache[n]
+			}
+			
+			function jie(n){
+				count ++ 
+				if(n == 1){
+					return 1
+				}else{
+					return n*jie(n-1)
+				}
+			}
+			
+			//封装记忆函数   ,  功能:将一个函数转化为记忆函数
+			function memorize(fn){
+				var cache = {}
+				return function (){
+					//兼容多种函数的key值
+					let key = arguments.length + Array.prototype.join.call(arguments)
+					if(cache[key]){
+						return cache[key]
+					}else{
+						cache[key] = fn.apply(this,arguments)
+						return cache[key]						
+					}
+				}
+			}
+			
+			
+			//总结，实践证明，如果传入函数中有递归的话，可以把这个函数本身也写为记忆函数
+			//这样函数递归出现的结果也是可以记录的
+			let jc1 = memorize(factorial)
+			let jc2 = memorize(jie)   
+			console.time('1')
+			for(let i = 1 ;i <= 5 ; i++){
+				jc1(i)
+			}
+			console.timeEnd('1')
+		</script>
+	</body>
+</html>

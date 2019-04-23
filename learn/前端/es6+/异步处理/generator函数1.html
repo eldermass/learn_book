@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//解决异步的深度嵌套
+			{
+				function * fuck(){
+					yield 'welcome';
+					yield 'to';
+					return 'toilet'
+				}
+				let a = fuck();
+				console.log(a)
+			}
+			
+			{//使用next()调用
+				function * show(){
+					yield 'welcome';
+					yield 'to';
+					return 'toilet'
+				}
+				let a = show();
+				console.log(a.next())//{value: "welcome", done: false}
+				console.log(a.next())
+				console.log(a.next())
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>WebStorage</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+		<style>
+			table,td{border: 1px solid #AAAAAA;}
+		</style>
+		<script>
+			//在数据库里创建一张表  第二部
+			function initDatabase(){
+				var db=getCurrentDb();
+				if(!db){
+					alert("不支持本地数据库")
+					return;
+				}
+				db.transaction(function (trans){
+					trans.executeSql("create table if not exists Demo(uName TEXT,title TEXT,words TEXT)",[],function(trans,result){
+					alert("C Demo");},function(trans,mess){alert("1？！！"+mess);});
+				})
+				
+				
+				
+			}
+			
+			initDatabase();
+			//创建或链接数据库   第一步
+			function getCurrentDb(){
+				var db=window.openDatabase("data.db","1.0","demo discrip",1024*1024);
+				return db;
+			}	
+			
+			
+				//初始化数据库 第三部
+				
+				$('#save').on("click",function(){
+					var txtname=$("#name").val();
+					var txtti=$("#ti").val();
+					var txtwords=$("#words").val();
+					var db=getCurrentDb();
+					//执行sql脚本来插入数据
+					db.transaction(function(trans){
+						trans.executeSql("insert into Demo(uName,title,words) values(?,?,?)",[txtname,txtti,txtwords],function(ts,data){
+						alert("sec");},function(ts,mess){alert("2"+mess.message);});//这段数据库的描述有问题
+					});
+
+				});
+				
+			
+			//显示数据库中的数据
+			function showdata(){
+				$("#tab").empty();
+				var db=getCurrentDb();
+				db.transaction(function(trans){
+					trans.executeSql("select * from demo",[],function(ts,data){
+						if(data){
+							//循环记录数据
+							for(var i=0;i<data.rows.length;i++){
+								//获取每一行数据的json对象，键值对,将数据拼接成表格
+								appendDataToTable(data.rows.item(i));
+							}
+						}else{
+							alert("empty");
+						}
+					},function(ts,mess){alert("2"+mess);});
+				});
+			}
+			
+			//将数据展示到表格里面data.rows.item(i).name;
+			function appendDataToTable(data){
+				var txtname=data.name;
+				var txtti=data.title;
+				var txtwords=data.words;
+				var strhtml="";
+				strhtml+="<tr>";
+				strhtml+="<td>"+txtname+"</td>";
+				strhtml+="<td>"+txtti+"</td>";
+				strhtml+="<td>"+txtwords+"</td>";
+				strhtml+="</tr>";
+				
+				$("#tab").append(strhtml);
+			}
+
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>username</td>
+				<td><input type="text" id="name" /></td>
+			</tr>
+			<tr>
+				<td>ti</td>
+				<td><input type="text" id="ti" /></td>
+			</tr>
+			<tr>
+				<td>words</td>
+				<td><input type="text" id="words"/></td>
+			</tr>
+		</table>
+		
+		<button id="save" value="save">save</button>
+		<hr />
+		<button id="show" value="show"  onclick="al();">show</button>
+		<table id="tab">
+		
+		</table>
+	</body>
+</html>

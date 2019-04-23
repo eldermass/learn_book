@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border: 1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+
+        let radialGrad = ctx.createRadialGradient(300,100,0,300,100,200)
+        radialGrad.addColorStop(0, 'red')
+        radialGrad.addColorStop(0.3,'pink')
+        radialGrad.addColorStop(0.6,'yellow')
+        radialGrad.addColorStop(0.8,'green')
+        radialGrad.addColorStop(1,'blue')
+        
+        ctx.fillStyle = radialGrad
+        ctx.font = ' bold 60px sans-serif'
+        // 相对 指定点 的对齐方式
+        // ctx.textAlign = 'center'
+        // ctx.textBaseline = 'top'
+        
+        ctx.fillText('Hello World', 100, 100)
+        // 测量文本 的属性
+        let textWidth = ctx.measureText('Hello World').width
+
+        // 参照点
+        ctx.arc(100,100,5,0,Math.PI*2)
+        ctx.arc(100 + textWidth,100,5,0,Math.PI*2)
+        ctx.stroke()
+
+    </script>
+    
+</body>
+</html>

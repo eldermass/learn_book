@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="700" style="border:1px solid #ccc"></canvas>
+    <input type="range" min="0.5" max="3.0" value="1" id="slider"
+            step="0.1" style="display:block;width:1200px">
+    <script>
+        let slider = document.getElementById('slider')
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+
+        let image = new Image()
+        image.src = '10.jpg'
+        image.onload = function () {
+            drawPic(1)
+            // 由于mousemove开销大，可以优化
+            slider.onmousemove = function () {
+                drawPic(slider.value)
+            }
+        }
+        
+        // 绘制图像
+        function drawPic(scale){
+            let imageWidth = image.width * scale,
+                imageHeight = image.height * scale;
+            let x = (canvas.width - imageWidth)/2,
+                y = (canvas.height - imageHeight)/2;
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.drawImage(image, x, y, imageWidth, imageHeight)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box1">123</div>
+		<div id="box2">456</div>
+		<script>
+			let box1 = document.getElementById('box1')
+			let box2 = document.getElementById('box2')
+			let box3 = document.createElement('div')
+			box3.innerHTML = 'box3'
+			Element.prototype.insertAfter = function (newNode , oldNode){
+				this.insertBefore(newNode , oldNode)
+				this.insertBefore(this.removeChild(oldNode),newNode)
+				//第二种方法
+//				let p = oldNode.nextSibling
+//				p || this.appendChild(newNode)
+//				if(p != null){
+//					this.insertBefore(newNode , p)
+//				}
+			}
+			Element.prototype.reverseElement = function (){
+				let children = this.children
+				for(let i = children.length - 1; i >= 0;i--){
+					this.appendChild(children[i])
+				}
+			}
+//			document.body.insertBefore(box3,box2)
+			document.body.insertAfter(box3,box1)
+		</script>
+	</body>
+</html>

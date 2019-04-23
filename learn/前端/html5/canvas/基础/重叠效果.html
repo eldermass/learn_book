@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border: 1px solid #ccc"></canvas>
+    <br>
+    <a href="#">source-over</a>
+    <a href="#">source-atop</a>
+    <a href="#">source-in</a>
+    <a href="#">source-out</a>
+    <a href="#">destination-over</a>
+    <a href="#">destination-atop</a>
+    <a href="#">destination-in</a>
+    <a href="#">destination-out</a>
+    <a href="#">lighter</a>
+    <a href="#">copy</a>
+    <a href="#">xor</a>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+
+        draw('destination-over')
+        function draw(composite){
+            ctx.clearRect(0,0,500,500)
+            ctx.globalCompositeOperation = 'source-over' // 回复状态
+            
+            ctx.fillStyle = 'red'
+            ctx.fillRect(100,100,200,200)
+
+            ctx.globalCompositeOperation = composite
+            ctx.fillStyle = 'skyblue'
+            ctx.fillRect(200,200,200,200)
+        }
+
+        // 绑定事件
+        let btns = document.getElementsByTagName('a')
+
+        for(let i = 0; i < btns.length; i++){
+            btns[i].onclick = function (){
+                console.log(this.text)
+                draw( this.text )
+            }
+        }
+
+
+    </script>
+    
+</body>
+</html>

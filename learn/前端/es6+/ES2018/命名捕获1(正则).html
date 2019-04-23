@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//以前的正则
+				let times = '2018-05-13';
+				let reg = /(\d{4})-(\d{2})-(\d{2})/;
+				
+				let arr = times.match(reg);
+				
+				let [year, month,day] = [arr[1],arr[2],arr[3]]
+				
+				console.log(year,month,day)
+			}
+			//命名捕获， 在括号中添加  (?<名>)
+			{
+				let str = '2018-05-13';
+				let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+				
+				let dateArr = str.match(reg)
+				//dateArr 的groups 属性  存放了 命名规则的json键值对
+				console.log(dateArr.groups)
+				console.log(dateArr.groups['year'])
+			}
+			
+		</script>
+	</body>
+</html>

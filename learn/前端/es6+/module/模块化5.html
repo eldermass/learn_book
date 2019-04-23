@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type='module'>
+			async function main(){
+				const mod1 = await import('./1.js');
+				const mod2 = await import('./2.js');
+				//两种写法
+				const [m1,m2] =await Promise.all([
+					import('./1.js'),
+					import('./2.js')
+				]);
+				console.log(mod1,mod2,m1,m2);
+			}
+			main();
+		</script>
+	</body>
+</html>

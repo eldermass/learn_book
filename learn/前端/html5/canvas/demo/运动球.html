@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="text-align:center">
+        <canvas id="canvas" width="800" height="500" style="border:1px solid #ccc"></canvas>
+    </div>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        let balls = []
+        let speed = 2
+        // drawArc(100,100,20,'red')
+        
+
+
+
+        for(let i = 0; i < 100; i++){ 
+            balls.push({
+                x: Math.random() * 500 + 100,
+                y: Math.random() * 300 + 100,
+                R: Math.random() * 50 + 10,
+                color: `rgb(${Math.random()*120 + 100},${Math.random()*120 + 100},${Math.random()*120 + 100})`,
+                vx: Math.pow(-1,parseInt(Math.random()*1000)) * (speed + Math.random()*3),
+                vy: Math.pow(-1,parseInt(Math.random()*1000)) * (speed + Math.random()*3)
+            })
+        }
+        
+        setInterval(function (){
+            render()
+            update()
+        },30)
+
+
+        function update(){
+            for(let ball of balls){
+                ball.x += ball.vx
+                ball.y += ball.vy
+                if(ball.x > 800 - ball.R || ball.x < ball.R){
+                    ball.vx = -ball.vx
+                }
+                if(ball.y > 500 - ball.R || ball.y < ball.R){
+                    ball.vy = -ball.vy
+                }
+            }
+        }
+
+        function render(){
+            ctx.clearRect(0,0,800,500)
+            for(let ball of balls){
+                drawArc(ball.x, ball.y, ball.R, ball.color)
+            }
+        }
+
+        function drawArc(x, y, R, color){
+            ctx.beginPath()
+            ctx.globalCompositeOperation = 'xor'
+            ctx.fillStyle = color
+            ctx.arc(x, y, R, 0, Math.PI*2)
+            ctx.fill()
+        }
+        
+    </script>
+</body>
+</html>

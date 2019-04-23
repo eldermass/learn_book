@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border: 1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        
+        CanvasRenderingContext2D.prototype.shadow = function(x,y,blur,color){
+            this.shadowColor = color
+            this.shadowBlur = blur
+            this.shadowOffsetX = x
+            this.shadowOffsetY = y
+        }
+        ctx.shadow(5,5,15,'red')
+        
+        // ctx.shadowColor = 'red'
+        // ctx.shadowBlur = 15
+        // ctx.shadowOffsetX = 5
+        // ctx.shadowOffsetY = 5
+
+
+        ctx.fillRect(100,100,200,200)
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+<body>
+
+<script type="text/javascript">
+
+	if (localStorage.pagecount)
+		{
+		localStorage.pagecount=Number(localStorage.pagecount) +1;
+		}
+	else
+	{
+		localStorage.pagecount=1;
+	}
+	document.write("Visits: " + localStorage.pagecount + " time(s).");
+	
+	function cle(){
+		localStorage.removeItem('pagecount');
+	}
+	</script> 
+
+	<p>fresh this page the number will keep growwing</p>
+
+	<p>close the window it will keep growwing too,but if  <strong>sessionstorage</strong>  insteadof <strong>localstorage</strong>  it will be OK</p>
+	<button value="123" name="456" onclick="cle()">12312</button>
+	
+	
+	<br /><textarea id="show"></textarea>
+			<button onclick="addinfo()">add</button>
+			<button onclick="clearl()">clear</button>
+			<button onclick="test()">test</button>
+			<br  />
+			<textarea id="send"></textarea>
+		<script>
+			var show=document.getElementById('show');
+			var send=document.getElementById("send");
+			
+			function addinfo(){
+				var date=new Date();
+				if(localStorage.something){
+					localStorage.something+=send.value+"\ntime:"+date.toLocaleString()+"\n";
+				}else{
+					localStorage.something=send.value+"\ntime:"+date.toLocaleString()+"\n";
+				}
+				upto();
+			}
+			function upto(){
+				if(localStorage.something){
+					show.value=localStorage.getItem("something");
+				}else{
+					show.value="empty";
+				}
+			}
+			
+			
+			function clearl(){
+				localStorage.removeItem('something');
+			}
+		</script>
+	
+	
+</body>
+</html>

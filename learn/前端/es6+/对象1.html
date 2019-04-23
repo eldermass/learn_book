@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//json 对象的简写形式
+				let name = '黄孙';
+				let age =24;
+				let person = {
+					name, //name=name
+					age,   //age== age
+					show(){
+						return this.name;
+					}
+				}
+				console.log(person);
+				document.write(person.show());
+			}
+			{//Object.is()判断是否相等
+				console.log(Object.is(NaN,NaN));
+				console.log(Object.is(+0,-0));
+				console.log(Object.is('aaa','aac'));
+			}
+			{//Object.assign()  用于合并对象  //也可用于浅拷贝复制对象，数组
+				let json1 = {a:1}
+				let json2 = {b:2,a:2}//后面会覆盖前面的
+				let json3 = {c:3}
+				let json = Object.assign({},json1,json2,json3);
+				console.log(json);
+			}
+			{//for of 循环对象，obj.keys(),values(),entries()
+				let json ={a:1,b:2,c:3};
+				for(let [key,val] of Object.entries(json)){
+					console.log(key,val);
+				}
+				// 使用结构  和对象简写的方法，  把Object里的方法取了出来，
+				let {keys,values,entries} =Object;
+				for(let key of keys(json)){
+					console.log(key);
+				}
+			}
+			{//对象的扩展运算
+				let {x,y,...z} = {a:1,b:2,x:3,y:4};
+				console.log(x,y,z);
+				//快速复制json
+				let json1 ={a:1,b:2,c:3};
+				let json2 = {...json1};
+				delete json2.b;
+				console.log(json1);
+				console.log(json2);
+				
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			ul{
+				list-style: none;
+				height: 40px;
+				width: 800px;
+				border: 1px solid saddlebrown;
+				margin: 100px auto;
+				display: flex;
+			}
+			ul li{
+				flex-grow: 1;
+				border: 1px solid sandybrown ;
+				position: relative;
+				transform-style: preserve-3d;
+				transition: all 1s; 
+			}
+			ul li:hover{
+				transform:rotateX(-90deg);
+			}
+			li span{
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: block;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				line-height: 40px;			
+			}
+			span:nth-child(1){
+				background: greenyellow;
+				transform: translateZ(20px);
+			}
+			span:nth-child(2){
+				transform: rotateX(90deg) translateZ(20px);
+				background: salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<span>黄雨渐渐</span>
+				<span>有点傻</span>
+			</li>
+			<li>
+				<span>黄雨渐渐</span>
+				<span>有点傻</span>
+			</li>
+			<li>
+				<span>黄雨渐渐</span>
+				<span>有点傻</span>
+			</li>
+			<li>
+				<span>黄雨渐渐</span>
+				<span>有点傻</span>
+			</li>
+			<li>
+				<span>黄雨渐渐</span>
+				<span>有点傻</span>
+			</li>
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//async 可以让一个普通的函数变为promise
+				async function fn(){
+//					return 'aaa';
+					throw new Error('wrong bbb') 
+				}
+				fn().then(res=>{
+					console.log('res = '+res);
+				}).catch(err=>{
+					console.log(err)
+				})
+			}
+			
+			{
+				async function fn1(){
+					let a = await 'aaa';
+					let b = await 'bbb';
+					console.log(a,b)
+				}
+				fn1();
+			}
+		</script>
+	</body>
+</html>

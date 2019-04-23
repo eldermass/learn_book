@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//ES6的类定义方法  , 但这里的类依然是个函数
+			class Person{
+				constructor(name, age){
+					[this.name, this.age] = [name, age];
+				}
+				//函数挂载于原型上
+				showName(){
+					return `my name is ${this.name}`;
+				}
+			}
+			let p1=new Person('Jack',23);
+			console.log(p1.showName());
+			
+			{//赋值式定义类
+				const Person = class{
+					constructor(name, age){
+						[this.name, this.age] = [ name, age ];
+					}
+					showName(){
+						return `my name is ${this.name}`;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

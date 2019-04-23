@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400" style='border: 1px solid #ccc'></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        
+        drawMoon1(200,200,100,2)
+        
+
+        function drawMoon(x, y, R, cx, cy, ctx){
+            let l = Math.sqrt((cx-x)*(cx-x) + R*R)
+
+            ctx.beginPath();
+            ctx.moveTo(x, y - R);           // 创建水平线
+            ctx.arcTo(cx, cy,x, y+R,(l*R)/(cx-x)); // 创建弧
+            ctx.arc(x, y, R, Math.PI/2, -Math.PI/2, true)
+            ctx.stroke();
+        }
+        // 改进 u控制月满系数
+        function drawMoon1(x, y, R, u){
+            let cx = x + R*u; cy = y
+            let l = Math.sqrt((cx-x)*(cx-x) + R*R)
+            ctx.beginPath();
+            ctx.moveTo(x, y - R);           // 创建水平线
+            // 用贝塞尔曲线会更方便
+            ctx.arcTo(cx, cy,x, y+R,(l*R)/(cx-x)); // 创建弧
+            ctx.arc(x, y, R, Math.PI/2, -Math.PI/2, true)
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>

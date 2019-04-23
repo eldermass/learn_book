@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;padding: 0;
+			}
+			body{
+				background: black;
+				perspective: 1000px;
+			}
+			ul{
+				list-style: none;
+				height: 270px;
+				width: 190px;
+				border: 1px solid #FFFFFF;
+				margin: 100px auto;
+				position: relative;
+				transition: all 2s;
+				transform-style: preserve-3d;
+			}
+			ul li{
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;transform-origin: left  center;
+				background-size: 100% 100%;
+				border:1px solid yellow;
+				box-shadow: 0 0 5px salmon inset;
+			}
+			li:nth-child(1){
+				background-image: url(img/11.jpg);
+				transition: all 2s;
+			}
+			li:nth-child(2){
+				background-image: url(img/12.jpg);
+			}
+			li:nth-child(3){
+				background-image: url(img/13.jpg);
+			}
+			li:nth-child(4){
+				background-image: url(img/14.jpg);
+			}
+			li:nth-child(5){
+				background-image: url(img/15.jpg);
+			}
+			ul:hover{
+				transform-origin: center bottom;
+				transform: rotateX(60deg);
+			}
+			ul:hover li:nth-child(5){
+				transition: all 2s 2s;
+				transform: rotateY(-160deg);
+			}
+			ul:hover li:nth-child(4){
+				transition: all 2s 4s;
+				transform: rotateY(-140deg);
+			}
+			ul:hover li:nth-child(3){
+				transition: all 2s 6s;
+				transform: rotateY(-120deg);
+			}
+			ul:hover li:nth-child(2){
+				transition: all 2s 8s;
+				transform: rotateY(-40deg);
+			}
+			ul:hover li:nth-child(1){
+			}
+		</style>
+	</head>
+	<body>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+	</body>
+</html>

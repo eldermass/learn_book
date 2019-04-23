@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*map是一种类似于json的数据格式
+			  map的键key可以是任意类型*/
+			{//入门用法,set(key,value)
+				let m = new Map();
+				m.set(123,'one-two')
+				console.log(m)
+			}
+			{//get(key)  获取    delete(key)  删除
+				let json ={a:'aaa',b:'bbb'}
+				let m1 = new Map();
+				m1.set(json,1).set(1,'a')
+				console.log(m1)
+				console.log(m1.get(json))
+				m1.delete(json);
+				console.log(m1)
+			}
+			{//has(key)    clear()
+				let m2 = new Map();
+				m2.set(1,'a').set(2,'b').set(3,'c');
+				console.log(m2.has(2));
+				m2.clear();
+				console.log(m2)
+			}
+			{//循环
+				let m3 = new Map();
+				m3.set(1,'a').set(2,'b').set(3,'c');
+				for(let [key,val] of m3.entries()){
+					console.log(`${key}--${val}`)
+				}
+				
+				m3.forEach((val,index)=>{
+					console.log(index+'-+-'+val)
+				})
+			}
+		</script>
+	</body>
+</html>

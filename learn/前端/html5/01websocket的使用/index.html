@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="text">
+		<button id="sendtxt">submit</button>
+		<div id="output"></div>
+		<script>
+			let websocket = new WebSocket('ws://localhost:8081');
+			websocket.onopen = function(){
+				console.log('open')
+				document.getElementById('output').innerHTML = 'connected';
+			}
+			websocket.onclose = function(){
+				console.log('closed')
+			}
+			websocket.onmessage = function(e){
+				document.getElementById('output').innerHTML = e.data;
+			}
+			document.getElementById('sendtxt').onclick = function(){
+				let txt = document.querySelector('#text').value;
+				websocket.send(txt);
+			}
+		</script>
+	</body>
+</html>

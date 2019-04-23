@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function Deng({name,wife}){
+				let preWife = 'xiao hua'
+				//因为构造返回了this，形成了闭包，所以外面能使用preWife
+				//外面不能通过  实例.preWife 访问，实现了私有化
+				
+				this.name = name 
+				this.wife = wife
+				
+				this.divorce = function (){
+					this.wife = preWife
+				}
+				this.changePreWife = function(target){
+					preWife = 'da mei'
+				}
+				this.sayPreWife = function (){
+					console.log(preWife)
+				}
+			}
+			
+			let d = new Deng({name:'deng',wife:'xiaoxiao'})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			arguments.callee 就是该函数体
+//			例子:阶乘
+			let num = (function (n) {
+				if(n == 1)return 1
+				else 
+				return n*arguments.callee(n-1)
+			}(5))
+			
+			//caller 是运行环境的函数体， 即是调用者的函数体
+			function test(){
+				console.log(test.caller)
+				console.log(arguments)
+			}
+			function demo(){
+				test()
+			}
+			demo()
+			
+		</script>
+	</body>
+</html>

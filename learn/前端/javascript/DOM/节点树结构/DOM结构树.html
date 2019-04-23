@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box1">
+			<div id="box2">123</div>
+		</div>
+		<script>
+//			Object --> EventTarget --> Node --> Document --> HTMLDocument
+//			document是HTMLDocument的实例
+//			DOM结构树是一个继承关系
+			Document.prototype.abc = 'document - abc'
+			console.log(document.abc)
+			
+//			Node --> Element --> HTMLElement --> HTMLBodyElement  etc.
+			HTMLBodyElement.prototype.bbc = 'body - bbc'
+			let body = document.body
+			console.log(body.bbc)
+
+			let box1 = document.getElementById('box1')
+			// let box2 = box1.getElementById('box2') // 报错，getElementById只再Document.prototype上
+			document.documentElement
+			
+		</script>
+	</body>
+</html>

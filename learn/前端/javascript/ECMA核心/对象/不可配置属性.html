@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let person = {
+				name :'unknown'
+			}
+			let obj = Object.create(person)
+			//通过声明出来的变量，是不可配置属性，不能通过delete删除
+			//Object.create(prototype,defineProperty)原型和定义属性（可读可写一类的）
+			
+//			function Person(name , age){
+//				this.name = name 
+//				this.age = age 
+////				console.log(Person.caller)
+////				console.log(arguments.callee)
+//			}
+//			function Student(name ,age ,sex ){
+//				Person.call(this,name ,age)
+//				this.sex = sex
+//			}
+//			let s = new Student('zhang',12,'male')
+			let a = 1 
+			function test(){
+				console.log(a)
+				let a = 2       //不会提升，但是会预编译，报错 a is not defined
+			}
+			test()	
+		
+			
+		</script>
+	</body>
+</html>

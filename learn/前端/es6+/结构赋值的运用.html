@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//用于交换两数的位置
+				let [a,b]=[5,6];
+				[a,b]=[b,a]
+				console.log(a,b);
+			}
+			
+			{
+				function getPos(){
+					//xxx
+					return {
+						left: 10,
+						top: 20
+					}
+				}
+				let {left,top:t} = getPos();
+				console.log(left, t, top);
+			}
+			//函数传参
+			{
+				function show({a,b}){
+					console.log(a,b);
+				}
+				show({
+					a:2,
+					b:5
+				});
+			}
+			
+			
+			
+			//结构模块中的数据
+			//import {a,b,c} from './model';
+		</script>
+	</body>
+</html>

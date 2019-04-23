@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="module">
+			//模块中的值变化，重新取用时，外面的值会随之变化
+			import {a,b} from './6.js';
+			console.log('a='+a);
+			setTimeout(function(){
+				console.log(`a==${a}`);
+			},2000);
+		</script>
+	</body>
+</html>

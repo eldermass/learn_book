@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			{//插入值
+				let name = '黄宇荐';
+				let age =24;
+				
+				let str = `我是${name},现在是${age}岁`;
+				document.write(str);
+			}
+			
+			{//字符串拼接
+				let str = `<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+						</ul>`;
+				document.write(str);
+			}
+			{//找查字符串  str对象里新加的  includes()方法
+				let str = "apple banana pear";
+				document.write(str.includes('banana'));
+			}
+			{//找查字符串  str对象里新加的  startWith()方法   以xx结尾或开始 
+				let str = "apple banana pear";
+				document.write(str.startsWith('apple'));
+				document.write(str.endsWith('pear'));
+			}
+			{//找查字符串  str对象里新加的 str.repeat方法 
+				let str = "apple";
+				document.write(str.repeat(3));
+			}
+			document.write('<br>');
+			{//找查字符串  str对象里新家的 str.padStart(长度，第二个字符串)方法  ,前后拼接
+				let str = "apple ";
+				let str2 ='eat ';
+				console.log(str.padStart(str.length+str2.length,str2));document.write('<hr />');
+				console.log(str.padEnd(str.length+str2.length,str2));
+			}
+			
+		</script>
+	</body>
+</html>

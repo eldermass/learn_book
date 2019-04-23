@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//当内部函数被保存到外部时，将会生成一个闭包，闭包会导致
+//			  原有的作用域链不释放(被子函数持有),造成内存泄漏
+			
+			{//内部的函数  被保存到了外部  ，他一定是闭包
+				//作用域链解析
+				/*1.全局首先生成GO对象
+				 * GO{
+				 * 	a:function a(){},
+				 *  global:udefined,    赋值时变为100
+				 *  demo:undefined
+				 * }
+				*/
+				/*2.a函数执行时，在最上一层生成AO对象，并继承全局GO
+				  AO{
+				  	b:function b(){},
+				  	aaa:undefined
+				  },
+				  GO{...}
+				 * */
+				/*3.b函数在被定义时，在最上层生成AO对象，并继承a的AO和全局GO
+				 * AO{
+				 * 	bbb:undefined,
+				 * }
+				 AO{...}
+				 GO{...}
+				 * */
+				/*4.b函数被保存并赋值给全局demo，形成闭包，
+				 *   a函数执行结束，a函数作用域链切断了和AO的关系，
+				 * 然而b函数的作用域链中依然保存着b-->AO,a-->AO,GO三个对象
+				 * */
+				/*5.demo执行，及b函数执行，访问 执行期上下文及以下三个对象
+				    AO{
+				   		bbb:234,
+				   	}
+					 AO{
+					 	b:function b(){},
+				  		aaa:123
+					 }
+					 GO{...}
+				 */
+				
+				function a(){
+					function b(){
+						var bbb=234
+						console.log(aaa)
+						console.log(b)
+					}
+					var aaa = 123
+					return b
+				}
+				var global = 100
+				var demo = a()
+				demo()
+			}
+			{//立即执行函数,  函数体执行后 立马被销毁，不会占用空间
+				function a(){
+					(function b(){
+						var bbb=234
+						console.log(aaa)
+						console.log(b)
+					})()
+					var aaa = 123
+				}
+				a()
+			}
+		</script>
+	</body>
+</html>

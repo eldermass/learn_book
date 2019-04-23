@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//一般的继承方式
+			//这样使用了Father的原型(引用传递)，修改son的原型时，会
+			//同时修改father的原型
+			Father.prototype.lastName = 'Chen'
+			function Father(){}
+			function Son(){}
+			
+			function inherit(Target, Origin){
+				Target.prototype = Origin.prototype
+			}
+			inherit(Son, Father)
+			let son = new Son()
+		</script>
+	</body>
+</html>

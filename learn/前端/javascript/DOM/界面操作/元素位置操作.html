@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--标准模式的声明-->
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="height: 2000px;width: 2000px;border:10px solid #ccc;position: absolute;">
+			<div id="box" style="border: 1px solid;margin: 20px;">123</div>
+		</div>
+		<script>
+			document.onclick= getViewWindow
+			
+	//查看滚动条位置
+			function getScrollPosition(){
+				console.log('X轴滚动了：'+window.pageXOffset)
+				console.log('Y轴滚动了：'+window.pageYOffset)
+//				ie兼容方法
+//				document.body.scrollTop/Left
+//				document.documentElement.scrollTop/Left
+			}
+	//操作滚动条
+//			window.scroll(x,y) 等于scrollTo()  滚动至x,y位置  对应pageYOffset
+//			window.scrollBy(x,y)     向下滚动 x，y距离  累加的
+	//可视区  (能看到的部分) 窗口
+			function getViewWindow(){
+				console.log('innerHeight is :' + window.innerHeight)   //浏览器窗口的高
+				console.log('innerWidth is :' + window.innerWidth)
+				//兼容ie
+//			混合模式		document.body.clientHeight   ~~body的高
+//			标准模式		document.documentElement.clientHeight   ~~html的高
+			}
+//			scrollHeight    不含border
+//			clientHeight    不含border
+//			offsetHeight	含有border
+//			screen.height  屏幕的高
+//			screen.availHeight
+			
+	//屏幕大小
+//			window.screen.availHeight\n
+//获取周边元素
+//el.getBoundClientRect()
+
+	//获取元素宽高和位置信息
+			let box = document.getElementById('box')
+			box.getBoundingClientRect()
+			//offsetWidth offsetHeight   //包含border的整体宽高
+			//offsetTop offsetLeft //注意，这是相对于有定位的上级元素的位置 ,不含父级的border
+									//父级有定位就是相对于父级，父级没定位就往上级找
+//			box.offsetParent  //返回一个有定位父级元素，没有就是body
+
+//			封装方法getElementPosition 获取当前元素距离文档的位置
+			function getElementPosition(el){
+				let p = {
+					x:0,
+					y:0
+				}
+				if(el.offsetParent != null){
+					//这样是没有加上父级border的，需要完善
+					p.x += getElementPosition(el.offsetParent).x
+					p.y += getElementPosition(el.offsetParent).y
+				}
+				p.x += el.offsetLeft
+				p.y += el.offsetTop
+				return p
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#wrap{
+    margin:30px auto;
+    width: 600px;
+    height: 500px;
+    position:relative;
+    perspective: 800px;
+    transform-style: preserve-3d;
+}
+#wrap div{
+    width: 60px;
+    height: 50px;
+    position:absolute;
+    opacity: 1;
+    background-image: url(./img/1.jpg);
+    background-repeat: no-repeat;
+    transition: 1s;
+    transform-origin: 0 0;
+}
+#wrap .active{
+    opacity: 0;
+    transform: rotate(360deg) scale(0); 
+}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap"></div>
+		<script>
+			var box = document.querySelector('#wrap');
+var divW = 60;
+var divH = 50;
+var inner = "";
+for(var i = 0; i < 100; i++) {
+    var x = i % 10;
+    var y = parseInt(i/10);
+    inner+="<div style='background-position:-"
+    +(x*divW)+"px -"+(divH*y)+"px;left:"
+    + (x*divW) + "px;top:" + (divH*y)+"px'></div>";
+}
+box.innerHTML = inner;
+var divs=box.getElementsByTagName("div");
+for(var i=0;i<divs.length;i++){
+//鼠标移动到图片的某个位置，该位置的小图片旋转360°并透明度为0
+        divs[i].onmouseover=function(){
+        this.className="active";
+    }
+}
+var picBgArr=["11.jpg","12.jpg","13.jpg"];
+var num=0;
+var onoff=true;//设置开关，作为判断是否已碎片化的条件
+document.onclick=function(){
+    if(onoff){
+    //化整为0
+        for(var i=0;i<divs.length;i++){
+            divs[i].style.transform="skew("+      (60*Math.random())+"deg)  translateZ("+(Math.random()*1000)+"px)";
+            divs[i].style.opacity="0";
+        }
+        onoff=false;
+    }else{
+        num+=1;
+        if(num==picBgArr.length){
+            num=0;
+        }
+    //化0为整，并显示为下一张图
+        for(var i=0;i<divs.length;i++){
+            divs[i].className="";
+            divs[i].style.transform=""; 
+            divs[i].style.opacity="";
+            divs[i].style.backgroundImage="url(img/"+picBgArr[num]+")";
+        }
+        onoff=true;
+    }
+}
+		</script>
+	</body>
+</html>

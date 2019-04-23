@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box1">123</div>		
+		<div id="box2">234</div>
+		<script>
+			let box1 = document.getElementById('box1')
+			let box2 = document.getElementById('box2')
+			let box3 = document.createElement('div')
+			box3.innerHTML = '345'
+			//对已有的元素，都是剪切操作
+			// box2.appendChild(box1)
+			// document.body.insertBefore(box2,box1)
+			
+			// document.body.replaceChild(box3,box2)
+
+/***********************************************/
+			//元素的增删查改
+			/*增
+			 * document.createElement
+			 * document.createTextNode
+			 * document.createComment
+			 * document.createDocumentFragment
+			 * 
+			 * 删
+			 * parentNode.removeChild(el) 会返回 el 元素
+			 * el.remove()
+			 * 
+			 * 插
+			 * el.appendChild(el)
+			 * el.insertBefore(newNode, refNode)
+			 * 
+			 * 改
+			 * parentNode.replaceChild(newNode, oldNode)  返回oldNode
+			 * */
+		</script>
+	</body>
+</html>

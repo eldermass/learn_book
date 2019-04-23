@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{list-style: none;margin: 0;padding: 0;}
+			.container{
+				width: 400px;
+				height: 300px;
+				margin: 100px auto;
+				border: 1px solid #000;
+				position: relative;
+				/*perspective: 1000px;*/
+			}
+			ul{
+				/*transform: rotateX(45deg);*/
+				height: 100%;
+				float: left;
+				width: 20%;
+				position: relative;
+				transform-style:preserve-3d;
+				transition: all 1s;
+			}
+			ul li{
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				/*background-size:100% 100% ;*/
+			}
+			/*front*/
+			li:nth-child(1){
+				transform: translateZ(150px);				
+				background-image:url(img/service1.jpg);
+			}
+			/*top*/
+			li:nth-child(2){
+				transform:rotateX(90deg) translateZ(150px);				
+				background-image:url(img/service2.jpg);
+			}
+			/*back*/
+			li:nth-child(3){
+				transform:rotateX(180deg) translateZ(150px);				
+				background-image:url(img/service3.jpg);
+			}
+			/*bottom*/
+			li:nth-child(4){
+				transform:rotateX(-90deg) translateZ(150px);				
+				background-image:url(img/homebg.jpg);
+			}
+			.back,.next{
+				position: absolute;
+				top: 50%;
+				width:100px;
+				height:100px;
+				background: #FA8072;
+				border-radius: 10px;
+				text-align: center;
+				line-height: 100px;
+				cursor: pointer;
+				text-decoration: none;
+				transform: translateY(-50%);
+			}
+			.back{
+				left:-100px
+			}
+			.next{
+				right: -100px;
+			}
+			
+			
+			ul:nth-child(2) li{
+				background-position-x:-80px
+			}
+			ul:nth-child(3) li{
+				background-position-x:-160px
+			}
+			ul:nth-child(4) li{
+				background-position-x:-240px
+			}
+			ul:nth-child(5) li{
+				background-position-x:-320px
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul><ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul><ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul><ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul><ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<a onclick="iBack()" class="back">上一页</a>
+			<a onclick="iNext()" class="next">下一页</a>
+		</div>
+	</body>
+	<script>
+		var flag=true;
+		var goback=document.querySelector('.back');
+		var gonext=document.querySelector('.back');
+		var uls=document.querySelectorAll('ul');
+		var index=0;
+		function iBack(){
+			if(flag){
+				flag=false;
+				index++;
+				for(var i=0 ;i<uls.length;i++){
+					uls[i].style.transition='all 1s '+(0.2*i)+'s';
+					uls[i].style.transform='rotateX('+(90*index)+'deg)';
+				}
+			}
+		}
+		uls[uls.length-1].addEventListener('transitionend',function(){
+			flag=true;
+		});
+		function iNext()
+		{
+			if(flag){
+				flag=false;
+				index--;
+				for(var i=0 ;i<uls.length;i++){
+					uls[i].style.transition='all 1s '+(0.2*i)+'s';
+					uls[i].style.transform='rotateX('+(90*index)+'deg)';
+				}
+			}
+		}
+		
+//		gonext.addEventListener('click',function(){
+//			
+//		});
+		
+	</script>
+</html>

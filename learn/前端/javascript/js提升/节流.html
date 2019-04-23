@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">0</div>
+		<button  id="btn">加一</button>
+		<button onclick="plusN()">开始脚本</button>
+		<script>
+			//限制固定时间里的操作频次
+			let box =document.getElementById('box')
+			let btn = document.getElementById('btn')
+			function plusOne(e){
+//				e事件对象,总是追加在参数列表最后
+//				console.log(this,e)
+				box.innerHTML = parseInt(box.innerHTML) + 1
+			}
+			function plusN(){
+//				不停点击
+				for(let i = 0 ; i<100 ; i++){
+					btn.click()
+				}
+			}
+			
+			function throttle(fn , wait){
+				let lastTime = 0
+				return function (){
+					let nowTime = new Date().getTime()
+					if(nowTime - lastTime > wait){
+//						console.log(arguments[arguments.length-1])
+//						鼠标事件总是追加在参数列表最后
+						fn.apply(this,arguments)
+						lastTime = nowTime
+					}
+				}
+			}
+			
+			btn.onclick = throttle(plusOne,1000)
+		</script>
+	</body>
+</html>

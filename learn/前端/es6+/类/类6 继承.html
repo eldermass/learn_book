@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//********以前的继承方式
+			//父类
+			function Person(name){
+				this.name = name;
+			}
+			Person.prototype.showName=function(){
+				return this.name;
+			}
+			//子类
+			function Student(name,age){
+				//继承  注意，call函数里是逗号
+				Person.call(this,name);
+				this.age = age
+			}
+			//继承方法
+			Student.prototype =new Person();
+			
+			let stu1 = new Student('Jack',24);
+			console.log(stu1);
+			console.log(stu1.showName())
+		</script>
+	</body>
+</html>

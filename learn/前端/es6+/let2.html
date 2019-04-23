@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var arr=[];
+			var arr2=[];
+			//解决作用域问题
+			for(var i=0;i<10;i++){
+				arr[i]=function(){
+					console.log(i);
+				}
+			}
+			
+			for(let j=0;j<10;j++){
+				arr2[j]=function(){
+					console.log(j);
+				}
+			}
+			arr[5]();// 结果是10,因为作用域问题
+			arr2[5]();//结果是5
+		</script>
+	</body>
+</html>

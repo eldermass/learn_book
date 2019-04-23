@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				height: 150px;
+				width: 300px;
+				position: relative;
+				overflow: hidden;
+			}
+			ul{
+				position: absolute;
+				height: 150px;
+				width: 1500px;
+			}
+			ul li{
+				float: left;
+				height: 150px;
+				width:300px;
+				border: 1px solid #000;
+				box-sizing: border-box;
+				background-size: 100% 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li style="background-image: url(11.jpg)">5</li>
+			</ul>
+		</div>
+		<script>
+			let posX = 0
+			let timer = 0
+			let times = 0
+			let box = document.getElementById('box')
+			let ul = box.getElementsByTagName('ul')[0]
+			let lis = box.getElementsByTagName('li')
+			for(let i=0;i<lis.length-1;i++){
+				lis[i].style.backgroundImage = `url(./${parseInt(i)+11}.jpg)`
+			}
+			box.onclick = function(){
+				clearInterval(timer)
+				timer = setInterval(()=>{
+					if(times < 10){
+						posX -= 30
+						times ++						
+					}else{
+						times = 0
+						clearInterval(timer)
+						if(posX <= (-300) * (lis.length-1)){
+							posX = 0
+						}
+					}
+					ul.style.left = `${posX}px`
+				},100)
+			}
+		</script>
+	</body>
+</html>

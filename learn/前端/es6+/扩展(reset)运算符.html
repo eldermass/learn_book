@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//扩展运算符，...把数组里的东西扩展开来
+				let arr = ['apple','banana','pear'];
+				
+				console.log(arr);
+				console.log(...arr);
+			}
+			{//不仅能够扩展， 还能收回来
+				function show(...a){
+					//因为扩展运算符把a收回来了，所以这里输出的是数组
+					console.log(a);
+				}
+				show(1,2,3,4,5);
+			}
+			
+			//使用例子
+			{// 排序使用
+				function paixu(...a){
+					return a.sort();
+				}
+				console.log(paixu(1,9,6,2,4));
+			}
+			{
+				function fuck(a,b,c){
+					console.log(a,b,c);
+				}
+				//非常实用！！ 把数组拆开后传入 函数中
+				fuck(...[1,2,3]);
+			}
+			{//接收剩余的值
+				function Rest(a,b,...c){//c可以接受剩下的所有值
+					console.log(a,b);
+					console.log(c);
+				}
+				Rest(1,2,3,4,5);
+			}
+			{//数据的映射，拷贝数组
+				let arr=[1,2,3,4,5];
+				let arr2=[...arr];
+				console.log(arr);
+				console.log(arr2);
+			}
+		</script>	
+	</body>
+</html>

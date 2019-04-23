@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//实例中的this才会有可能指向自身
+			//this经典试题
+			var name = '222'
+			var a = {
+				name:'111',
+				say:function(){
+					console.log(this.name)
+				}
+			}
+			var fun = a.say  //赋值函数体
+			fun()  // 222
+			a.say() // 111
+			var b = {
+				name:'333',
+				say:function(fun){
+					// this --->  b
+					fun()
+//					fun.call(this) // 把this传进去就是333了
+				}
+			}
+			b.say(a.say) //222
+			b.say = a.say 
+			b.say() //333
+			
+			{//例题2
+				var foo =123
+				function test(){
+					this.foo = 234    //this指的是全局的变量，即改变了全局的foo
+					console.log(foo)  //234
+				}
+				test()
+			}
+		</script>
+	</body>
+</html>

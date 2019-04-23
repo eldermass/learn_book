@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border:1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        let balls = [{x:100,y:100,r:20},{x:200,y:200,r:20}]
+        
+        draw()
+        function draw(){
+            ctx.beginPath()
+            for(let ball of balls){
+                ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2)
+                ctx.fillStyle = 'skyblue'
+                ctx.fill()
+            }
+        }
+
+
+
+        // 检测是否是路径里的点 isPointInPath
+        function detect(e){
+            // 获取相对画布的位置
+            let x = e.clientX - canvas.getBoundingClientRect().left
+            let y = e.clientY - canvas.getBoundingClientRect().top
+
+            for(let ball of balls){
+                ctx.beginPath()
+                ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2)
+                ctx.closePath()
+                if(ctx.isPointInPath(x, y)){
+                    ctx.fillStyle = 'pink'
+                    ctx.fill()
+                }
+            }
+        }
+
+
+        canvas.addEventListener('mouseup', detect)
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let list = {
+				init(){
+					this.doThings1()
+				},
+				doThings1(){
+					console.log(1)
+					document.onclick = this.doThings2 //this -->  list  因为init里直接执行了该函数
+				},
+				doThings2(){
+					console.log(this)
+					//this -->  document  因为这里的函数是，点击调用执行的 
+					console.log(2)
+				}
+			}
+			list.init()
+		</script>
+	</body>
+</html>

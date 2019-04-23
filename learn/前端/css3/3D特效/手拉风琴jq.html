@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;margin: 0;list-style: none;
+			}
+			.container{
+				height: 300px;
+				width: 1010px;
+				border: 1px solid #000;
+				margin: 100px auto;
+			}
+			ul{
+				width: 1010px;
+				/*width:1000px*/
+			}
+			ul li{
+				float: left;
+				height: 300px;
+			}
+			li .title{
+				float: left;
+				height: 300px;
+				width: 150px;
+				background-image: url(img/9.jpg);
+				background-size:150px 300px;
+			}
+			li .content{
+				/*transition: all 2s;*/
+				float: left;
+				height: 300px;
+				width: 0px;
+				background-image:url(img/13.jpg) ;
+				background-size: 400px 300px;
+			}
+			li:first-child .content{
+				width:400px
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li>
+					<div class="title"></div>
+					<div class="content"></div>
+				</li><li>
+					<div class="title"></div>
+					<div class="content"></div>
+				</li><li>
+					<div class="title"></div>
+					<div class="content"></div>
+				</li><li>
+					<div class="title"></div>
+					<div class="content"></div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+	<script>
+		$('li .title').mouseover(function(){
+			$(this).siblings('.content').stop().animate({width:400});
+			$(this).parent().siblings().children('.content').stop().animate({width:0});
+		});
+		
+		
+	</script>
+</html>

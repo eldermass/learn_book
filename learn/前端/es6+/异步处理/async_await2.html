@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//解决async里 中断后续执行的两种办法
+			{
+				async function fn(){
+					// try{
+						await Promise.reject('出错了')	
+					// }catch(e){			
+						
+					// }
+					//前面的代码错误，不影响后续执行
+					let a = await Promise.resolve('bbb')
+					return a
+				}
+				fn().then(res=>{
+					console.log('res = ' + res);
+				}).catch(err=>{
+					console.log('err = ' + err)
+				})
+			}
+			{
+				async function fn1(){
+					await Promise.reject('2出问题了').catch(err=>{
+						console.log(err)
+					});
+					let a = await Promise.resolve('2成功了')
+					console.log(a)
+				}
+				fn1()
+			}
+		</script>
+	</body>
+</html>

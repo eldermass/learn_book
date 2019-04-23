@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>菜鸟教程(runoob.com)</title> 
+      <script type="text/javascript">
+      	//创建或打开数据库！
+		var db=openDatabase("mydb","1.0","student list",1024*1024,function(){});
+		if(db){
+			alert('success to create db!');
+		}else{
+			alert("failed to create db!");
+		}
+		
+		//在数据库里创建数据表
+		function createTab(){
+			db.transaction(function(tx){
+				tx.executeSql("create table if not exists LOGS(id UNIQUE,log)",[],function(tx,result){alert("successful to create tab!");},function(tx,mess){
+					alert("failed to create table"+mess.message);
+				})
+			});
+		}
+		
+		//想数据表里添加数据
+		function add(){
+			db.transaction(function(tx){
+				tx.executeSql("insert into LOGS (id,log) values(?,?)",["3","like"],function(tx,result){alert("success to add ");},function(tx,mess){alert("failed to add");});
+			});
+		}
+		
+		
+		//查询数据表中的数据
+		function selec(){
+			db.transaction(function(tx){
+				tx.executeSql("select*from LOGS",[],function(tx,result){
+					for(i=0;i<result.rows.length;i++){
+						var a=result.rows.item(i).id;//read data in table
+						var b=result.rows.item(i).log;
+						document.write(a+":"+b);
+					}
+				},function(tx,mess){alert("failed to select");});
+			});
+		}
+		
+		//更新数据数据表中数据把id为2的log项改为nike
+		function updat(){
+			db.transaction(function(tx){
+				tx.executeSql("update LOGS set log=? where id=?",["nike",2],function(tx,result){alert("success to updata ");},function(tx,mess){alert("failed to updata"+mess.message);});
+				tx.executeSql("update LOGS set id=? where log=?",[4,"like"],function(tx,result){alert("success to updata ");},function(tx,mess){alert("failed to updata"+mess.message);});
+			//把log为like的id改为4
+			});
+		}
+		
+		//删除数据表中数据
+		function deletabd(){
+			db.transaction(function(tx){
+				tx.executeSql("delete from LOGS where id=?",[1],function(tx,result){alert("delete data success");},function(tx,mess){alert("delete data failed"+mess.message);});
+			});
+		}
+		
+		//删除数据表
+		function deletetab(){
+			db.transaction(function(tx){
+				tx.executeSql("drop table LOGS");
+			});
+		}
+		
+		
+			
+     
+      </script>
+		
+   </head>
+	
+   <body>
+      <div id="status" name="status">状态信息</div>
+      <button onclick="createTab()">create tab</button>
+      <button onclick="add()">add something</button>
+      <button onclick="selec()">select</button>
+      <button onclick="updat()">updata</button>
+      <button onclick="deletabd()">deletedata</button>
+      <button onclick="deletetab()">deletetab</button>
+   </body>
+	
+</html>

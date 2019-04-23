@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{
+				Math.ceil(4.6);
+				//函数，this指向，传入参数的数组
+				let res = Reflect.apply(Math.ceil,null,[9.8])
+				console.log(res)
+			}
+			{
+				function show(...args){
+					console.log(this)
+					console.log(args)
+				}
+				show(1,2,3)
+				console.log('-------------')
+				show.call('this',1,2,3)
+				console.log('-------------')
+				show.apply('this',[1,2,3])
+				console.log('--------------------------')
+				Reflect.apply(show,'this',[1,2,3,4])
+			}
+			//通过reflect 可以拿到js语言内部的东西
+			{
+				console.log('assign' in Object)
+				console.log(Reflect.has(Object,'assign'))
+			}
+			
+		</script>
+	</body>
+</html>

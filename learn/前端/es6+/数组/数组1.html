@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let arr=['apple','banana','orange'];
+			
+			arr.forEach(function(val,index,arr){
+			//	console.log(val,index,arr)
+			});
+			//用扩展预算符接收
+			arr.forEach(function(...all){
+			//	console.log(all);
+			});
+			//改变this指向
+			arr.forEach(function(val,index,arr){
+			//	console.log(val,index,arr,this);
+			},document);
+			//箭头函数
+			arr.forEach((val,index,arr)=>{
+			//	console.log(val,index,arr);
+			});
+			
+			
+			//Map可以映射,相当于浅拷贝了一份数组，而不是复制地址
+			let arr2 = [{title:'new1',read:200,hot:true},
+						{title:'new1',read:200,hot:true},
+						{title:'new1',read:200,hot:true}];
+			let	newArr2 = arr2.map((val,index,arr)=>{
+				//console.log(val,index,arr);
+				return	{
+					title:val.title,
+					read:val.read,
+					hot:val.hot
+				};
+				//扩展运算符写法
+//				return	{
+//					...val
+//				};
+			});
+			
+			newArr2[0].title = 'badnews';
+//			console.log(arr2);
+//			console.log(newArr2);
+			
+			
+		</script>
+	</body>
+</html>

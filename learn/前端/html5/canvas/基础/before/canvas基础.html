@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>123</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			body{text-align: center;}
+			#tim{margin: auto;text-align: center;font-size: 20px;}
+			canvas{box-shadow: 2px 2px 2px #aaa;}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="400px" height="400px">
+		</canvas>
+		<div id="tim">
+			<p id="timp"></p>
+		</div>
+		<canvas id="can2" width="400px" height="400px"></canvas>
+		<script>//图形绘制
+			var c2=document.getElementById('can2');
+			cont2=c2.getContext('2d');
+			
+			//类似boxShadow
+			cont2.shadowColor="black";//for later
+			cont2.shadowBlur="5";// 阴影模糊
+			cont2.shadowOffsetX="10"; //偏移x
+			cont2.shadowOffsetY="10";	//偏移y
+			
+			cont2.beginPath();
+			cont2.rect(10,10,50,50);//左上角x，y，右下角x，y
+			cont2.lineWidth="10"; //边框宽度
+			cont2.strokeStyle="skyblue";//线条
+			cont2.fillStyle="aquamarine";//填充
+			cont2.fill();   //执行填充
+			cont2.stroke(); //执行描绘边框
+			
+			cont2.shadowColor="green";//for later
+			cont2.shadowBlur="5";
+			cont2.shadowOffsetX="5";
+			cont2.shadowOffsetY="5";
+			cont2.globalAlpha="0.8";//opacity
+			
+			cont2.beginPath();
+			cont2.arc(200,200,100,0,2*Math.PI,false);
+			//圆心点，半径，起点，终点，顺时针
+			cont2.lineWidth="15";
+			cont2.strokeStyle="#FFC0CB";
+			cont2.fillStyle="cornflowerblue";
+			cont2.fill();
+			cont2.stroke();
+			
+		</script>
+	</body>
+	<script> //线条绘制
+		var c=document.getElementById('mycanvas');
+		var cont=c.getContext('2d');
+//		绘制图形
+		cont.fillStyle="#AAAAAA";
+		cont.fillRect(0,0,100,100);	
+//		绘制直线
+			cont.beginPath();
+			cont.moveTo(100,100);//起点移动到
+			cont.lineTo(300,300);//划线到
+			cont.lineWidth=20;  //线宽
+			cont.strokeStyle="#FFC0CB"; //线色
+			cont.lineCap="round"; //两头形状，butt 平 round 圆 square 方
+			cont.stroke();
+			
+			cont.beginPath();
+			cont.moveTo(300,100);
+			cont.lineTo(100,300);
+			cont.lineTo(300,300);
+			cont.lineJoin="miter";//连接角样式：miter尖round圆bevel平；
+			cont.lineWidth=20;
+			cont.strokeStyle="#FFC0CB";
+			cont.lineCap="square";
+			cont.stroke();
+//	绘制曲线,弧线
+			cont.beginPath();//弧线
+			cont.moveTo(100,100);//起点
+			cont.arcTo(200,0,300,100,150);//转角点，终点，弧度
+			cont.strokeStyle="skyblue";
+			cont.lineCap="round";
+			cont.stroke();
+//二次贝塞尔曲线
+	        cont.beginPath();
+	        cont.moveTo(300,100);
+	        cont.quadraticCurveTo(400,200,300,300)
+	        cont.strokeStyle="coral";
+	        cont.stroke();
+//三次贝塞尔曲线
+			cont.beginPath();
+			cont.moveTo(300,300);
+			cont.bezierCurveTo(50,250,100,300,100,100);
+			cont.strokeStyle="burlywood";
+			cont.stroke();
+		setInterval(function(){
+			var dat=new Date();
+			year=dat.getFullYear();
+			month=dat.getMonth()+1;
+			data=dat.getDate();
+			hour=dat.getHours();
+			min=dat.getMinutes();
+			sec=dat.getSeconds();
+			document.getElementById('timp').innerHTML=year+"-"+month+"-"+data+" <br />  "+hour+":"+min+":"+sec;
+		},1000);
+//渐变
+//图片
+	</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				float: left;
+			}
+			.cont{
+				height: 5rem;
+				width: 5rem;
+				background-color: skyblue;
+			}
+			.cont1{
+				height: 5rem;
+				width: 5rem;
+				background-color: pink;
+			}
+		</style>
+	<body>
+	</head>
+		<div class="cont">
+			asd
+		</div>
+		<div class="cont1">
+			asd
+		</div>
+		<script>
+			//视窗宽度
+			let winWidth = document.documentElement.clientWidth || document.body.clientWidth
+			//html元素
+			let html = document.getElementsByTagName('html')[0]
+			
+			html.style.fontSize = winWidth/10 + 'px'				
+		</script>
+	</body>
+</html>

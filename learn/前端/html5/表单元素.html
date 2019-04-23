@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>234234</title>
+		<script type="text/javascript" src="js/jquery-1.11.2.min.js" ></script>
+		<style>
+			header,#content{width: 800px;border: 1px solid #aaa;margin: auto;text-align: center;}
+			header{height: 80px;background: rgb(15% 15% 15%);}
+			#content{height: 400px;margin-top: 10px;text-align: left;}
+			aside{float: left;width: 290px;border: 1px solid #aaa;height: 400px;}
+			section{float: right;width: 500px;border: 1px solid #aaa;height: 400px;}
+			section ul li{float: left;}
+			footer{height: 50px;width: 100%;position: fixed;bottom: 5px;border: 1px solid #AAAAAA;}
+			progress{border: 1 solid pink;}
+			#test{margin-left:150px;margin-top:20px ;}
+		</style>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<strong>HTML5 learning record</strong>
+			</nav>
+		</header>
+		
+		<div id="content">
+			<aside>
+				<span>progess:</span>
+				<br />
+					<progress value="50" max="100"></progress><br />
+				<span>details</span>
+				<br /><details>
+					<summary>this is a summary</summary>
+					<p>there are some details</p>
+				</details><br />
+				<span>datalist</span>
+				<input list="lis" />
+				<datalist id="lis">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+				</datalist><br />
+				<span>menu</span>
+				<menu>
+					<li><input type="checkbox"/>red</li>
+					<li><input type="checkbox"/>blue</li>
+				</menu>
+				<span>Command</span>
+				<command onclick="save();">save</command>
+			</aside>
+			
+			<section>
+				<form id="fo">
+					<input type="image" src="img/img/a.png" height="50px" width="50px" />
+					<input type="number" name="usernum"  id="usernum" value="1" min="0" max="100" step="2" /><br />
+					<input type="range" name="userange"  id="userrange"  min="0" max="100" step="2"/><br />
+					<input type="date"/>
+					<input type="month"/>
+					<input type="week"/>
+					<input type="time">
+					<input type="datetime-local"/>
+					<input type="color" id="color" />
+				</form> 
+				
+			</section>
+			<br /><br /><br />
+			<strong>Attribute</strong>
+			<input autocomplete="off" form="id" list="id" autofocus="autofocus" pattern="" placeholder="input" required="required" />
+			<input type="file" multiple="multiple" />
+			<input type="text" pattern="[A-Za-z]{3}" title="please input 3 number" />
+		</div>
+		<button id="test" onclick="al(s);">test</button>
+		<video controls="controls" autoplay="autoplay" preload="metadata" height="300px" width="300px">
+			<source src="Video/fxgl0501.mp4" type="audio/mp4"></source>
+		</video>
+		<footer>
+			
+		</footer>
+
+	</body>		
+	<script>
+			p=0;
+			setInterval(
+				function(){
+					if(p<100)
+					{p=p+5;}else{p=0}
+					$("progress").eq(0).attr({"value":p});
+					$('#userrange').val(p);
+					p2=parseInt(p).toString(2);
+					$('#color').val("#"+p2);
+				},500);
+
+
+			function al(s){
+				alert(s);
+			};
+			
+	</script>
+</html>

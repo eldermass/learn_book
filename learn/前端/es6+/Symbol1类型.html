@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//不用加  new
+			//symbol可以当作唯一得key 或私有标识 来使用
+			{	 
+				let sym = Symbol('fu');
+				let json1={
+					a:'aaa',
+					b:'bbb',
+			//json 的key 可以使用js表达式，要用[]框起来
+					[sym]:'i am symbol' 
+				}
+				console.log(json1)
+				
+			//symbol定义的键值，在循坏中不可访问到，   即：私有属性
+				for(let key in json1){
+					console.log(key)
+					console.log(json1[key])
+				}
+				
+			}
+			
+		</script>
+	</body>
+</html>

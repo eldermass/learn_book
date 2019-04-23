@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;list-style: none;}
+			.container{
+				perspective: 1000px;
+				transform-style: preserve-3d;
+				position: relative;
+				width: 200px;
+				height: 200px;
+				border: 2px solid black;
+				margin: 100px auto;
+				transition: all 10s ;
+			}
+			.container:hover{
+				transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+			}
+			li{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			/*left*/
+			li:nth-child(1){
+				background: saddlebrown;
+				transform:rotateY(-90deg)  translateZ(100px);
+			}
+			/*right*/
+			li:nth-child(2){
+				background: sandybrown;
+				transform:rotateY(90deg)  translateZ(100px);
+			}
+			/*top*/
+			li:nth-child(3){
+				background: darkmagenta;
+				transform:rotateX(90deg)  translateZ(100px);
+			}
+			/*bottom*/
+			li:nth-child(4){
+				background: skyblue;
+				transform:rotateX(-90deg)  translateZ(100px);
+			}
+			/*front*/
+			li:nth-child(5){
+				background: darkkhaki;
+				transform: translateZ(100px);
+			}
+			/*back*/
+			li:nth-child(6){
+				background: chartreuse;
+				transform:rotateY(180deg)  translateZ(100px);
+			}
+			.line1,.line2{
+				height: 200px;
+				width: 200px;
+				border: 2px solid black;
+			}
+			.line1{
+				transform: rotateY(90deg);
+			}
+			.line2{
+				transform: rotateX(90deg) translateZ(200px);
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul class="container">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<div class="line1"></div>
+				<div class="line2"></div>
+			</ul>
+		</div>
+	</body>
+</html>

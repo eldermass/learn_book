@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//不改变原来的数组
+			//concat  合并数组
+			//slice
+			//空截取，可以拷贝数组
+			let arr = [1,2,3]
+			let newArr = arr.slice()
+			//拷贝数组
+			let brr = arr.map(val=>{
+				return val
+			})
+			//join  加入x转为字符串  
+			let a = 'a',b = 'b',c = 'c'
+					//数组是散列结构，用堆内存，比a+b+c效率更高
+			let str = [a,b,c].join('')
+			//split 按照x转为数组
+			
+			
+//			类数组     可以拥有数组和对象的性质
+			//有数字索引属性，必须有length属性
+			//
+			let obj = {
+				'0': 'a',
+				'1': 'b',
+				'2': 'c',
+				name: 'Jack',
+				age: 23,
+				length: 3,
+				push: Array.prototype.push,
+				splice: Array.prototype.splice,//家里这句，花括号就变成中括号了
+			}
+			//阿里试题
+			let obj1 = {
+				'2':'a',
+				'3':'b',
+				'length':2,
+				'push':Array.prototype.push
+			}
+			/*了解类数组的push方法
+			 * Array.prototype.push = function(target){
+			 * 	this[this.length] = target
+			 * 	this.length ++
+			 * }
+			 */
+			obj1.push('c')
+			obj1.push('d')
+ 		</script>
+	</body>
+</html>

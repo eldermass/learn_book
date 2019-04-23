@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//圣杯模式解决了一般继承，修改后代影响源的问题
+			function inherit(Target, Origin){
+				function F(){}
+				F.prototype = Origin.prototype
+				Target.prototype = new F()
+				Target.prototype.constructor = Target //将构造器 回归为Son
+				Target.prototype.uber = Origin.prototype //用uber储存,超类原型
+			}
+			//改进写法
+//			let inherit = (function (){
+//				let F = function (){}
+//				return function(Target, Origin){
+//					F.prototype = Origin.prototype
+//					Target.prototype = new F()
+//					Target.prototype.constructor = Target
+//					Target.prototype.uber = Origin.prototype
+//				}
+//			})()
+			
+			Father.prototype.lastName = 'Chen'
+			function Father(){
+				this.name = 'yue'
+			}
+			function Son(){
+				Father.call(this)    //实现构造器上的继承
+			}
+			inherit(Son,Father)		//实现原型链上的继承
+			let son = new Son()
+			
+//			let fa = new Father()
+//			Son.prototype.sex = 'male'
+//			console.log(son.male)
+//			console.log(fa.male)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//二进制  binary,  0b 开头
+				let a = 0b10;
+				console.log(a)
+			}
+			{//八进制 octonary,  0o
+				let b= 0o16;
+				console.log(b)
+			}
+			{//16进制
+				let c = 0xa;
+				console.log(c)
+			}
+			{
+				let d = 12.5;
+				console.log(isNaN(d))
+				console.log(Number.isNaN(d))
+				console.log(Number.isFinite(d))//判断是不是  有限数字
+				console.log(Number.isInteger(d))
+				console.log(Number.parseInt(d))
+			}
+			{//安全整数,范围-2^53 - 1  ~~  2^53 - 1 
+				let e = 2**53-1
+				console.log(Number.isSafeInteger(e))
+				console.log(e)
+				console.log(Number.MAX_SAFE_INTEGER)
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function log1(){
+				return new Promise((resolve,reject)=>{
+					setTimeout(function (){
+						resolve(11)
+					},2000)
+				})
+				
+			}
+			function log2(){
+				console.log(2)
+			}
+			function log3(){
+				return new Promise((resolve,reject)=>{
+					setTimeout(()=>{
+						reject('err')						
+					},1000)
+				})
+			}
+			async function fn(){
+				let a = await log1()
+				console.log(a)
+				let b = await log3().then(res=>{
+					console.log(`in--${res}`)
+				}).catch(err=>{
+					console.log(`in--${err}`)
+				})
+				console.log(b)
+				await log2()
+			}
+			fn()
+		</script>
+	</body>
+</html>

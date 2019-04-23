@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function instanceFrom(f) {
+            let a = Array.prototype.slice.call(arguments, 1)
+            f.prototype.constructor = f
+            // 给f的原型对象加上一个构造函数，它就成了一个实例
+            f.apply(f.prototype, a)
+            // 把原型当做this，去挂在属性方法
+            return f.prototype
+            // 返回实例
+        }
+
+
+        function F() {
+            this.name = 'f'
+            // console.log(arguments)
+        }
+        // 相当于使用了new 生成一个实例
+        let s = instanceFrom(F)
+    </script>
+</body>
+</html>
