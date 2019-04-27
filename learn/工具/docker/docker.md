@@ -40,6 +40,7 @@
 使用webhook来实现服务端docker的自动pull
 [参考](https://www.jianshu.com/p/e4cacd775e5b)
 [参考2](https://blog.csdn.net/auv1107/article/details/51999592)
+[参考3](https://blog.csdn.net/qq_37048894/article/details/81808851)
 npm github-webhook-handler 
 
 ``` sh 脚本
