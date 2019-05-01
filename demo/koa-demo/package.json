@@ -1,0 +1,27 @@
+{
+  "name": "koa-tep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && env-cmd ./.env node dist/index.js",
+    "dev": "env-cmd ./.env ts-node src/index.ts",
+    "watch": "nodemon  --watch ./src/**/* -e  ts,tsx  --exec env-cmd ./.env ts-node ./src/index.ts",
+    "build": "tsc",
+    "build-t": "tsc src/index",
+    "start-t": "env-cmd ./.env node dist/index.js",
+    "debugger": "nodemon  --watch ./src -e  ts,tsx  --exec node --inspect -r ts-node/register  ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "@types/koa-router": "^7.0.40",
+    "env-cmd": "^8.0.2",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "nodemon": "^1.19.0",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
+  }
+}
