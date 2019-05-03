@@ -21,7 +21,7 @@
 
 ``` 可能使用到的命令
   docker build -t image_name .   // 根据目录下dockerfile构建镜像
-  docker run -it -P image_name node index  // -p ip:端口:容器端口, 
+  docker run -it -d -P image_name node index  // -p ip:端口:容器端口, -d 后台运行
   docker images   查看镜像
   docker rm       移除容器
   docker rmi      移除镜像
@@ -40,10 +40,9 @@
 使用webhook来实现服务端docker的自动pull
 [参考](https://www.jianshu.com/p/e4cacd775e5b)
 [参考2](https://blog.csdn.net/auv1107/article/details/51999592)
-[参考3](https://blog.csdn.net/qq_37048894/article/details/81808851)
 npm github-webhook-handler 
 
-``` sh 脚本
+``` sh 脚本 看koa.sh
 #!/bin/bash
 echo "正在停止所有docker里面的容器ing..."
 docker stop $(docker ps -a -q)
@@ -61,3 +60,5 @@ docker run -p 80:80 -t adventure/docker
 echo `docker ps`
 echo "end ..."
 ```
+
+$ docker run -d --name nginx --network host nginx // host共享主机网络，bridge桥接主机网络
