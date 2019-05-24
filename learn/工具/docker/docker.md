@@ -14,10 +14,11 @@
 
 // 运行镜像
   docker run image command
-                -P              映射路由
-                -p ip:端口:容器端口
-                -d 后台运行
-                -it: 可命令行交互
+                -P                    映射路由
+                -p ip:端口:容器端口    映射端口  
+                -d                    后台运行
+                -it                   交互式,伪终端
+                -v                    映射文件目录
 
 // dockerfile构建镜像
 docker build -t image_name:tag .
@@ -31,6 +32,9 @@ docker build -t image_name:tag .
 
 // 发布镜像
   docker push image
+
+// 移除镜像
+  docker rmi image
 ```
 
 ## 容器相关
@@ -47,7 +51,11 @@ docker build -t image_name:tag .
   // 查看容器里的进程
   docker top id
 
-  // 
+// 停/启容器
+  docker stop/start container
+
+  // 移除容器
+  docker rm container_id
 
 ```
 
