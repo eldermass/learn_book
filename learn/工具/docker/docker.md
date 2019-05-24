@@ -3,19 +3,52 @@
 [中文入门教程](http://www.docker.org.cn/book/docker/what-is-docker-16.html)
 [命令大全](https://www.runoob.com/docker/docker-command-manual.html)
 
-``` .txt
+## 镜像相关
+
+``` images
+// 找查镜像
   docker search image
-  docker pull image // 下载镜像
 
-  docker run 镜像 命令
+// 拉取镜像
+  docker pull image
 
-  docker ps 查看运行中的列表
-  docker inspect id 查看容器详情
-  docker ps -l 查看修改
-  docker commit id newname // 提交修改到新镜像
-  docker image ls 镜像列表
+// 运行镜像
+  docker run image command
+                -P              映射路由
+                -p ip:端口:容器端口
+                -d 后台运行
+                -it: 可命令行交互
 
-  docker push 镜像 发布到自己账号下
+// dockerfile构建镜像
+docker build -t image_name:tag .
+
+// 容器生成镜像
+  docker commit container_id imageName:tag
+
+// 镜像列表
+  docker image ls
+  docker images
+
+// 发布镜像
+  docker push image
+```
+
+## 容器相关
+
+``` container
+  // 查看容器列表
+  docker ps         运行中的
+            -a      全部
+            -l      最近修改
+  
+  // 查看容器的详情
+  docker inspect id
+
+  // 查看容器里的进程
+  docker top id
+
+  // 
+
 ```
 
 ## docker使用流程
