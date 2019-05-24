@@ -22,14 +22,18 @@
 
 ``` 可能使用到的命令
   docker build -t image_name .   // 根据目录下dockerfile构建镜像
-  docker run -it -d -P image_name node index  // -p ip:端口:容器端口, -d 后台运行
+  docker run -it -d -P --name tag -v /www:/var image_name node index  // -p ip:端口:容器端口, -d 后台运行 -P映射路由 it: 可命令行交互
   docker images   查看镜像
   docker rm       移除容器
   docker rmi      移除镜像
   docker ps       查看容器
   docker stop id  停止容器
-  docker-machine ls 虚拟机配置, 访问这里面的ip:端口就能访问到容器里的内容
+  docker start -i containerName //重启启动一个运行过的容器
 
+  docker exec -it containerName /bin/bash     // 进入到容器里
+  docker port containerId   // 查看映射端口
+
+  docker-machine ls 虚拟机配置, 访问这里面的ip:端口就能访问到容器里的内容
 ```
 
   1. 编写dockerfile文件
