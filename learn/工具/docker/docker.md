@@ -18,10 +18,10 @@
                 -p ip:端口:容器端口    映射端口  
                 -d                    后台运行
                 -it                   交互式,伪终端
-                -v                    映射文件目录
+                -v                    映射文件目录,linux里的路径
 
 // dockerfile构建镜像
-docker build -t image_name:tag .
+  docker build -t image_name:tag .
 
 // 容器生成镜像
   docker commit container_id imageName:tag
@@ -40,22 +40,38 @@ docker build -t image_name:tag .
 ## 容器相关
 
 ``` container
-  // 查看容器列表
+// 查看容器列表
   docker ps         运行中的
             -a      全部
             -l      最近修改
-  
-  // 查看容器的详情
+
+// 查看容器的详情
   docker inspect id
 
-  // 查看容器里的进程
+// 查看映射端口
+  docker port container
+
+// 查看容器里的进程
   docker top id
 
 // 停/启容器
   docker stop/start container
 
-  // 移除容器
+// 移除容器
   docker rm container_id
+
+// 进入容器
+  docker exec -it container /bin/bash
+
+```
+
+## win里虚拟机
+
+``` vbox
+  因为docker只能运行在linux系统,所以在windows下,docker是运行在虚拟机里,如向docker容器里映射文件,应当先把文件映射到虚拟机,然后在把虚拟系统的目录映射到docker容器里面
+
+  docker-machine ls 虚拟机配置, 访问这里面的ip:端口就能访问到容器里的内容
+  docker-machine ssh machineName 连接搭载docker的虚拟机
 
 ```
 
@@ -75,6 +91,7 @@ docker build -t image_name:tag .
   docker port containerId   // 查看映射端口
 
   docker-machine ls 虚拟机配置, 访问这里面的ip:端口就能访问到容器里的内容
+  docker-machine ssh machineName 连接搭载docker的虚拟机
 ```
 
   1. 编写dockerfile文件
