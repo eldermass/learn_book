@@ -14,7 +14,7 @@
 
 // 运行镜像
   docker run image command
-                -P                    映射路由
+                -P                    是容器内部端口随机映射到主机的高端口
                 -p ip:端口:容器端口    映射端口  
                 -d                    后台运行
                 -it                   交互式,伪终端
@@ -25,6 +25,11 @@
 
 // 容器生成镜像
   docker commit container_id imageName:tag
+              -a                      作者
+              -m                      描述
+
+// 设置镜像标签
+  docker tag image_id runoob/centos:dev
 
 // 镜像列表
   docker image ls
