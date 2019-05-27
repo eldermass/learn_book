@@ -19,7 +19,9 @@
                 -d                    后台运行
                 -it                   交互式,伪终端
                 -v                    映射文件目录,linux里的路径
-                --network host        host共享主机网络，bridge桥接主机网络
+                --network host        指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型
+                --link=[]             添加链接到另一个容器
+                --expose=[]           开放一个端口或一组端口
 
 // dockerfile构建镜像
   docker build -t image_name:tag .
@@ -53,6 +55,7 @@
 
 // 查看容器的详情
   docker inspect id
+            -f      按模板找查 {{.NetworkSettings.Ports}}
 
 // 查看映射端口
   docker port container
@@ -68,6 +71,17 @@
 
 // 进入容器
   docker exec -it container /bin/bash
+
+```
+
+## 数据拷贝
+
+``` 其他操作
+// 从容器里拷贝数据到主机
+  docker cp a77a72ac178c:/var/www/html /var/www/
+
+// 主机拷贝到容器里
+ cp docker/docker-start.sh /var/lib/docker/aufs/mnt/a77a72ac178c1e35708d2af446197c10239b0b1bd8932104578e334b83eb93a2/root/
 
 ```
 
