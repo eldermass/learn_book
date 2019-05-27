@@ -15,10 +15,11 @@
 // 运行镜像
   docker run image command
                 -P                    是容器内部端口随机映射到主机的高端口
-                -p ip:端口:容器端口    映射端口  
+                -p ip:端口:容器端口    指定映射端口  
                 -d                    后台运行
                 -it                   交互式,伪终端
                 -v                    映射文件目录,linux里的路径
+                --network host        host共享主机网络，bridge桥接主机网络
 
 // dockerfile构建镜像
   docker build -t image_name:tag .
