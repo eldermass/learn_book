@@ -58,7 +58,33 @@ $ chmod 751 file          给file的属主分配读、写、执行(7)的权限�
 $ chmod u=rwx,g=rx,o=x file      上例的另一种形式
 
 ```
-3. 实用指令
+
+3. 服务相关指令
+
+```
+    查看所有服务
+    servive --status-all
+    查看服务详情
+    service mysql status
+
+    服务进程
+    查看进程 top atop
+    &                   末尾加&该命令会在后台运行
+        -n 10               10秒后就挂到后台
+    ctrl + z            挂起当前命令
+    jobs                查看后台有多少挂起的命令
+    fg  %num            把第num命令调至前台
+    bg  %num            将后台第num停止状态改为运行状态
+    kill %num           杀死第num个命令，类似kill pid
+    nohup               挂到进程，ps -aux | grep "test.sh"查看
+
+    查看端口占用
+    lsof -i(:端口号)    列出当前系统打开文件
+    netstat -tunlp|grep 端口号
+    ps -ef                 查看进程
+
+```
+4. 实用指令
 ```
 init [0-6]              指定运行级别
 
