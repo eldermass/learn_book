@@ -20,8 +20,10 @@ sync                同步内存到磁盘上
 2. 用户管理
 ```
 // 用户 -> 用户组 -> 家目录
+/etc/passwd             放着所有的用户信息
 
 useradd username        添加用户
+    -m	                自动构建相关目录
     -d /home/tiger      指定家目录
     -g groupname        添加到组
 
@@ -34,9 +36,26 @@ id username             查询用户信息
 su - username           切换用户
 
 // 用户组
+/etc/group              放着所有的组。及其成员
+
+groups                  查看当前用户属于哪些组
+        user            查看user属于哪些组
+
+
 groupadd groupname      添加组
 groupdel groupname      删除组
 usermod -g groupname username   修改用户的组
+        -G groupname     修改附加组群，逗号隔开
+
+// 文件所属的组
+ls -l                    r是可读，w可写,x 可执行
+文件属性 连接数 文件拥有者 所属群组 文件大小 文件修改时间 文件名
+也可以利用chown命令来更改某个文件或目录的所有者。利用chgrp命令来更改某个文件或目录的用户组。
+
+chmod 700 /home/dir       改变文件、目录权限 4(读)、2(写)、1(执行)
+    u 拥有者，g组成员，o其他人，a所有人
+$ chmod 751 file          给file的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限
+$ chmod u=rwx,g=rx,o=x file      上例的另一种形式
 
 ```
 3. 实用指令
