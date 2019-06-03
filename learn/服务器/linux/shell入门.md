@@ -22,6 +22,7 @@ sync                同步内存到磁盘上
 // 用户 -> 用户组 -> 家目录
 /etc/passwd             放着所有的用户信息
 
+
 useradd username        添加用户
     -m	                自动构建相关目录
     -d /home/tiger      指定家目录
@@ -36,6 +37,7 @@ id username             查询用户信息
 su - username           切换用户
 
 // 用户组
+/etc/sudoers            放着各个组对应的权限
 /etc/group              放着所有的组。及其成员
 
 groups                  查看当前用户属于哪些组
@@ -59,6 +61,7 @@ $ chmod u=rwx,g=rx,o=x file      上例的另一种形式
 
 ```
 
+[脚本任务jobs](https://www.cnblogs.com/kaituorensheng/p/3980334.html)
 3. 服务相关指令
 
 ```
@@ -84,7 +87,9 @@ $ chmod u=rwx,g=rx,o=x file      上例的另一种形式
     ps -ef                 查看进程
 
 ```
+[apt-cache使用](https://jingyan.baidu.com/article/22a299b51648e09e19376ae7.html)
 4. 实用指令
+
 ```
 init [0-6]              指定运行级别
 
