@@ -77,14 +77,36 @@
 
 ```
 
-[docker-compose的使用](https://www.jianshu.com/p/658911a8cff3)
+## Dockfile 文件
+[Dockfile文件指令](https://www.cnblogs.com/lighten/p/6900556.html)
+
 ## docker-compose使用
 
-```docker-compose.yml
+[docker-compose.yml的使用](https://www.jianshu.com/p/658911a8cff3)
+
+```docker-compose指令
 
 // 运行
-docker-compose up       执行当前目录的.yml文件
+  docker-compose up       执行当前目录的.yml文件
               -d        后台运行
+
+// 列出所运行的容器
+  docker-compose ps
+
+// 查看服务日志
+  docker-compose logs
+
+// 某服务里3000端口，映射的公共端口
+  docker-compose port service_name 3000
+
+// 构建或重构某服务
+  docker-compose build service_name
+
+// 启动/停止/删除/指令停止 服务
+docker-compose start/stop/rm/kill service_name
+
+// 在一个服务上执行命令
+docker-compose run service_name command
 
 ```
 
@@ -143,7 +165,7 @@ docker-compose up       执行当前目录的.yml文件
 使用webhook来实现服务端docker的自动pull
 [参考](https://www.jianshu.com/p/e4cacd775e5b)
 [参考2](https://blog.csdn.net/auv1107/article/details/51999592)
-npm github-webhook-handler 
+npm github-webhook-handler
 
 ``` sh 脚本 看koa.sh
 #!/bin/bash
@@ -165,5 +187,3 @@ echo "end ..."
 ```
 
 $ docker run -d --name nginx --network host nginx // host共享主机网络，bridge桥接主机网络
-
-
