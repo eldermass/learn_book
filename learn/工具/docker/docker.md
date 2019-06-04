@@ -145,3 +145,5 @@ echo "end ..."
 ```
 
 $ docker run -d --name nginx --network host nginx // host共享主机网络，bridge桥接主机网络
+
+[docker-compose的使用](https://www.jianshu.com/p/658911a8cff3)
