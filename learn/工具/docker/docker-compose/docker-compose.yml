@@ -1,0 +1,37 @@
+version: "3"
+services:
+  service_nginx:
+    container_name: nginx
+    restart: always
+    image: nginx:stable
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /e/test/nginx:/etc/nginx/conf.d
+    links:
+      - service_node
+    privileged: true
+    depends_on:
+      - service_node
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+  service_node:
+    container_name: node
+    image: node:10.16.0-alpine
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - /e/test/test:/var/www
+    command: node /var/www/server.js
+    privileged: true
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000

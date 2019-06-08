@@ -1,0 +1,47 @@
+# 本demo放在win10 e盘的test目录下
+version: "3"
+services:
+  service_nginx:
+    container_name: nginx
+    restart: always
+    image: nginx:stable
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /e/test/docker:/etc/nginx/conf.d
+    links:
+      # service_node 当成hostname使用就能访问到service_node服务暴露的端口
+      - service_node
+    networks:
+      lnmp-network:
+        aliases:
+          - service_nginx
+    privileged: true
+    depends_on:
+      - service_node
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+  service_node:
+    container_name: node
+    build: .
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    command: npm start
+    networks:
+      lnmp-network:
+        aliases:
+          - service_node
+    privileged: true
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+networks:
+  lnmp-network:
