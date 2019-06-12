@@ -13,7 +13,7 @@
   docker pull image:tag
 
 // 运行镜像
-  docker run image command
+  docker run image command     (sh -c '... && ...' 可执行多条命令)
                 -P                    是容器内部端口随机映射到主机的高端口
                 -p ip:端口:容器端口    指定映射端口  
                 -d                    后台运行
@@ -83,7 +83,8 @@
 
 ## docker-compose使用
 
-[docker-compose.yml的使用](https://www.jianshu.com/p/658911a8cff3)
+[docker-compose.yml的使用](https://www.jianshu.com/p/658911a8cff3)  
+[各个参数的解释](https://blog.csdn.net/qq_36148847/article/details/79427878)
 
 ```docker-compose指令
 
