@@ -6,14 +6,14 @@
 
 ### 一. 开关机
 
-```
+``` o
 登录、注销
 ssh 用户@ip         登录
 logout              注销
 无密登录，可用ssh-keygen生成公钥私钥
 
 // 关机、重启
-shutdown 
+shutdown
     -h now          立即关机
     -h 1            一小时后关机
     -r now          立即重启
@@ -24,13 +24,13 @@ sync                同步内存到磁盘上
 
 ### 二. 用户管理
 
-```
+```u
 // 用户 -> 用户组 -> 家目录
 /etc/passwd             放着所有的用户信息
 /etc/shadow             放着密码相关信息
 
 useradd username        添加用户
-    -m	                自动构建相关目录
+    -m                  自动构建相关目录
     -d /home/tiger      指定家目录
     -g groupname        添加到组
 
@@ -148,7 +148,7 @@ lsblk   -f            查看分区和挂载情况 sdx~   x分区块，~第几部
 fdisk   /dev/sdb                1分区
 mkfs    -t ext4  /dev/sdb1      2格式化
 mount   /dev/sdb1  /home/newdisk    3挂载分区
-4永久挂载 
+4永久挂载
 /etc/fstab      文件里添加磁盘信息,/dev/sda1磁盘   /home/cy挂载点
 然后输入 mount -a 挂载
 
@@ -167,6 +167,7 @@ du /home
 [脚本任务jobs](https://www.cnblogs.com/kaituorensheng/p/3980334.html)
 
 ### 八、进程管理
+
 [任务管理](https://www.cnblogs.com/kaituorensheng/p/3980334.html#_label6)
 
 ``` ps
@@ -236,13 +237,31 @@ top/atop            即时监控进程
 
 ```
 
-### 十、其他
+### 十、apt相关命令
+
+/etc/apt/source.list    可以切换为清华软件仓库
+>
+apt-get update             更新源  
+        install -y package  安装包  
+        remove --purge package   移除包  
+        -f install          修复安装  
+        build-dep package   安装相关编译环境
+        upgrade             更新安装的包
+        dist-upgrade        系统升级
+        source package      下载其源代码  
+        install package --reinstall 重新安装
+
+apt-cache search package    找查包  
+        show package        显示包详情  
+        depends package     查看依赖了哪些包
+        rdepends package    查看被哪些包依赖了
+
+
+### 十一、其他
 
 [apt-cache使用](https://jingyan.baidu.com/article/22a299b51648e09e19376ae7.html)
 
-
-
-``` 
+``` o
 
 init [0-6]              指定运行级别
     /etx/inittab        修改启动级别
