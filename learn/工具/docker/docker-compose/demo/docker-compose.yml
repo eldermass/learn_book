@@ -22,6 +22,7 @@ services:
   service_node:
     container_name: node
     image: node:10.16.0-alpine
+    restart: always
     expose:
       - "3000"
     ports:
@@ -48,7 +49,7 @@ services:
     networks:
       lnmp-network:
         aliases:
-          - service_node
+          - service_php73
     privileged: true
 
 networks:

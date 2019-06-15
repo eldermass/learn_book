@@ -21,6 +21,7 @@ services:
         hard: 40000
   service_node:
     container_name: node
+    restart: always
     image: node:10.16.0-alpine
     expose:
       - "3000"
