@@ -4,7 +4,8 @@
 
 ### 1. Linux入门
 
-[Linux入门](./learn/服务器/linux/shell入门.md)
+[Linux入门](./learn/服务器/linux/linux入门.md)  
+[Shell编程入门](./learn/服务器/linux/shell编程入门.md)
 
 ## 二、工具
 
