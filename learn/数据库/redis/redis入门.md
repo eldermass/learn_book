@@ -113,5 +113,30 @@ ltrim key start end     删除不在范围内的元素[)
 ### 4. 集合 set
 
 ``` set
+// 设置
+sadd key member [member]  添加到集合
+
+// 获取
+smembers key              获取集合的所有成员
+
+sismember key member      判断是否存在member
+scard key                 获取集合的成员数
+
+sunion key [key ...]      返回给定几个的合并集
+sunionstore destinantion key [key ...] 返回给定几个的合并集，并储存
+sdiff key [key]           比较两集合的差集
+sdiffstore destination key [key]  比较两集合的差集,并储存在dest里
+sinter key [key]          返回两集合的交集
+sinterstore destination key [key]     返回两几个的交集，并储存
+
+// 修改
+smove source destination member 把某成员从集合a移动到集合b
+spop key [count]          随机移除n个成员
+srandmember key [count]   随机返回n个成员
+srem key member [member]  移除成员
+
+sscan key cursor [match pattern] [count n] 迭代集合
 
 ```
+
+### 5. 有序集合 sorted set
