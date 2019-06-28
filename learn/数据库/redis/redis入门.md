@@ -11,6 +11,15 @@ redis-server
 redis-cli -h host -p port -a password
 ```
 
+``` 连接
+AUTH password 验证密码是否正确
+ECHO message 打印字符串
+PING 查看服务是否运行
+QUIT 关闭当前连接
+SELECT index 切换到指定的数据库
+INFO
+```
+
 ## 类型
 
 ### 基础命令
@@ -140,3 +149,75 @@ sscan key cursor [match pattern] [count n] 迭代集合
 ```
 
 ### 5. 有序集合 sorted set
+
+``` sorted set
+// 添加
+zadd key score member [ socre member]   像集合添加成员
+
+// 获取
+zrange key start end [withscores] 获取所有成员
+zrangebylex key min max           按字典区间获取
+zrangebyscore key min max [withscores]  分数区间获取成员
+zrevrange key start stop [WITHSCORES] 返回有序集中指定区间内的成员，通过索引，分数从高到底(和zrange方向相反)
+zrevrangebyscore key max min [WITHSCORES] 返回有序集中指定分数区间内的成员，分数从高到低排序
+zrevrank key member 返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序
+
+zscore key member             返回成员分数值
+zrank key member              获取指定成员的索引
+zcard key                     获取成员数量
+zcount key min max            获取区间分数的成员数量
+zlexcount key min max         在有序集合中计算指定字典区间内成员数量
+
+
+// 修改
+zrem key member [member]      移除成员案例
+zremrangebylex key min max    移除有序集合中给定的字典区间的所有成员
+zremrangebyrank key min max   移除有序集合中给定的排名区间的所有成员
+ZREMRANGEBYSCORE key min max  移除有序集合中给定的分数区间的所有成员
+
+zincrby key increment member  成员排序分数增加n
+
+zinterstore destination numkeys key [key ...] 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 key 中
+ZUNIONSTORE destination numkeys key [key ...] 计算给定的一个或多个有序集的并集，并存储在新的 key 中
+ZSCAN key cursor [MATCH pattern] [COUNT count] 迭代有序集合中的元素（包括元素成员和元素分值）
+```
+
+### 6. HyperLogLog
+
+``` hyperloglog 用来做基数统计的算法
+pfaddd key element element              添加到基数集
+pfcount key                             基数数量
+pfmerge destkey sourcekey [sourcekey]   合并到基数集
+```
+
+### 7. 发布订阅
+
+[教程](https://www.redis.net.cn/tutorial/3514.html)
+
+``` 发布订阅
+// 订阅
+subscribe channel [channel] 订阅指定频道
+psubscribe pattern [pattern]  订阅符合指定标准的频道
+
+// 退订
+unsubscribe channel [channel] 退订指定频道
+PUNSUBSCRIBE [pattern [pattern ...]] 退订所有给定模式的频道。
+
+// 发布
+publish channel message   给指定频道发送信息
+
+// 查看系统订阅状态
+pubsub <subcommand> [argument] 可选channels
+
+```
+
+### 8. 事务
+
+``` multi
+multi   标记事务的开始
+exec    执行事务块中的命令
+discard 取消事务
+watch key [key ...] 监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。
+unwatch key 取消监听
+
+```
