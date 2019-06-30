@@ -91,6 +91,9 @@
 // 运行
   docker-compose up       执行当前目录的.yml文件
               -d        后台运行
+              --force-recreate 可以强制重建容
+
+  docker-compose down 停止所有容器，并删除容器
 
 // 列出所运行的容器
   docker-compose ps
