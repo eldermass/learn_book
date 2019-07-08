@@ -7,7 +7,13 @@
 [Linux入门](./learn/服务器/linux/linux入门.md)  
 [Shell编程入门](./learn/服务器/linux/shell编程入门.md)
 
+### 2. 数据库
+
 [redis入门](./learn/数据库/redis/redis入门.md)
+
+### 3. 后端
+
+[laravel入门](./learn/后端/php/laravel入门)
 
 ## 二、工具
 
