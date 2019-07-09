@@ -1,9 +1,45 @@
 
+# git操作
+
 ## 分支管理
+
 ### 一、基本操作
-1. [分支管理](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86)
-```     
-git branch 显示本地分支   
+
+0.基础操作
+
+``` info
+    git --version    查看安装的版本  
+    git init         初始化
+    git config --global user.name 'chenyue'  
+    git config --global user.email '285653184@qq.com'  
+
+    git status  获取队列状态
+    git add .   添加所有文件到队列  
+    git add *.html   添加所有html文件到队列  
+    git add index.html 添加到队列  
+    git rm --cached index.html 移除队列中的  
+
+    git commit  提交队列中的文件到 仓库  “vim操作流程” 写完备注后，按esc  冒号  wq 退出  
+            -m '备注'       直接提交  
+    分支中的所有操作都不会影响到主线
+    git branch login  创建分支  
+    git checkout login  跳转到某个分支  
+    git merge login    合并某个分支  
+
+    忽略一些文件或者文件夹
+    创建.gitignore文件，并在里面写入要忽略的文件名
+
+    git clone https filename                克隆分支
+    git push --set-upstream origin master   第一次提交线上仓库
+    git branch --set-upstream-to  origin master/origin 创建本地分支与远程分支的关联
+
+
+```
+
+1.[分支管理](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86)
+
+``` branch
+git branch 显示本地分支
     -a 带上远程
     -v 分支版本信息
     -d 删除
@@ -12,18 +48,26 @@ git branch 显示本地分支
 
 git checkout 切换分支
     -b 创建并切换
-    
+
     git clean -df #返回到某个节点
 git clean 参数
     -n 显示 将要 删除的 文件 和  目录
     -f 删除 文件
     -df 删除 文件 和 目录
 ```
-2. [远程分支](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)    
+
+2.[远程分支](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
+
 在本地命名为 origin/master，就是远程分支，只有标记不可操作，fetch可得到远程指针标记
-```
+
+``` remote
+    git remote      查看当前的远程仓库链接情况
+            -v      详情
+    git remote update origin -p 刷新远程分支列表
+
     创建远程仓库链接
-    git remote add branch_name https.. 
+    git remote add branch_name https
+    git push -u origin master 新分支第一次提交
 
     推送到某分支 本地：远程
     git push origin serverfix
@@ -35,22 +79,29 @@ git clean 参数
     创建/切换并拷贝远程分支内容
     git checkout -b serverfix origin/serverfix
     git checkout -b local_name origin/serverfix
-    
+
     追踪某个远程分支 可以简化使用git pull/git push
     git checkout --track origin/serverfix
-    
+
     删除远程分支
     git push origin :serverfix
 ```
-3. [变基操作](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA)
-```
+
+3.[变基操作](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA)
+
+``` rebase
     在某个分支, 然后把其变基到主干
     ![rebase](https://git-scm.com/figures/18333fig0329-tn.png)
     git checkout experiment 
     git rebase master
 ```
-4. [版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
-```
+
+4.[版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
+
+``` version
+    git log -3 查看最近三个提交  
+    git reflog 查看最近三次操作 
+
     查看HEAD中有,远程master里不同的内容
     git show origin/master..HEAD
 
@@ -63,21 +114,39 @@ git clean 参数
     git add -i
 
     储藏工作状态
-    git stash
-        stash list 查看储藏列表
-        stash apply stash@版本 不跟版本就应用最近的
-                            --index 回到之前的位置,如 保留add追踪状态
-        stash drop 移除apply遗留在栈上的版本
-        
-    git stash pop 可以在应用的同时移除栈上的版本
+    git stash                   把现有的修改藏起来
+        git stash save “desc”   把现有的修改藏起来，并且添加一个注释
+        stash list              查看储藏列表
+        stash apply stash@版本   不跟版本就应用最近的，不删除
+                    --index     回到之前的位置,如 保留add追踪状态
+        stash drop              移除apply遗留在栈上的版本
 
-    查看应用的储藏内容,取消储藏
-    git stash show -p | git apply -R
+        git stash pop           可以在应用的同时移除栈上的版本
+                stash@{index}   指定版本
+
+    git stash clear 清除所有修改
+
+    git stash show shash@{index} 查看储藏修改了什么文件
+                -p              查看里面修改了什么内容
 
     从储藏中创建分支
     git stash branch name
 ```
+
+5.版本退回
+
+``` reset
+git reset --hard HEAD~1     回到上1个版本  
+git reset --hard 版本号     切换到某个时态git reflog 查看  
+        --hard              add之前,并不保留提交前的更改  
+        --soft              更新add 和 commit 之间,保留更新  
+        --mixed/默认        更新 add变更前,保留更新  
+
+```
+
 ### 场景
+
+``` use
     1. 切换到新的分支开始工作
         git checkout -b branchname  
 
@@ -100,5 +169,6 @@ git clean 参数
         git add/commit
         git checkout master
         git merge branchname
-        
+
     6. 解决冲突之后上传代码
+```
