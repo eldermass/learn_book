@@ -2,6 +2,8 @@
 
 ## 基础
 
+[入门](https://laravelacademy.org/laravel-tutorial-5_7)
+
 ### 入门知识
 
 ``` base
@@ -26,6 +28,8 @@
 
 ### 定义路由
 
+[路由](https://laravelacademy.org/post/9612.html)
+
 ``` router
   routes目录下Route类设置函数
       闭包路由
@@ -39,6 +43,48 @@
         Route::get("/user/{id?}", function ($id = 1) { return $id}) 可选获取动态路由参数
         正则匹配路由参数
         Route::get('page/{id}/{slug}', function ($id, $slug) {return $id . ':' . $slug;})->where(['id' => '[0-9]+', 'slug' => '[A-Za-z]+']);
+
+  路由分组
+      数组内提取共同特征
+        Route::group([], function () {
+          Route::get("1", function () { return "1"; });
+          Route::get("2", function () { return "2"; });
+        });
+
+      公用中间件， 定义在App\Http\Middleware里 ，在App\Http\Kernel中管理
+                  其参数可用数组，如["auth", "another"]
+      Route::middleware('auth')->group(function () {
+          Route::get('dashboard', function () {
+                  return 'dashboard';
+              });
+          Route::get('account', function () {
+                  return 'account';
+              });
+      });
+
+      Route::prefix("api")->group(...)              定义共有前缀
+      Route::domain('admin.blog.test')->group(...)  共有子域名
+      Route::domain('{account}.blog.test')->group(function () {
+          Route::get('user/{id}', function ($account, $id) {
+              //
+          });
+      });
+
+      公用命名空间默认为App\Http\Controllers，修改于app/Providers/RouteServiceProvider.php
+      Route::namespace('Admin')->group(function() {
+          // App\Http\Controllers\Admin\AdminController       可得到该命名空间
+          Route::get('/admin', 'AdminController@index');
+      });
+
+      命名路由前缀
+      Route::name('user.')->prefix('user')->group(function () {
+          Route::get('{id?}', function ($id = 1) {
+              // 处理 /user/{id} 路由，路由命名为 user.show
+              return route('user.show');
+          })->name('show');
+      });
+
+
 
   view()函数会渲染，resource/views下对应的blade页面
 ```
