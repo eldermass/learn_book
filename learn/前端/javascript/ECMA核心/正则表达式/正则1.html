@@ -49,6 +49,11 @@
  * 					n{x,}   大于x个
  *						let reg = /n{x,y}?/ 在量词后加？表示开启非贪婪模式，能少就不多					
  * */
+
+// (?!pattern) 零宽负向先行断言 或者 (?<!pattern) 零宽负向后行断言
+// str = "hello&nbsp;&test1;test&qout;";
+// 正则表达式：/&((?!test).)+;/g
+
 		//方法   str -->  match replace search split
 //				***  replace(reg,func(result){})  replace可以用回掉函数的形式  
 //			   reg -->  test  exec  
