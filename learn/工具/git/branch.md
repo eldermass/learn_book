@@ -87,20 +87,32 @@ git clean 参数
     git push origin :serverfix
 ```
 
-3.[变基操作](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA)
+3.[重写历史](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2) 
+
+``` 重写历史提交
+git commit --amend          重写最近的一次提交(推送后提交会有冲突)
+
+git rebase -i HEAD~3        重写最近3次的历史,(修改提交历史，重拍提交记录)
+    解释：进入编辑器后，将需要改的版本对应的pick改为edit。编辑完成后git会重播历史提交，当进入到edit的版本时就会暂停，你可以选rebase --continue跳过，或者commit --amend重写那一次提交然后在--continue
+
+压制(Squashing)提交 squash， 可以将提交合并到前一个记录中
+```
+
+[变基操作](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA)
 
 ``` rebase
-    在某个分支, 然后把其变基到主干
-    ![rebase](https://git-scm.com/figures/18333fig0329-tn.png)
-    git checkout experiment 
-    git rebase master
+git rebase branch   将branch分支当成补丁,打入到本分支，按时间顺序重播，变基
+
+git rebase [主分支] [特性分支]
+git rebase --onto master server client  多分支变基，指定基底，
+
 ```
 
 4.[版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
 
 ``` version
     git log -3 查看最近三个提交  
-    git reflog 查看最近三次操作 
+    git reflog 查看最近三次操作
 
     查看HEAD中有,远程master里不同的内容
     git show origin/master..HEAD
