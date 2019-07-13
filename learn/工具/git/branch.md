@@ -87,7 +87,7 @@ git clean 参数
     git push origin :serverfix
 ```
 
-3.[重写历史](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2) 
+3.[重写历史](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2)
 
 ``` 重写历史提交
 git commit --amend          重写最近的一次提交(推送后提交会有冲突)
