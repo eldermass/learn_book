@@ -1,0 +1,47 @@
+version: "3"
+services:
+  service_nginx:
+    container_name: nginx
+    restart: always
+    image: nginx:stable
+    ports:
+      - "80:80"
+    volumes:
+      - /e/www/docker/confd:/etc/nginx/conf.d
+    privileged: true
+    networks:
+      test:
+        aliases:
+          - service_nginx
+    links:
+      - service_php73
+    depends_on:
+      - service_php73
+  service_php73:
+    container_name: php73
+    image: php:7.3-fpm
+    restart: always
+    expose:
+      - "9000"
+    volumes:
+      - "/e/www/php:/www"
+    networks:
+      test:
+        aliases:
+          - service_php73
+    privileged: true
+  service_php56:
+    container_name: php56
+    image: php:5.6-fpm
+    restart: always
+    expose:
+      - "9000"
+    volumes:
+      - "/e/firmoo_v1:/www"
+    networks:
+      test:
+        aliases:
+          - service_php56
+    privileged: true
+networks: 
+  test:
