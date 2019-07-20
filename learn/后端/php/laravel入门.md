@@ -22,6 +22,7 @@
 3. 基本常识
   url("/")  对应域对应的连接
   route("name", ["id" => "10"]) 命名路由的连接
+  view()函数会渲染，resource/views下对应的blade页面
   模板：  
   {{ xxx }}  {!! xxx !!} 不转义
 ```
@@ -83,8 +84,11 @@
               return route('user.show');
           })->name('show');
       });
+```
 
+``` Controler
+脚本化创建控制器
+php artisan make:controller TaskController
+你可以通过 Artisan 命令 php artisan route:list 查看应用的所有路由：
 
-
-  view()函数会渲染，resource/views下对应的blade页面
 ```
