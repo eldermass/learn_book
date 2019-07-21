@@ -256,7 +256,6 @@ apt-cache search package    找查包
         depends package     查看依赖了哪些包
         rdepends package    查看被哪些包依赖了
 
-
 ### 十一、其他
 
 [apt-cache使用](https://jingyan.baidu.com/article/22a299b51648e09e19376ae7.html)
