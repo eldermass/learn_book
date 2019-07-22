@@ -1,6 +1,6 @@
 # 学习笔记
 
-## 一、基础知识记录
+## 入门笔记
 
 ### 1. Linux入门
 
@@ -13,9 +13,9 @@
 
 ### 3. 后端
 
-[laravel入门](./learn/后端/php/laravel入门)
+[laravel入门](./learn/后端/php/laravel入门(文))
 
-## 二、工具
+## 二、开发工具
 
 ### 1. Git
 
@@ -25,7 +25,7 @@
 
 [docker入门](./learn/工具/docker/docker.md)
 
-## 三、构建框架记录
+## 三、构建记录
 
 ### 1. next
 
@@ -35,12 +35,12 @@
 
 [html_js打包](./build/webpack/readme.md) 未完善
 
-## 四、博客记录
+## 四、博客文章
 
 ### 1. 基础知识
 
 [五层协议](./blog/网络基础/internet五层协议.md)
 
-## 五、源码分析记录
+## 五、源码学习记录
 
 [Promise](./code/Promise/promise.md)  
