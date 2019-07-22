@@ -1,0 +1,31 @@
+一、配置环境
+    1. npm install typescript 安装typescript到当前项目
+    2.  运行tsc命令编译，
+        或配置scripts运行脚本 tsc，这时会使用tsconfig.json文件中的编译配置
+二、基本类型 （any 表示所有）
+    number string boolean num undefined symbol
+    1. 使用方法
+        let age: number = 12
+三、对象类型
+    interface 接口，ts中可用于描述对象的结构形状
+    1. 用interface 定义对象结构，
+        ?: 表示可选属性，[propName: string]: any 表示可扩展数据
+四、 数组类型
+    type[] 定义，并约束数组中每一项的类型
+    1. let myFriends: string[] = ['Alex', 'Bolb']
+五、 其他ts中的类型
+    1. 字面量类型
+        type typeName 申明类型别名
+        只有字符串 数字 布尔字面量三种
+    2、 枚举类型
+        enum Colors { Red, Blue, Green }
+六、 面向对象编程
+    // 修饰符， 属性， 方法
+    pubblic protected private
+    // 继承, 一个类可以继承多个接口，但只能有一个父类
+    // 继承，一个接口可以继承至一个类
+    // 泛型: 不知道传入类型，也不知道返回类型，但是想他两保持一致
+    function createArray<T>(value: T, length: number): T[] {}
+    // 多个函数的类型
+    
+    // 接口泛型
