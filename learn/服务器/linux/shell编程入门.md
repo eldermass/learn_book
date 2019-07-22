@@ -61,7 +61,7 @@ expr m + n  例: RES=\`expr 1 + 2\`
 
 流程控制 - if分支语句
 
-``` example elif
+``` bash
 if [ 2 -lt 3 ]
 then
     echo 'equal'
@@ -69,7 +69,7 @@ elif
     echo 'noteq'
 fi
 
-// 判断是否有文件
+# 判断是否有文件
 if [ -e /home/cy/a.txt ]
 then
     echo '存在'
@@ -78,7 +78,7 @@ fi
 
 流程控制 - case分支
 
-``` example case
+``` bash
 case $1 in
     "10")
         echo 'i am ten'
@@ -95,15 +95,15 @@ esac
 
 流程控制 - for循坏
 
-``` example for
+``` bash
 语法一
-for i in 10 20 30              // for i in $* 传入的整体 $@传入的整体类似数组
+for i in 10 20 30              # for i in $* 传入的整体 $@传入的整体类似数组
 do
     echo 'i am number $i'
 done
 
 语法二
-for((初始值;条件;变量变化))     //  for((i=1; i<=100; i++))
+for((初始值;条件;变量变化))     #  for((i=1; i<=100; i++))
 do
     echo 'something'
 done
@@ -112,7 +112,7 @@ done
 
 流程控制 - while循环
 
-``` example while
+``` bash
 
 while [ condition ]
 do
@@ -143,12 +143,12 @@ dirname     返回完整路径
 
 ### 3. 自定义函数
 
-``` function
+``` bash
 function getSum() {
     SUM=$[$n1+$n2]
     echo "和是$SUM"
 }
-// 调用
+# 调用
 getSum $n1 $n2
 
 ```

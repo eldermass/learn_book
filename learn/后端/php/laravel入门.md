@@ -6,7 +6,7 @@
 
 ### 入门知识
 
-``` base
+``` bash
 1. 通过安装器 或 composer安装
   composer global require laravel/installer  
   laravel new blog  
@@ -31,7 +31,7 @@
 
 [路由](https://laravelacademy.org/post/9612.html)
 
-``` router
+``` php
   routes目录下Route类设置函数
       闭包路由
         Route::get("/", function () {});       单个动作，还有post/delete等
@@ -86,7 +86,7 @@
       });
 ```
 
-``` Controler
+``` bash
 脚本化创建控制器
 php artisan make:controller TaskController
 你可以通过 Artisan 命令 php artisan route:list 查看应用的所有路由：

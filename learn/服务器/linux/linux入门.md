@@ -6,13 +6,13 @@
 
 ### 一. 开关机
 
-``` o
+``` bash
 登录、注销
 ssh 用户@ip         登录
 logout              注销
 无密登录，可用ssh-keygen生成公钥私钥
 
-// 关机、重启
+# 关机、重启
 shutdown
     -h now          立即关机
     -h 1            一小时后关机
@@ -25,7 +25,7 @@ sync                同步内存到磁盘上
 ### 二. 用户管理
 
 ```u
-// 用户 -> 用户组 -> 家目录
+# 用户 -> 用户组 -> 家目录
 /etc/passwd             放着所有的用户信息
 /etc/shadow             放着密码相关信息
 
@@ -46,8 +46,8 @@ su - username           切换用户
 
 ### 三、组和权限管理
 
-``` group
-// 用户组
+``` bash
+# 用户组
 /etc/sudoers            放着各个组或组员对应的权限（可以针对指令设置无权限）
                         cy      ALL=(ALL:ALL) /bin/mkdir,/usr/bin/vim
 /etc/group              放着所有的组。及其成员
@@ -67,7 +67,7 @@ usermod -g groupname username   修改用户的组
 
 ### 四、文件权限管理
 
-``` 文件
+``` bash
 ls -l                    r是可读，w可写,x 可执行
 文件属性    连接数 文件拥有者 所属群组 文件大小 文件修改时间    文件名
 drwxr-xr-x    7     cy      cy      4096    Jun  7 11:46   dir
@@ -99,7 +99,7 @@ chgrp group file            改变文件的组
 
 2、 zip，unzip 压缩，解压
 
-``` 压缩、解压
+``` bash
     zip dest_name 目录或文件
         -r        递归压缩
 
@@ -109,8 +109,8 @@ chgrp group file            改变文件的组
 
 3、 tar 打包指令
 
-``` tar
-//  压缩
+``` bash
+#  压缩
 tar -zcvf a.tar.gz a.txt b.txt
     -c              产生压缩文件
     -v              显示详细信息
@@ -122,7 +122,7 @@ tar -zcvf a.tar.gz a.txt b.txt
 
 ### 六、任务调度
 
-``` crontab
+``` bash
 /etc/crontab            数据存放地
 
 crontab                 定时任务
@@ -141,10 +141,10 @@ crontab                 定时任务
 
 ### 七、磁盘分区和挂载
 
-``` mount umount
+``` bash
 lsblk   -f            查看分区和挂载情况 sdx~   x分区块，~第几部分
 
-// 如何增加一块硬盘
+# 如何增加一块硬盘
 fdisk   /dev/sdb                1分区
 mkfs    -t ext4  /dev/sdb1      2格式化
 mount   /dev/sdb1  /home/newdisk    3挂载分区
@@ -154,9 +154,9 @@ mount   /dev/sdb1  /home/newdisk    3挂载分区
 
 umount /dev/sda1            取消挂载
 
-// 查看磁盘情况
+# 查看磁盘情况
 df -l
-// 查看目录占用磁盘
+# 查看目录占用磁盘
 du /home
     -s                      显示总量
     -a  隐藏   -h  单位  -c 统计
@@ -170,13 +170,13 @@ du /home
 
 [任务管理](https://www.cnblogs.com/kaituorensheng/p/3980334.html#_label6)
 
-``` ps
-//  查看进程 ps -aux
+``` bash
+#  查看进程 ps -aux
     ps
         -a 所有  -u 用户界面    -x  显示后台运行参数
         -ef         显示父进程(ppid)
 
-// 杀死进程
+# 杀死进程
     kill    pid     杀死进程
         -9          强制杀死
 
@@ -219,20 +219,20 @@ top/atop            即时监控进程
 
 ### 九、服务管理
 
-``` service [start | stop | restart | reload | status]
-// 查看全部服务
+``` bash
+# 查看全部服务
     service --status-all
 
-// 查看服务详情
+# 查看服务详情
     service mysql status
 
-// 管里启动服务
+# 管里启动服务
     setup               指令
     /etc/init.d         启动服务目录
 
     chkconfig --list    查看各个运行级别的服务启动情况
             -level 5 serve_name on、off     开关启动运行
-// 管理系统
+# 管理系统
     systemctl
 
 ```
@@ -261,7 +261,7 @@ apt-cache search package    找查包
 
 [apt-cache使用](https://jingyan.baidu.com/article/22a299b51648e09e19376ae7.html)
 
-``` o
+``` bash
 
 init [0-6]              指定运行级别
     /etx/inittab        修改启动级别
