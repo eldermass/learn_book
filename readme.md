@@ -13,7 +13,7 @@
 
 ### 3. 后端
 
-[laravel入门](./learn/后端/php/laravel入门)
+[laravel入门](./learn/后端/php/laravel入门(文))
 
 ## 二、开发工具
 

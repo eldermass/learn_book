@@ -7,10 +7,12 @@
 ### 一. 开关机
 
 ``` bash
-登录、注销
-ssh 用户@ip         登录
-logout              注销
-无密登录，可用ssh-keygen生成公钥私钥
+# 登录
+ssh user@ip
+# 注销
+logout
+# 无密登录，可用生成公钥私钥
+ssh-keygen -t [rsa|dsa]
 
 # 关机、重启
 shutdown

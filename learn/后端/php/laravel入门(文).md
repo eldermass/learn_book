@@ -3,6 +3,7 @@
 ## 基础
 
 [入门](https://laravelacademy.org/laravel-tutorial-5_7)
+[门面列表](https://laravelacademy.org/post/9536.html#toc_6)
 
 ### 一. 入门知识
 
@@ -37,6 +38,7 @@ composer create-project laravel/laravel blog --prefer-dist
 # 通过Artisan命令,执行相应的操作
 # 脚本化创建控制器
 php artisan make:controller TaskController
+php artisan make:controller PostController --resource
 # 查看应用的所有路由
 php artisan route:list
 
