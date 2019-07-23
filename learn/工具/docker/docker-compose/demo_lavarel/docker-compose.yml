@@ -24,24 +24,46 @@ services:
     expose:
       - "9000"
     volumes:
-      - "/e/www/php:/www"
+      - /e/test/laravel:/www
     networks:
       test:
         aliases:
           - service_php73
     privileged: true
-  service_php56:
-    container_name: php56
-    image: php:5.6-fpm
+  serviece_mysql:
+    container_name: mysql
+    image: mysql:8
     restart: always
-    expose:
-      - "9000"
+    expose: 
+      - 3306
+    ports:
+      - 3306:3306
     volumes:
-      - "/e/firmoo_v1:/www"
-    networks:
+      - /e/www/docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - /e/www/docker/mysql/data:/var/lib/mysql
+      - /e/www/docker/mysql/log:/var/log/mysql
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+    command: --default-authentication-plugin=mysql_native_password
+    networks: 
       test:
         aliases:
-          - service_php56
+          - serviece_mysql
     privileged: true
+  # service_php56:
+  #   container_name: php56
+  #   image: php:5.6-fpm
+  #   restart: always
+  #   expose:
+  #     - "9000"
+  #   volumes:
+  #     - "/c/Users/admin/code/v1.firmoo:/www"
+  #   networks:
+  #     test:
+  #       aliases:
+  #         - service_php56
+  #   privileged: true
 networks: 
   test:

@@ -75,6 +75,8 @@
 # 查看容器日志
   docker logs container
 
+# 将容器的内容拷贝到宿主
+  docker cp mysql:/var/lib/mysql /www/docker/mysql/data
 ```
 
 ## Dockfile 文件
