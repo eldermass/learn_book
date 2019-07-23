@@ -120,3 +120,41 @@ Route::name('user.')->prefix('user')->group(function () {
     })->name('show');
 });
 ```
+
+#### 5. 路由模型绑定
+
+``` php
+// 应用会将传入参数值赋值给 {task}，然后默认以参数值作为资源 ID 在底层通过 Eloquent 查询获取对应模型实例，直接获取资源
+// Task 继承自 Illuminate\Database\Eloquent\Model;
+Route::get('task/{id}', function ($id) {
+    $task = \App\Models\Task::findOrFail($id);
+});
+// 隐式绑定
+Route::get('task/{task}', function (\App\Models\Task $task) {
+    dd($task); // 打印 $task 明细
+});
+```
+
+#### 6. 兜底路由
+
+``` php
+// 兜底路由
+Route::fallback(function () {
+    return '我是最后的屏障';
+});
+// 路由屏障
+// 在 Laravel 中该功能通过内置的 throttle 中间件来实现，该中间件接收两个参数，第一个是次数上限，第二个是指定时间段（单位：分钟）：
+Route::middleware('throttle:60,1')->group(function () {
+    Route::get('/user', function () {
+        //
+    });
+});
+Route::middleware('throttle:rate_limit,1')->group(function () {
+    Route::get('/user', function () {
+        // 在 User 模型中设置自定义的 rate_limit 属性值
+    });
+    Route::get('/post', function () {
+        // 在 Post 模型中设置自定义的 rate_limit 属性值
+    });
+});
+```
