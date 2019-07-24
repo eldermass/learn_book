@@ -1,5 +1,7 @@
 # 学习笔记
 
+[回到github仓库](https://github.com/RiseUpCY/learn_mark)
+
 ## 入门笔记
 
 ### 1. Linux入门

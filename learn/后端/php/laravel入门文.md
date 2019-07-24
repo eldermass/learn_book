@@ -240,7 +240,7 @@ view()->share('siteName', 'Laravel学院');
 ``` php
 // app/Providers/AppServiceProvider.php 的 boot 方法
 view()->composer(['partials.header', 'partials.*'], function ($view) {
-    $view->with('posts', $value);
+    $view->with(['posts' => $value]);
 });
 
 // app/Http/ViewComposers 目录下创建一个自定义 View Composer 类 RecentPostsComposer.php,
