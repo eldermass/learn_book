@@ -158,3 +158,27 @@ Route::middleware('throttle:rate_limit,1')->group(function () {
     });
 });
 ```
+
+#### 7. 路由请求伪造
+
+``` php
+// _method隐藏域，传出的方法会被当做真正的路由
+<form action="/task/1" method="POST"> 
+    <input type="hidden" name="_method" value="DELETE">
+</form>
+// 避免[跨站请求伪造攻击]（CSRF）
+// 默认所有的路由均是   只读， 如果写入需要传入_token
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+```
+
+### 四. blade视图模型
+
+#### 1. view
+
+``` php
+// 返回resource/views下的视图，并传参
+view('page.show')->with("id", $id);
+view('page.show', ['id' => $id, 'name' => $name]);
+// 视图间共享变量, AppServiceProvider 的 boot 方法中定义如下内容，便能在说有blade页面中访问该变量
+view()->share('siteName', 'Laravel学院');
+```
