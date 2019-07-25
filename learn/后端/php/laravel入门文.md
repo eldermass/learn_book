@@ -264,3 +264,43 @@ Blade::directive('datetime', function($expression) {
 // 指令统一显示指定格式的日期时间了。
 @datetime($time)
 ```
+
+## 五. 处理请求
+
+### 1. 注入请求对象
+
+``` php
+// use Illuminate\Http\Request; 和 request() 门面
+$request->all();    // 全部
+$request->except('id'); // 排除
+$request->only(['name', 'site', 'domain']); // 只要
+// 先行判断has, exists
+$request->has('id') ? $request->get('id') : 0;
+// 获取某一值 get, post, input, 获取数组中的某一个
+$request->input('books.0.author', "设置默认值");
+// 基数从1开始
+$request->segments()
+```
+
+### 2. 上传文件
+
+``` shell
+# $request->file() 方法获取的是一个 Illuminate\Http\UploadedFile 对象实例
+# 使用了 Storage::disk('public') 磁盘将上传文件保存到本地，关于该磁盘的自定义配置信息可以去 config/filesystems.php 文件中查看
+# 如果要让上传到 storage/app/public 目录的文件可以被外部访问，还要执行以下命令
+php artisan storage:link
+```
+
+``` javascript
+let formData = new FormData();
+formData.append('picture', this.$refs.picture.files[0]);
+axios.post(
+    '/form/file_upload',
+    formData,
+    {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+)
+```
