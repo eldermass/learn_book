@@ -87,8 +87,11 @@
 
 [docker-compose.yml的使用](https://www.jianshu.com/p/658911a8cff3)  
 [各个参数的解释](https:#blog.csdn.net/qq_36148847/article/details/79427878)
+[启动命令](https://www.cnblogs.com/moxiaoan/p/9299404.html)
 
 ``` bash
+# 检查配置是否ok
+docker-compose config  -q
 
 # 运行
   docker-compose up       执行当前目录的.yml文件

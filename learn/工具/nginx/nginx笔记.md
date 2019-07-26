@@ -2,6 +2,33 @@
 
 [文章地址](https://www.cnblogs.com/pyyu/p/10085444.html)
 
+## 一. 控制命令
+
+``` bash
+# 检测配置是否正确
+nginx -t
+# 重新加载配置
+nginx -s reload
+# 立即停止
+nginx -s stop
+# 优雅停止
+nginx -s quit
+# 重新打开日志， log日志文件换名字，文件资源依然连接,所以要重新链接文件资源
+nginx -s reopen
+```
+
+## nginx配置
+
+```bash
+# 配置
+看nginx.conf 注释
+# url重写
+rewirte  (.*)$  /index.php$1;
+# 文件路径重写
+try_files 
+
+```
+
 ## Location语法
 
 ``` bash

@@ -69,3 +69,29 @@ Route::get("page", function () {
 @endwhile
 
 ```
+
+### 数据库找查
+
+``` php
+// 原生
+// 结果是数组
+DB::select("select * from users");
+// 构造器
+// 结果是集合
+$user = DB::table("users")->get();
+// 获取方法
+// 第一个
+first();
+// 第一行的某个值
+value("username");
+// 一列
+pluck("col")
+// 一行
+
+```
+
+### 依赖注入
+
+``` php
+Route::get("test", function (ClassName $value) { return $value})
+```
