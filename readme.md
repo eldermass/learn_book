@@ -1,5 +1,7 @@
 # 学习笔记
 
+[回到github仓库](https://github.com/RiseUpCY/learn_mark)
+
 ## 入门笔记
 
 ### 1. Linux入门
@@ -13,7 +15,7 @@
 
 ### 3. 后端
 
-[laravel入门](./learn/后端/php/laravel入门(文))
+[laravel入门](./learn/后端/php/laravel入门文)
 
 ## 二、开发工具
 
