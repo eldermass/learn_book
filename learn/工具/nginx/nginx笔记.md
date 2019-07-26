@@ -17,15 +17,39 @@ nginx -s quit
 nginx -s reopen
 ```
 
-## nginx配置
+## 二、 nginx配置
+
+### 1. 路径重写
 
 ```bash
 # 配置
 看nginx.conf 注释
 # url重写
 rewirte  (.*)$  /index.php$1;
-# 文件路径重写
-try_files 
+# 先尝试文件路径，不行就重写路径
+try_files $uri /index.php?$uri
+
+```
+
+### 2. 反向代理
+
+``` bash
+# 代理到某个地址
+proxy_pass 192.168.0.1:80;
+# 人为在头信息挂上用户真实地址
+proxy_set_headr X_Forwarded_For $remote_addr;
+```
+
+## 三、 集群和负载均衡
+
+``` bash
+# 集群，申明上游服务器组
+upstream servers_name {
+  server 192.168.0.1:80 weight=1 max_fails=2 fail_timeout=30s;
+  server 192.168.0.2:80 weight=1 max_fails=2 fail_timeout=30s;
+}
+# 通过proxy_pass 代理到服务器组
+proxy_pass http://servers_name;
 
 ```
 
