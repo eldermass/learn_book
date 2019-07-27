@@ -15,7 +15,7 @@
 
 ### 3. 后端
 
-[laravel入门](./learn/后端/php/laravel入门文)
+[laravel入门](./learn/后端/php/laravel入门文.md)
 
 ## 二、开发工具
 
@@ -26,6 +26,10 @@
 ### 2. docker
 
 [docker入门](./learn/工具/docker/docker.md)
+
+### 3. nginx
+
+[nginx入门笔记](./learn/工具/nginx/nginx笔记.md)
 
 ## 三、构建记录
 
