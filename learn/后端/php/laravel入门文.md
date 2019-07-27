@@ -5,6 +5,8 @@
 
 ## 一. 入门知识
 
+### 1. 基础入门
+
 ``` bash
 # 1. 通过安装器 或 composer安装
 composer global require laravel/installer  
@@ -28,6 +30,29 @@ composer create-project laravel/laravel blog --prefer-dist
 # 模板：  
     {{ xxx }}   转移
     {!! xxx !!} 不转义
+```
+
+### 2. 交互入口artisan
+
+[参考](https://laravelacademy.org/post/9684.html)
+
+``` php
+// app/Console/Kernel.php  中注册
+// 自定义命令
+Artisan::command('welcome:message_simple', function () {
+    $this->info('欢迎访问 Laravel 学院!');
+})->describe('打印欢迎信息');
+```
+
+### 3. tinker命令式操作
+
+``` php
+// php artisan tinker 即可进入 Laravel Tinker 的交互式 Shell。
+
+// doc 命令用于找查文档和辅助函数
+doc config      show config
+
+
 ```
 
 ## 二. 脚本操作
@@ -303,4 +328,242 @@ axios.post(
         }
     }
 )
+```
+
+### 3. 表单验证
+
+[验证规则文档](https://laravelacademy.org/post/9547.html#toc_17)
+
+``` php
+// Illuminate\Foundation\Validation\ValidatesRequests;
+ $this->validate($request, [
+        'title' => 'bail|required|string|between:2,32'
+    ],  [
+        'title.required' => '自定义提示',
+        'title.string' => '可选',
+        'title.between' => '标题长度必须介于2-32之间'
+    ]);
+
+// 类使用
+\Validator::make([], [], [])
+// $validator->fails();
+// $validator->errors()->all();
+
+// 继承使用
+use Illuminate\Foundation\Http\FormRequest;
+```
+
+## 六. 数据库查询
+
+### 1. 连接
+
+``` php
+// config/database.php中配置
+// 默认连接mysql配置，connection可以进行选择，
+DB::connection('mysql_old')->table('users')->where(...)->get();
+
+//  Eloquent 模型类 中
+protected $connection = 'mysql_old';
+
+// 读写分离, 在database.php中配置
+'mysql' => [
+    'driver' => 'mysql',
+    'read' => [
+        'host' => env('DB_HOST_READ', '127.0.0.1'),
+    ],
+    'write' => [
+        'host' => env('DB_HOST_WRITE', '127.0.0.1')
+    ],
+]
+
+// 数据库迁移
+
+// 数据库填充
+
+```
+
+### 2. 操作
+
+``` php
+// DB门面用于操作数据库,  use Illuminate\Database\Eloquent\Model;
+// statement 用原生sql操作数据库
+DB::statement('drop table `users`');
+
+// DB提供的原生语句方法， select， insert， update， delete等
+DB::select('select * from `users` where `name` = ?', [$name]);
+DB::select('select * from `users` where `name` = :name', ['name' => $name]);
+
+// 查询构建器进行增删改查  select， insert， update， delete等
+// get 获取， first 第一条
+\DB::table('users')->where('name', $name)->get();
+\DB::table('users')->select('id', 'name', 'email')->where('name', $name)->first();
+
+// 插入数据
+// DB::table('users')->insertGetId    这个可以返回主键
+DB::table('users')->insert([
+    'name' => str_random(10),
+    'email' => str_random(8) . '@163.com',
+    'password' => bcrypt('secret')
+]);
+// 插入多条记录
+DB::table('users')->insert([
+    ['name' => '张三', 'password' => '123'],
+    ['name' => '李四', 'password' => '456']
+])
+// 更新一条记录
+DB::table('users')->where('id', '>', $id)->update(['name' => str_random(8)])
+// 更新数值 increment 和 decrement
+DB::table('posts')->where('id', 100)->increment('views'); // views+1
+DB::table('posts')->where('id', 100)->increment('views', 5); // views+5
+// 删除
+DB::table('users')->where('id', '>=', $id)->delete();
+// 重置自增记录 truncate  会清空表
+DB::table('users')->truncate()
+```
+
+### 3. 复杂的sql语句
+
+[复杂的sql](https://laravelacademy.org/post/9698.html)
+
+``` php
+// 快速获取字段的值, 如果是数组只能获取第一个
+DB::table('user')->value('name');
+// 判断是否存在， 与之相对的方法 doesntExist()。
+DB::table('users')->where('name', $name)->exists();
+// 形成关联数组, 值在前，键在后
+DB::table('user')->pluck('name', 'id');
+// 数据较大时分块
+DB::table('users')->orderBy('id')->chunk(5, function ($users) use (&$names) {
+    foreach ($users as $user) {
+        $names[] = $user->name;
+    }
+});
+
+// count、sum、avg、min、max 聚合函数
+DB::table('users')->count();       # 计数     9
+
+// 高级查询
+// like
+DB::table('posts')->where('title', 'like', 'Laravel学院%')->get();
+// and
+DB::table('posts')->where('id', '<', 10)->where('views', '>', 0)->get();
+DB::table('posts')->where([
+    ['id', '<', 10],
+    ['views', '>', 0]
+])->get();
+// or
+DB::table('posts')->where('id', '<', 10)->orWhere('views', '>', 0)->get();
+// between
+DB::table('posts')->whereBetween('views', [10, 100])->get();
+DB::table('posts')->whereNotBetween('views', [10, 100])->get();
+// in
+DB::table('posts')->whereIn('user_id', [1, 3, 5, 7, 9])->get();
+// null
+DB::table('users')->whereNull('email_verified_at')->get();
+// notNull
+DB::table('users')->whereNotNull('email_verified_at')->get();
+// 日期 whereYear  whereMonth  whereDay  whereTime
+DB::table('posts')->whereDate('created_at', '2018-11-28')->get();  # 具体日期
+// 字段间比较
+DB::table('posts')->whereColumn('updated_at', '>', 'created_at')->get();
+// json字段查询，options是一个json字段
+DB::table('users')->where('options->language', 'en')->get();
+DB::table('users')->whereJsonContains('options->languages', ['en_US', 'zh_CN'])->get();
+// 参数分组，示例对应select * from posts where id <= 10 or (views > 0 and created_at < '2018-11-28 14:00');
+DB::table('posts')->where('id', '<=', 10)->orWhere(function ($query) {
+    $query->where('views', '>', 0)
+        ->whereDate('created_at', '<', '2018-11-28')
+        ->whereTime('created_at', '<', '14:00');
+})->get();
+// whereExists， select * from `users` where exists (select 1 from `posts` where posts.user_id = users.id);
+DB::table('users')
+    ->whereExists(function ($query) {
+        $query->select(DB::raw(1))
+            ->from('posts')
+            ->whereRaw('posts.user_id = users.id');
+    })
+->get();
+```
+
+### 4. 连表查询
+
+``` php
+// 等值链接， inner 是交集
+SELECT *, g.id as gid from users u INNER JOIN user_group g on u.group_id = g.id;
+// 不等链接 < , > , <>
+SELECT *, g.id as gid from users u INNER JOIN user_group g on u.group_id <> g.id;
+DB::table('users')
+->join('user_group', 'users.id', '=', 'user_group.id')
+->select('user_group.id as gid', 'users.name', 'users.password')
+->get();
+
+// 左链接， 返回左表中的所有行，如果左表中的行在右表中没有匹配行，则返回结果中右表中的对应列返回空
+SELECT *, g.id as gid from users u left JOIN user_group g on u.group_id = g.id;
+DB::table('users')
+->leftJoin('user_group', 'users.id', '=', 'user_group.id')
+->select('user_group.id as gid', 'users.name', 'users.password')
+->get();
+
+// 右链接，返回右表中的所有行，如果右表中的行在左表中没有匹配行，则结果中左表中的对
+SELECT *, g.id as gid from users u right JOIN user_group g on u.group_id = g.id;
+DB::table('users')
+->rightJoin('user_group', 'users.id', '=', 'user_group.id')
+->select('user_group.id as gid', 'users.name', 'users.password')
+->get();
+// 全连接，左+右， full join
+// 交叉链接，笛卡尔积，左 * 右
+DB::table('users')
+->crossJoin('user_group', 'users.id', '=', 'user_group.id')
+->select('user_group.id as gid', 'users.name', 'users.password')
+->get();
+// 匿名组装
+DB::table('users')
+    ->join('user_group', function ($join) {
+        $join->on('user_group.id', '=', 'users.group_id')
+            ->whereNotNull('user_group.allowed');
+    })
+    ->select('user_group.id as gid', 'user_group.allowed', 'users.name', 'users.password')
+    ->where('user_group.allowed', '>', 0)
+    ->get();
+// 联合查询, 把两次查询的内容合在一起
+(select * from `users` where `group_id` <= 10) union (select * from `users` where `password` = '6666')
+$posts_a = \DB::table('users')->where('password', '6666');
+$posts_b = \DB::table('users')->where('group_id', '<=', 10)->union($posts_a)->get();
+// 排序 desc 降序， asc 升序
+DB::table('posts')
+    ->orderBy('created_at', 'desc')
+    ->get();
+// 随机排序
+DB::table('posts')->inRandomOrder()->get();
+
+// 分组 , having()可以过滤不满足的结果
+select user_id, sum(views) as total_views from `posts` group by `user_id`;
+DB::table('posts')
+    ->groupBy('user_id')
+    ->selectRaw('user_id, sum(views) as total_views')
+    ->having('total_views', '>=', 10)
+    ->get();
+// 分页
+// skip从第几个开始，take取几条数据
+DB::table('users')->skip(1)->take(5)->get();
+// offset从第几个开始，limit取几条数据
+DB::table('users')->offset(1)->limit(5)->get();
+```
+
+### 5. Eloquent 模型类
+
+``` php
+// Eloquent 模型，use Illuminate\Database\Eloquent\Model;
+// php artisan make:model Models/Post， 然后写入
+protected $connection = 'mysql';
+protected $table = 'users';
+protected $primaryKey = 'id';
+// 获取所有表
+\Post::all();
+// 每次获取一条
+foreach (\Post::cursor() as $post) {
+    dump($post->title . ':' . $post->content);
+}
+// 获取指定查询结果
+\Post::where('views', '>', 0)->orderBy('id', 'desc')->offset(10)->limit(5)->get();
 ```
