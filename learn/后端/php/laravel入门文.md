@@ -34,6 +34,22 @@ composer create-project laravel/laravel blog --prefer-dist
 \DB::enableQueryLog();
 $users = Task::with('belongTo')->find(4);
 dump(\DB::getQueryLog());
+
+# 交互命令
+# 创建控制器
+php artisan make:COntroller User/Admin
+# 创建迁移类
+php artisan make:migration create_users_table
+# 执行迁移
+php artisan migrate
+# 回滚迁移
+php artisan migrate:rollback
+# 重置迁移
+php artisan migrate:reset
+# 创建填充类
+php artisan make:seeder UsersTableSeeder
+# 执行填充
+php artisan db:seed --class=UsersTableSeeder
 ```
 
 ### 2. 交互入口artisan
@@ -299,6 +315,10 @@ Blade::directive('datetime', function($expression) {
 ### 1. 注入请求对象
 
 ``` php
+// 门面获取
+// use Illuminate\Support\facades\Input
+$task->title = Input::get('title');
+
 // use Illuminate\Http\Request; 和 request() 门面
 $request->all();    // 全部
 $request->except('id'); // 排除
@@ -381,9 +401,32 @@ protected $connection = 'mysql_old';
 ]
 
 // 数据库迁移
+// 创建迁移类
+php artisan make:migration create_users_table
+// 执行迁移
+php artisan migrate
+// 回滚迁移
+php artisan migrate:rollback
 
 // 数据库填充
+# 创建填充类
+php artisan make:seeder UsersTableSeeder
+# 执行填充
+php artisan db:seed --class=UsersTableSeeder
+// 或者加入集体执行
+php artisan db:seed
+// 或加入Seeder
+public function run()
+{
+    $this->call(UsersTableSeeder::class);
+}
 
+// 通过模型工厂填充数据
+// 创建工厂  database/factories 里
+// 加入执行  database/seeds 加入run函数里， 执行填充时会调用
+factory(\App\User::class, 5)->create();
+// 执行填充
+php artisan db:seed --class=UsersTableSeeder
 ```
 
 ### 2. 操作
@@ -489,7 +532,7 @@ DB::table('users')
 ->get();
 ```
 
-### 4. 连表查询
+### 4. 联表查询
 
 ``` php
 // 等值链接， inner 是交集
@@ -554,20 +597,211 @@ DB::table('users')->skip(1)->take(5)->get();
 DB::table('users')->offset(1)->limit(5)->get();
 ```
 
-### 5. Eloquent 模型类
+## 七. Eloquent 模型类
+
+支持DB类的各种方法
+[Eloquent模型](https://laravelacademy.org/post/19531.html)
+
+### 1. 查找
 
 ``` php
 // Eloquent 模型，use Illuminate\Database\Eloquent\Model;
-// php artisan make:model Models/Post， 然后写入
+// php artisan make:model Models/User， 然后写入
 protected $connection = 'mysql';
 protected $table = 'users';
 protected $primaryKey = 'id';
 // 获取所有表
-\Post::all();
+\User::all();
 // 每次获取一条
+\User::first();
+// 根据主键获取, firstOrFail 会直接返回404页面
+\User::find(2); 
+
+
 foreach (\Post::cursor() as $post) {
     dump($post->title . ':' . $post->content);
 }
 // 获取指定查询结果
-\Post::where('views', '>', 0)->orderBy('id', 'desc')->offset(10)->limit(5)->get();
+\User::where('views', '>', 0)->orderBy('id', 'desc')->offset(10)->limit(5)->get();
+```
+
+### 2. 插入
+
+``` php
+// 实例化，调用save()方法
+$post = new App\Post;
+$post->username = '名字';
+$post->password = '密码';
+$post->save();
+
+// 快捷的插入方法，比如 firstOrCreate 和 firstOrNew(不会插入数据库)，先查询，找不到就插入，需要fillable里加上对应的字段
+protected $fillable = ['name', 'email'];
+Post::firstOrCreate([
+    'name' => '测试文章标题1',
+    'email' => 1,
+]);
+
+```
+
+### 3. 更新数据
+
+``` php
+// 取出修改，然后存储。多条用循环依次修改
+$post = Post::find(31);
+$post->title = '测试文章标题更新';
+$post->save();
+
+// 快捷的更新方法 updateOrCreate，找不到就新建同上
+$user = user::updateOrCreate(
+    ['name' => '学院君'],
+    ['email' => 'admin@laravelacademy.org']
+);
+```
+
+### 4. 删除
+
+``` php
+// 找到就删除
+$user = Users::find(1);
+$user->delete();
+
+// 软删除
+// 在模型类的中使用SoftDEletes，就能隐去被软删除的结果
+use Illuminate\Database\Eloquent\SoftDeletes;
+class Post extends Model
+{
+    use SoftDeletes;
+}
+// withTrashed可以获取到被软删除的结果
+// onlyTrashed用于只获取被软删除的结果
+Post::withTrashed()->find(32);
+// restore恢复被软删除的记录
+Post::onlyTrashed()->where('views', 0)->restore();
+// 强制删除
+$post->forceDelete();
+```
+
+### 5. 批量赋值
+
+``` php
+// 通过构造器写入数据库， 白名单之外的赋值不会写入
+// $fillable 白名单， $guarded 黑名单
+$post = new Post(['title' => '测试文章标题', 'content' => '测试文章内容']);
+$post = new Post($request->all());
+
+// 修改
+$user = Users::findOrFail(2);
+$user->fill(['username' => '黄油煎']);
+$user->save();
+
+```
+
+### 6.访问器与修改器
+
+``` php
+// 在模型中定义方法getDisplayNameAttribute，就能直接通过display_name属性访问
+public function getDisplayNameAttribute()
+{
+    return $this->nickname ? $this->nickname : $this->name;
+}
+$user->display_name
+
+// 放入数据库前会先修改属性，setCardNoAttribute，会将传入card_no修改
+public function setCardNoAttribute($value)
+{
+    $value = str_replace(' ', '', $value);  // 将所有空格去掉
+    $this->attributes['card_no'] = encrypt($value);
+}
+$user->card_no = '6222020903001483077';
+
+// 数组 & JSON 转化，直接存取即可
+$user->settings = ['city' => '杭州', 'hobby' => ['读书','撸码']];
+$user->save();
+
+```
+
+### 7. 作用域
+
+``` php
+// 使用全局作用域后，之后的操作都会带上相应的操作whereNotNull
+// app/Scopes 目录下
+<?php
+namespace App\Scopes;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
+
+class EmailVerifiedAtScope implements Scope
+{
+    public function apply(Builder $builder, Model $model)
+    {
+        return $builder->whereNotNull('email_verified_at');
+    }
+}
+// 模型类里使用
+protected static function boot()
+{
+    parent::boot();
+
+    static::addGlobalScope(new EmailVerifiedAtScope());
+}
+// 移除全局作用域
+User::withoutGlobalScope('email_verified_at_scope')->get();
+
+
+// 局部作用域
+// 模型类中编写，scopePopular 对应 popular
+public function scopePopular(Builder $query)
+{
+    return $query->where('views', '>', '0')->orderBy('views', 'desc');
+}
+$post = Post::popular()->get();
+
+// 动态作用域， 可以传如想要的type
+public function scopeOfType(Builder $query, $type)
+{
+    return $query->where('type', $type);
+}
+$posts = Post::active()->ofType(Post::Article)->get();
+```
+
+### 8. 模型事件和监听方式
+
+### 9. 关联关系,连表查询
+
+``` php
+// hasOne 关联另一个表模型， select * from userprofile
+// public function hasOne($related, $foreignKey = null, $localKey = null)，
+// params： 关联的表， 关联表用于连接的key，本表用于连接的key
+public function profile()
+{
+    return $this->hasOne(UserProfile::class);
+}
+// 反查所属模型，belongsTo
+// public function belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)
+// params：关联的表，本表用于连接的key，关联表用于连接的key， 对应关联关系方法名
+public function profile()
+{
+    return $this->belongsTo(UserProfile::class);
+}
+
+// 一对多 hasMany ，参数同上
+public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+// 多对多 belongsToMany， 通过本表的key找到中间表，然后中间表的关联key找到对应的关联表
+// public function belongsToMany($related, $table = null, $foreignPivotKey = null, $relatedPivotKey = null, $parentKey = null, $relatedKey = null, $relation = null)
+// params：关联表类，中间表名，中间表的查询key，中间表对应关联表的key， 本表的key，关联表的key
+```
+
+### 10. 渴求式加载
+
+``` php
+// 先在模型里关联author
+$posts = Post::with('author')
+    ->where('views', '>', 0)
+    ->offset(1)->limit(10)
+    ->get();
 ```
