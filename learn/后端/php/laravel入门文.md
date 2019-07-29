@@ -30,6 +30,10 @@ composer create-project laravel/laravel blog --prefer-dist
 # 模板：  
     {{ xxx }}   转移
     {!! xxx !!} 不转义
+# 打印sql语句
+\DB::enableQueryLog();
+$users = Task::with('belongTo')->find(4);
+dump(\DB::getQueryLog());
 ```
 
 ### 2. 交互入口artisan
