@@ -95,10 +95,12 @@ routes目录下Route类设置函数
 ### 1. 闭包路由
 
 ``` php
-// 单个动作，还有post/delete等
+// 单个动作，还有post/delete, any等
 Route::get("/", function () {});
 // 多个
-Route::match(["get", "post"], function () {});
+Route::match(["get", "post"], '/', function () {});
+// 视图路由
+Route::view('/wel', 'wel', ['params' => 'param'])
 ```
 
 ### 2. 控制器路由
@@ -120,6 +122,8 @@ Route::get("user/{id?}", function ($id = 1) { return $id });
 Route::get("page/{id}/{slug}", function ($id, $slug) {
   return $id . ":" . $slug;
 })->where(["id" => "[0-9]+", "slug" => "[A-Za-z]+"])
+// 全局约束
+Route::pattern('id', '[0-9]+');
 ```
 
 ### 4. 路由分组
@@ -173,9 +177,16 @@ Route::get('task/{id}', function ($id) {
     $task = \App\Models\Task::findOrFail($id);
 });
 // 隐式绑定
-Route::get('task/{task}', function (\App\Models\Task $task) {
-    dd($task); // 打印 $task 明细
+Route::get('task/{user}', function (\App\Models\User $user) {
+    // $user相当于User::find(user)
 });
+// 显示绑定到RouteServiceProvider
+public function boot()
+{
+    Route::bind('user', function ($value) {
+            return App\User::where('name', $value)->first() ?? abort(404);
+    });
+}
 ```
 
 ### 6. 兜底路由
@@ -357,6 +368,7 @@ axios.post(
 ### 3. 表单验证
 
 [验证规则文档](https://laravelacademy.org/post/9547.html#toc_17)
+写入路由应该有@csrf验证
 
 ``` php
 // Illuminate\Foundation\Validation\ValidatesRequests;
