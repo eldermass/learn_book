@@ -340,6 +340,12 @@ $request->has('id') ? $request->get('id') : 0;
 $request->input('books.0.author', "设置默认值");
 // 基数从1开始
 $request->segments()
+
+// 带着请求跳转
+redirect('form')->withInput();
+// 存储使用上一次请求
+$request->flash();
+$request->old();
 ```
 
 ### 2. 上传文件

@@ -9,6 +9,8 @@
 redis-server
 # 登录 6379
 redis-cli -h host -p port -a password
+# 查看所有数据
+keys *
 ```
 
 ``` bash
