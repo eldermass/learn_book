@@ -42,6 +42,7 @@
 git branch 显示本地分支
     -a 带上远程
     -v 分支版本信息
+    -vv 查看分支跟踪状态
     -d 删除
     --merged 已经合并
     --no-merged 查看没有合并
@@ -82,6 +83,8 @@ git clean 参数
 
     追踪某个远程分支 可以简化使用git pull/git push
     git checkout --track origin/serverfix
+
+    git branch --set-upstream-to=origin/<branch> barnch_local
 
     删除远程分支
     git push origin :serverfix
