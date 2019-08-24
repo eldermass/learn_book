@@ -633,7 +633,7 @@ protected $primaryKey = 'id';
 // 每次获取一条
 \User::first();
 // 根据主键获取, firstOrFail 会直接返回404页面
-\User::find(2); 
+\User::find(2);
 
 
 foreach (\Post::cursor() as $post) {
@@ -789,29 +789,32 @@ $posts = Post::active()->ofType(Post::Article)->get();
 ### 9. 关联关系,连表查询
 
 ``` php
-// hasOne 关联另一个表模型， select * from userprofile
+// hasOne
+// 关联另一个表模型， select * from userprofile
 // public function hasOne($related, $foreignKey = null, $localKey = null)，
-// params： 关联的表， 关联表用于连接的key，本表用于连接的key
 public function profile()
 {
-    return $this->hasOne(UserProfile::class);
+    // params： 关联的表模型， 关联表用于连接的key，本表用于连接的key
+    return $this->hasOne(UserProfile::class, 'foreignKey', 'localKey');
 }
 // 反查所属模型，belongsTo
 // public function belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)
-// params：关联的表，本表用于连接的key，关联表用于连接的key， 对应关联关系方法名
 public function profile()
 {
+    // params：关联的表，本表用于连接的key，关联表用于连接的key， 对应关联关系方法名
     return $this->belongsTo(UserProfile::class);
 }
 
 // 一对多 hasMany ，参数同上
 public function posts()
 {
+    // params： 关联的表模型， 关联表用于连接的key，本表用于连接的key
     return $this->hasMany(Post::class);
 }
 // 多对多 belongsToMany， 通过本表的key找到中间表，然后中间表的关联key找到对应的关联表
 // public function belongsToMany($related, $table = null, $foreignPivotKey = null, $relatedPivotKey = null, $parentKey = null, $relatedKey = null, $relation = null)
 // params：关联表类，中间表名，中间表的查询key，中间表对应关联表的key， 本表的key，关联表的key
+
 ```
 
 ### 10. 渴求式加载
