@@ -16,6 +16,7 @@
 ### 3. 后端
 
 [laravel入门](./learn/后端/php/laravel入门文.md)
+[laravel再续](./learn/后端/php/laravel再续.md)
 
 ## 二、开发工具
 

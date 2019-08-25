@@ -19,18 +19,34 @@ php artisan make:Provider ServiceProvider
 
 ```
 
-## 二、基础功能
+## 模型关联
 
-### 1. 中间件
+[文档](https://learnku.com/docs/laravel/5.8/eloquent-relationships/3932)  
 
 ``` php
-// 创建中间建
-php artisan make:middleware Name
-// 注册中间件
-// app/Http/Kernel.php 文件内为该中间件分配一个键
-// 使用中间建
-Route::get('/', function () {})->middleware('first', 'second');
-// 或者直接使用类名无须注册
-Route::get('/', function () {})->middleware(\App\Http\Middleware\Name);
+// $with = [] 自动带上关联属性
+// 一对一 hasOne
+// params： 关联的表模型， 关联表的key，本表的key
+$this->hasOne(UserProfile::class, 'foreignKey', 'localKey');
+
+
+// 一对多 hasMany
+// params： 关联的表模型， 关联表的key，本表的key
+return $this->hasMany(Post::class);
+
+// 一对x反查，belongsTo
+// params：关联的表，本表的key，关联表的key， 对应关联关系方法名
+$this->belongsTo(UserProfile::class);
+
+// 多对多， belongsToMany
+// params：关联表类，中间表名或类，中间表对应本地的key，中间表对应关联的key， 本表的key，关联表的key
+$this->belongsToMany(User::class, Groups::class)
+
+// 远程一对x，通过中间关联模型
+// params: 关联表， 中间表，中间表对应本地key，关联表key， 本地的key，中间表对关联表的key，
+$this->hasManyThrough(User::class, Groups::class)
+
+...
 
 ```
+
