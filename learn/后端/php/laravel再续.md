@@ -50,3 +50,11 @@ $this->hasManyThrough(User::class, Groups::class)
 
 ```
 
+## Artisan命令
+
+app/Console/Commands 下commands方法引入了两个自定义命令来源，可以加入更多
+
+## 广播
+
+[入门教程](https://laravelacademy.org/post/8559.html)  
+[经验](https://segmentfault.com/a/1190000015772826)
