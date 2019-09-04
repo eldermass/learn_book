@@ -106,6 +106,27 @@ a, b, c = tu
 {'key': 'value'}
 ```
 
+#### 枚举类型
+
+``` python
+# 继承自类, 并不是单独的类型
+from enum import Enum
+
+class VIP(Enum):
+    yellow = 1
+    yellow_alias = 1
+    green = 2
+    black = 3
+# 使用for in 遍历
+# 使用VIP.__members__遍历别名
+VIP.yellow VIP[VIP.yellow.name] VIP(1)
+# 限制标签类型， 并唯一
+from enum import IntEnum, unique
+
+@unique
+class VIP(IntEnum):
+```
+
 ## 表达式
 
 表达式(Expression)：预算符(operator)和操作数(operand)构成的序列
@@ -250,5 +271,16 @@ r1 = re.search # 搜索
 # 获取结果
 r1.group(0,1,2)
 r1.groups()
+
+```
+
+## JSON
+
+``` python
+import json
+# 序列化
+json.dumps()
+# 反序列化
+json.loads()
 
 ```

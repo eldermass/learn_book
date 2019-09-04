@@ -1,6 +1,12 @@
-import re
-a = 'aaaabababc'
+from enum import Enum
+from enum import IntEnum, unique
 
-r = re.search('aba(.*)c', a)
+@unique
+class VIP(IntEnum):
+    yellow = 1
+    # yellow_alias = 1
+    green = 2
+    black = 3
 
-print(r.group())
+for v in VIP:
+  print(v)
