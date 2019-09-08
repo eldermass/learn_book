@@ -284,3 +284,62 @@ json.dumps()
 json.loads()
 
 ```
+
+## 函数式、闭包
+
+### 局部变量
+
+``` python
+# 局部可以访问上级的变量，但是不能像js那样修改
+# 闭包变量被赋值时就会被认为是局部变量
+def curve_pre():
+    # 使用global关键字可以改变全局变量
+  global name
+  name = 'curve_pre'
+  def curve():
+    # 申明非本地变量
+    nonlocal name
+    print('i am curve and ' + name)
+  return curve
+
+curve_pre()
+```
+
+### 匿名函数
+
+```python
+
+def add(x, y):
+    return x + y
+# 匿名函数
+# lambda prama_list: expr
+lambda x, y: x + y
+# 三元表达式
+x > y ? x : y
+x if x > y else y
+
+# map 遍历
+map(func, list)
+map(lambda x, y: x * x + y, listx, listy)
+# reduce 遍历
+from functools import reduce
+reduce(lambda x,y: x+y, listx, first)
+# filter
+filter(lambda x: x > 3, a)
+```
+
+## 装饰器
+
+``` python
+import time
+def decorator(func):
+    # args 参数列表，kw 关键字参数(以字典接收剩余参数)
+    def wrapper(*args, **kw):
+        print(time.time())
+        func(*args, **kw)
+    return wrapper
+# 使用装饰器
+@decorator
+def f1():
+    print('this is a func')
+```
