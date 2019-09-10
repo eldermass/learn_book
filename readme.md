@@ -1,6 +1,7 @@
 # 学习笔记
 
-[回到github仓库](https://github.com/RiseUpCY/learn_mark)
+[回到github仓库](https://github.com/RiseUpCY/learn_mark)  
+[去gitbook](https://60late-cy.gitbook.io/mark/undefined)
 
 ## 入门笔记
 

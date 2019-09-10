@@ -23,7 +23,6 @@ class Spider():
 
         # 转义部分unicode到中文
         string = string.encode().decode('unicode-escape')
-        a = 1
 
     def go(self):
         htmls = self.__fetch_content()
