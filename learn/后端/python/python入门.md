@@ -11,7 +11,7 @@
 身份运算符(比较内存地址)  
           is   is not
 位运算符
-    & 按位与 2 & 3 = 2 (10 与 11 得 10)
+    & 按位与 2 & 3 = 2 (0b10 与 0b11 得 0b10)
     | 按位或
     ^ 按位异或
     ~ 按位取反
@@ -256,7 +256,7 @@ re.findall('parttern', a)
 # 规则和其他语言差不多
 # 默认贪婪匹配，量词加?即可进入非贪婪
 
-# re.I 忽略大小写， re.S .匹配任意 
+# re.I 忽略大小写， re.S .匹配任意
 re.findall('parttern', a, re.I | re.S)
 
 # 替换类似js replace, count替换多少个，count 为0表示无限制
@@ -342,4 +342,43 @@ def decorator(func):
 @decorator
 def f1():
     print('this is a func')
+```
+
+## 其他
+
+``` python
+# 列表推到式，适用list, set, tuple, dict
+# 平方为例
+a = [1,2,3,4,5,6]
+b = [i**2 for i in a]
+# 加入条件过滤
+b = [i**2 for i in a if i>5]
+
+# 字典中使用
+stu = {
+    '张三': 12,
+    '李四': 15,
+    '王五': 18
+}
+# 取key
+b = [key for key, value in stu.items()]
+print(b) # ['张三', '李四', '王五']
+# 翻转key-value
+b = {value:key for key, value in stu.items()}
+```
+
+``` python
+None 不等于 '' | 0 | [] | False
+# None 是属于 NoneType对象
+if None: # 这里的等同于  bool(None)
+
+# 自定义类的判断
+class Test():
+    def __len__(self):
+        return False
+    def __bool__(self):
+        return False
+# 判断时，会先尝试调用__bool__, 不行时再调用__len__
+test = Test()
+bool(test) # 就是 False
 ```
