@@ -1,6 +1,7 @@
 
-a = ['a']
-b = 'a'
+a = [1, 2, 3, 4]
+b = [2, 3, 4, 5]
 
-if b in a:
-    print('no')
+c = map(lambda x, y: x + y, a, b)
+
+print(list(c))
