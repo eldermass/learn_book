@@ -127,9 +127,9 @@ git rebase --onto master server client  多分支变基，指定基底，
     git show origin/master..HEAD
 
     查看refB中有,远程refA里没有的提交
-    $ git log refA..refB
-    $ git log ^refA refB
-    $ git log refB --not refA
+    git log refA..refB
+    git log ^refA refB
+    git log refB --not refA
 
     交互式添加
     git add -i
