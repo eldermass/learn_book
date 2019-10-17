@@ -34,6 +34,11 @@
     git branch --set-upstream-to  origin master/origin 创建本地分支与远程分支的关联
 
 
+    git checkout -- file    移除改动的文件
+    git clean -n
+                -df         清理追踪的变化
+    git rm --cached         清理缓存文件
+
 ```
 
 1.[分支管理](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86)
