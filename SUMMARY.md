@@ -46,7 +46,7 @@
   * [服务器](learn/服务器/README.md)
     * [linux](learn/服务器/linux/README.md)
       * [linux入门](learn/服务器/linux/linux入门.md)
-      * [shell编程入门](learn/服务器/linux/shell编程入门.md)
+      * [shell编程](learn/服务器/linux/shell编程入门.md)
 
   * [数据库](learn/数据库/README.md)
     * [redis入门](learn/数据库/redis入门.md)
@@ -57,6 +57,6 @@
       * [docker入门](learn/工具/docker/docker.md)
       * [docker-compose](learn/工具/docker/docker-compose.md)
       * [docker实践](learn/工具/docker/docker实践.md)
-    * [nginx入门笔记](learn/工具/nginx/nginx笔记.md)
+    * [nginx入门](learn/工具/nginx/nginx笔记.md)
 
 * [其他](other/README.md)
