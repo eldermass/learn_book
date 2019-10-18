@@ -1,0 +1,32 @@
+mongod 启动服务， mongo使用数据库
+一. 基础指令
+    db.runCommand({getLastError: 1})
+    1.启动
+        mongo --port 27017 // 不带 port 为默认， --host 可以连其他机子
+        show users 查看用户列表
+    2.库
+        show dbs 查看库 
+        use test 切换/创建库，如果没有会延时创建
+        db.dropDatabase() //删除库
+    3. 集合
+        show collections 查看集合(类似表) 
+        db.acount.save({'name':'Jack', 'age': 23}) 创建集合，db.库名.save({})
+        db.acount.find()  查询acount集合
+        db.acount.find({'name':'Jack'})  查询acount集合
+        db.acount.drop()  删除acount集合
+二.恢复备份
+    1.备份
+        mongodump -h dbhost -d dbname -o dbdirectory
+        地址， 数据库名， 目录路径
+    2.恢复
+        mongorestore -h dbhost -d dbname --directoryperdb dbdirectory
+三.导入导出
+    1. 导出
+        mongoexport -d dbname -c collectionname -q {查询条件} -f name,age>path
+        或mongoexport -d test -c boss -o D:/boss.json --type=json
+        csv导出
+        mongoexport -d dbname -c collectionname -q {查询条件} -f name,age --csv>path
+        mongoexport -d test -c boss -o D:/boss.csv -f name,age --type=csv
+    2. 导入
+        mongoimport -d dbname -c collectionname --type csv --headerline --drop <path
+        或mongoimport --db dbname --collection collectionname --file F:\users.json --type=json

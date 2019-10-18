@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="600" style="border:1px solid #ccc"></canvas>
+    <button onclick="filter()">filter</button>
+    <canvas id="canvas2" width="1200" height="600" style="border:1px solid #ccc"></canvas>
+    <script>
+        // 获取图片数据
+        // context.getImageData(sx, sy, sw, sh); 
+        // 放回图片数据
+        // context.putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+        // 创建图片数据
+        // context.createImageData(width, height);
+        
+
+        // 图片数据
+        // 一维数组，rgba依次排列，每四个代表一个像素, 例 第i个像素的rgba对应数组的位置
+        // r --  4*i + 0
+        // g --  4*i + 1
+        // b --  4*i + 2
+        // a --  4*i + 3
+        // 第x行，y列的像素的位置， i = x.width + y,  得到i后同上
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        let imageData =''
+        let image = new Image()
+        image.src = './10.jpg'
+        image.onload = function () {
+            ctx.drawImage(image, 0, 0,image.width, image.height)
+            imageData = ctx.getImageData(0,0,1000,600)
+        }
+
+
+        let canvas2 = document.getElementById('canvas2')
+        let ctx2 = canvas2.getContext('2d')
+        
+        function filter() {
+            // 处理图像
+            imageData.data.forEach((val, index) => {
+                switch(index%4){
+                    case 0:
+                        imageData.data[index] = 0
+                        break;
+                    case 1:
+                        // imageData.data[index] = 0
+                        break;
+                    case 2:
+                        // imageData.data[index] = 0
+                        break;
+                    case 3:
+                        break;
+                }
+            })
+            ctx2.putImageData(imageData, 0, 0, 100, 0, 1000, 600)
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			Function.prototype.newBind = function(target){
+				//this -> show
+				target = target || window
+				var self = this
+				//接收绑定进来的参数
+				var args = [].slice.call(arguments,1)
+				
+				var F = function (){
+					var _arg = [].slice.call(arguments,0)
+					return self.apply(this instanceof temp ? this : target, args.concat(_arg))
+				}
+				//实现继承让 新函数在构造时能够脱离对父级的影响
+				var temp = function (){}
+				temp.prototype = this.prototype
+				F.prototype = new temp()
+//				F.constructor = this.constructor
+				return F
+			}
+			
+			let obj = {
+				name:'obj'
+			}
+			show.prototype.mom = 'momMom'
+			function show(age){
+				console.log(this.name)
+				console.log(age)
+				return 'over'
+			}
+			let newShow = show.newBind(obj,23)
+			console.log(new newShow())
+		</script>
+	</body>
+</html>

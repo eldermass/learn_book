@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//以前是用函数模拟的
+			//属性  + 方法
+			{
+				function Person(name, age){
+					this.name = name;
+					this.age = age;
+				}
+				let p1 = new Person('Jack', 23);
+				//prototype挂载方法
+				Person.prototype.showName = function () {
+					return `my name is ${ this.name }`;
+				}
+				console.log(p1.showName());
+			}
+		</script>
+	</body>
+</html>

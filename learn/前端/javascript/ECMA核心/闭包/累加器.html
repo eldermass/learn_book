@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function add(){
+				var count = 0
+				function a(){
+					count++
+					console.log(count)
+				}
+				return a
+			}
+			var count = add()
+			count()
+			count()
+			count()
+			count()
+		</script>
+	</body>
+</html>

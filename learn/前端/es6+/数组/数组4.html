@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//类数组转数组
+				function show(){
+					let arr = [...arguments];
+					//let arr = Array.from(arguments);
+					//镜像拷贝数组后，就可以进行数组操作
+					let last = arr.pop();
+					arr.unshift(last);
+					console.log(arr);
+				}
+				show(1,2,3,4,5)
+			}
+			{//json对象转化为数组
+				let json = {
+					0:'apple',
+					1:'banana',
+					2:'pear',
+					length:3
+				}
+				let arr = Array.from(json);
+				console.log(arr);
+			}
+			{//Array.of()
+				let arr= Array.of('apple','pear','orange');
+				console.log(arr)
+			}
+			{//Array.find()找出第一个符合条件的value，如果没有找到就是undefined
+				//Array.findIndex()同上，找的是index
+				let arr = [2,5,40,19,7];
+				let res = arr.find((val,index,arr) =>{
+					return val>15;//40先出来，所以结果是40
+				});
+				console.log(res);
+			}
+			{//arr.includes()检查是否包含
+				let arr = [1,5,3,6,8];
+				let c = arr.includes(3);
+				console.log(c);
+			}
+			
+		</script>
+	</body>
+</html>

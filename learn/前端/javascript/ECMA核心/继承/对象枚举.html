@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let obj = {
+				name : 'abc',
+				age:123,
+				sex:'male',
+				height:180,
+				weight:75,
+				__proto__:{
+					lastName:'deng'
+				}
+			}
+//			console.log(obj.name)//会转换为[]的形式
+//			console.log(obj['name'])
+			//遍历
+			//hasOwnProperty() 自己的属性
+			//in 自己及父级的属性
+			//instanceof  判断是否时实例
+			//A instanceof B 查看A的原型链上是否有B的原型
+			
+			for(let proper in obj){
+				if(!obj.hasOwnProperty(proper)){
+					continue   //去除原型上的属性					
+				}
+				console.log(obj[proper])//obj[这里放的时string]，转换obj.xx --> obj['xx']
+			}
+			
+			{
+				//区分[]和 {}
+				let arr = []
+				let obj = {}
+				//1.
+				console.log(arr.constructor)
+				console.log(obj.constructor)
+				//2.
+				console.log(arr instanceof Array)
+				console.log(obj instanceof Array)
+				//3.
+				console.log(Object.prototype.toString.call(arr))
+			}
+		</script>
+	</body>
+</html>

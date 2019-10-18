@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let arr = [1,1,2,2,3,3,4,4]
+//			Array.prototype.unique = function (){
+//				return [...new Set(this)]
+//			}
+			Array.prototype.unique = function (){
+				let temp = {}
+				let arr = []
+				for(let one of this){
+					if(!temp[one]){
+						temp[one] = 'asd'
+						arr.push(one)						
+					}
+				}
+//				for(let index in temp){
+//					arr.push(index)
+//				}
+				return arr
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//只有函数表达式才能被执行符号()执行，
+			// + - ！ && || 等符号可以把函数体转化为表达式，就能立即执行
+			/*
+			function test(){
+				console.log('a')
+			}()     
+			这里会语法错误
+			*/
+			let test = function (){
+				console.log('a')
+			}()
+			//这里可以直接被执行，  因为他是一个函数表达式
+			//这里被立即执行后，将被放弃函数体声明，   即test是undefined
+			
+		</script>
+	</body>
+</html>

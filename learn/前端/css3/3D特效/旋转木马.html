@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;list-style: none;}		
+			.container{
+				margin: 100px auto;
+				width: 1700px;
+				height: 1000px;
+				border: 1px solid #000;
+				position: relative;
+			}
+			
+			ul li{
+				/*width: 1000px;
+				height: 600px;*/
+				position:absolute;
+				transition: all 1s;
+
+			}
+			img{
+				height: 100%;
+				width: 100%;
+			}
+			.slide1{
+				width: 500px;
+				left: 200px;
+				top: 20px;
+				opacity: 0.4;
+			}
+			.slide2{
+				width: 800px;
+				left: 20px;
+				top: 150px;
+				opacity: 0.7;
+			}
+			.slide3{
+				width: 1000px;
+				left: 400px;
+				top: 300px;
+				opacity: 1;
+				z-index: 999;
+			}
+			.slide4{
+				width: 800px;
+				left: 880px;
+				top: 150px;
+				opacity: 0.7;
+			}
+			.slide5{
+				width: 500px;
+				left: 970px;
+				top: 20px;
+				opacity: 0.4;
+			}
+			.goback,.gonext{
+				height: 150px;
+				width: 150px;
+				border: 2px solid #ADFF2F;
+				background: #87CEEB;
+				position: absolute;
+				top: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.gonext{
+				right:0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li class="slide1"><a><img src="img/11.jpg"></a></li>
+				<li class="slide2"><a><img src="img/12.jpg"></a></li>
+				<li class="slide3"><a><img src="img/13.jpg"></a></li>
+				<li class="slide4"><a><img src="img/17.jpg"></a></li>
+				<li class="slide5"><a><img src="img/15.jpg"></a></li>
+			</ul>
+			<div class="goback">上翻</div>
+			<div class="gonext">下翻</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
+	<script>
+		var slides=['slide1','slide2','slide3','slide4','slide5'];
+		var flag=true;
+		$('.goback').click(function(){
+			if(flag){
+				flag=false;
+				var last=slides.pop();
+				slides.unshift(last);
+				$('li').each(function(i,e){
+					e.className=slides[i];
+				});
+			}
+		});
+		$('.gonext').click(function(){
+			if(flag){
+				flag=false;
+				var first=slides.shift();
+				slides.push(first);
+				$('li').each(function(i,e){
+					e.className=slides[i];
+				});
+			}
+		});
+		$('li').each(function(i,e){
+			console.log(i)
+			console.log(e);
+//			e.onanimationend=function(){
+//				flag=true;
+//			}
+			e.addEventListener('transitionend',function(){
+				flag=true;
+			})
+//			e.ontransitionend=function(){
+//				flag=true;
+//			}
+//			e.addEventListener('animationend',function(){
+//				flag=true;
+//			})
+		});
+		
+		
+	</script>
+</html>

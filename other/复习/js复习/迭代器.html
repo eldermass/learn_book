@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 设计一个数据的迭代器
+    Array.prototype.oneach = function (f) {
+        try {
+            this.i || (this.i = 0)
+            if (this.length > 0 && f.constructor == Function) {
+                while (this.i < this.length) {
+                    let e = this[this.i]
+                    if (e && e.constructor == Array) {
+                        e.oneach(f)
+                    } else {
+                        f.call(e, e, this.i, this)
+                    }
+                    this.i++
+                }
+                this.i = 0
+            }
+        } catch(e) {
+
+        }
+    }
+    let arr = [1, 2, [3, 4]]
+    function fn (val, index, arr) {
+        console.log(`--${val}--${index}--${arr}`)
+    }
+    arr.oneach(fn)
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div"></div>
+    <script>
+        // get和set能监测到数据的变化
+        
+        function observe(obj) {
+            // 判断是否为对象
+            if (!obj || typeof obj !== 'object') {
+                return
+            }
+            Object.keys(obj).forEach(key => {
+                defineReactive(obj, key, obj[key])
+            })
+        }
+        // 对obj定义可监控的属性
+        function defineReactive(obj, key, val) {
+            // 递归检测子对象的属性
+            observe(val)
+            let dp = new Dep()
+            Object.defineProperty(obj, key, {
+                enumerable: true,
+                configurable: true,
+                get: function reactiveGetter() {
+                    console.log('get value ' + val)
+                    // 将 Watcher 添加到订阅, 在Watcher实例化时才会判断为true
+                    if (Dep.target) {
+                        dp.addSub(Dep.target)
+                    }
+                    return val
+                },
+                set: function reactiveSetter(newVal) {
+                    console.log('change value')
+                    val = newVal
+                    // 执行 watcher 的 update 方法
+                    dp.notify()
+                }
+            })
+        }
+
+        // 通过 Dep 解耦
+        class Dep {
+            constructor() {
+                this.subs = []
+                // 存放watcher实例
+            }
+            addSub(sub) {
+                // sub 是 Watcher 实例
+                this.subs.push(sub)
+            }
+            notify() {
+                this.subs.forEach(sub => {
+                    sub.update()
+                })
+            }
+        }
+        // 全局属性，通过该属性配置 Watcher
+        Dep.target = null
+
+        class Watcher {
+            constructor(obj, key, cb) {
+                // 将 Dep.target 指向自己
+                // 然后触发属性的 getter 添加监听
+                // 最后将 Dep.target 置空
+                Dep.target = this
+                this.cb = cb
+                this.obj = obj
+                this.key = key
+                this.value = obj[key] // 触发监听
+                Dep.target = null
+            }
+            update() {
+                // 获得新值
+                this.value = this.obj[this.key]
+                // 调用 update 方法更新 Dom
+                this.cb(this.value)
+            }
+        }
+        let data = { name: 'jack', age: 20 }
+        observe(data)
+        
+        // 模拟解析到 `{{name}}` 触发的操作
+        function update(value) {
+            // 回调函数
+            console.log('update - -')
+            document.querySelector('#div').innerText = value
+        }
+        // 添加监控
+        new Watcher(data, 'name', update)
+        // new Watcher(data, 'age', () => {console.log('age updated')})
+        // update Dom innerText
+        data.name = 'yyy' 
+    </script>
+</body>
+
+</html>

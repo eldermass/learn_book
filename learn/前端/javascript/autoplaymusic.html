@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <audio src="http://music.163.com/song/media/outer/url?id=476592630.mp3" id="audio"
+    autoplay controls></audio>
+    <script>
+        var audioMp3;
+        audioPlay()
+        function audioPlay(){
+            audioMp3 = document.getElementById('audio');
+            var mp3State = true;
+            var timer = null;
+            timer = setInterval(function(){
+                if (audioMp3.duration) {
+                    audioMp3.play();
+                }
+                if (audioMp3.currentTime) {
+                    clearInterval(timer);
+                }
+            }, 500);
+            // $('.audio-name').click(function(){
+            //     if(mp3State){
+            //         audioMp3.pause();
+            //         $('.top-icon2').attr('src','//game.gtimg.cn/images/lol/act/a20190129spring/nav-icon2.png');
+            //         $('.top-icon1').attr('src','//game.gtimg.cn/images/lol/act/a20190129spring/nav-icon.png');
+            //         mp3State = false;
+            //     }
+            //     else{
+            //         audioMp3.play();
+            //         $('.top-icon2').attr('src','//game.gtimg.cn/images/lol/act/a20190129spring/musicon01.gif');
+            //         $('.top-icon1').attr('src','//game.gtimg.cn/images/lol/act/a20190129spring/musicon02.gif');
+            //         mp3State = true;
+            //     }
+            // })
+                
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//主要就是把i传进函数体里面
+			var arr = [1,2,3,4,5]
+			function test(){
+				for(var i in arr){ //这里let i 能够解决
+					arr[i] = function (){
+						console.log(i)
+					}
+				}
+			}
+			function test1(){
+				for(var i in arr){
+					arr[i] = (function (j){
+						return function(){
+							console.log(j)
+						}
+					}(i))
+				}
+			}
+			function test2(){
+				for(var i in arr){
+					arr[i] = function (j){
+						console.log(j)
+					}.bind(this,i)
+				}
+			}
+			test2()
+			
+		</script>
+	</body>
+</html>

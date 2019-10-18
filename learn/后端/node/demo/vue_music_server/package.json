@@ -1,0 +1,28 @@
+{
+  "name": "musicserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "env-cmd ./.env node index",
+    "watch": "env-cmd ./.env nodemon index"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "285653184@qq.com",
+  "license": "ISC",
+  "dependencies": {
+    "js-base64": "^2.4.9",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6"
+  },
+  "devDependencies": {
+    "env-cmd": "^8.0.2",
+    "nodemon": "^1.18.10"
+  }
+}

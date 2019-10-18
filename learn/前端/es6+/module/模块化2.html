@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="module">
+			import mod,{show,sum,a,b} from './4.js';
+			
+			setTimeout(function(){
+				let p1=new mod.Person();
+				console.log(p1.showname());
+				show();
+				let c = sum(a,b);
+				console.log(c);
+			},1500);
+			
+			
+			
+		</script>
+	</body>
+</html>

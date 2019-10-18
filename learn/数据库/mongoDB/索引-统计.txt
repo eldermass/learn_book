@@ -1,0 +1,36 @@
+一.创建索引
+    单件索引，
+        db.test.ensureIndex({userid: 1}) // 升序
+    复合索引
+        db.test.ensureIndex({userid: 1, age: -1})
+    唯一索引  // 复合唯一索引，的组合不同即可
+        db.test.ensureIndex({userid: 1}, {unique: true})
+二.查询分析
+    explain 用于查询性能分析
+        db.test.find({username: 'wang'}).explain()
+    hint 强制指定查询使用索引
+        db.test.find(age: {$lt : 20}).hint({userName: 1, age: 1})
+三. 索引管理
+    1. 查看索引
+        db.test.getIndexes()
+    2. 删除索引
+        db.test.dropIndex() // 可传入string
+        db.test.dropIndexes() // 删除全部
+
+        db.runCommand({'dropIndexes': 'test', 'index': 'x_1'})
+    3. 重建索引
+        db.test.reIndex()
+
+
+四. 聚合统计
+    1. 统计 count
+        db.test.count()
+        db.test.count({age: {$lt: 10}})
+    2. 聚合
+        db.test.distinct(string, {queryObj})
+        db.runCommand({distinct: 'test', key: 'value'})
+    3. 分组
+        db.test.group({key: {'x': true},            // 分组目标
+            initial: {number: 0},                   // 初始值
+            reduce: (doc, prev) => {prev.number++}, // 迭代函数
+            cond: {x: {$gt: 90}}})                  // 查询条件

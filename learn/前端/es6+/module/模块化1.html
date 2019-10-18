@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="module">
+			//ES6 统一了服务端和客户端的模块
+			//import {xx} dddd  
+			//import只会导入一次
+			//import 会自动最先执行，不用一定放在最前面
+			
+			import './1.js';               //引入文件
+			import t,{m} from './3.js'           //引入默认值，只有这种情况不用加大括号,其他都要加
+ 			import {a,b,c as fuck} from './1.js';  //导出文件值，可以起别名
+			import {d,e,f} from './2.js' ; 
+			import * as mod from './2.js'; //以对象形式引入
+			
+			setTimeout(()=>{
+				console.log(t,m);
+				console.log(a,b,fuck,d,e,f);
+				console.log(mod);
+			},1000);
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+	/*原型是function对象的一个属性，它定义了 构造函数制造出对象的公共祖先。
+	通过该构造函数产生的对象，可以继承该原型的属性和方法，原型也是一个对象*/
+			
+			//Person.prototype 就是原型，是函数Person实例的公有祖先，
+			//Person.prototype = {} 被new时，Person函数就会继承祖先，变为对象
+//			Person.prototype.name = 'Deng'   //由于原型一直存在，且是个空对象
+			Person.prototype = { 
+				name:'zhangsan',
+				age:123
+			}
+			function Person(){
+				this.age = 23
+			}
+			let p = new Person()
+			console.log(p.name)
+			console.log(p.age)
+			/*构造函数 构造 
+			 * 实例*/
+		</script>
+	</body>
+</html>

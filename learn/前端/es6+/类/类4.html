@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//用set 和 get 截断 设置属性
+			class Person{
+				constructor(){}
+				get name(){
+					console.log('正在获取name属性')
+					return this._name
+				}
+				set name(val){
+					console.log(`正在设置name属性，name的值是${val}`)
+					this._name = val
+				}
+				
+			}
+			let p1 = new Person();
+			p1.name = '222';
+			console.log(p1.name);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			class Promise2{
+				constructor(fn){
+					let _this = this
+					this.status = ''
+					this.res_success = null
+					this.res_error = null
+					this.queue = []//存放then中的回掉函数
+					
+					fn(function resolve(...arg){
+						_this.status = 'success'
+						_this.res_success = arg
+						//
+						_this.queue.forEach(val=>{
+							val.fn1(...arg)
+						})
+					},function reject(...arg){
+						_this.status = 'error'
+						_this.res_error = arg
+						//
+						_this.queue.forEach(val=>{
+							val.fn2(...arg)
+						})
+					})
+				}
+				then(fn1,fn2){
+					if(this.status == 'success'){
+						fn1(...this.res_success)
+					}else if(this.status == 'error'){
+						fn2(...this.res_error)
+					}else{
+						//在没有决定状态前，把回调函数先存放
+						this.queue.push({fn1,fn2})
+					}
+				}
+			}
+			//实现Promise.all
+			Promise2.all = function(arr){
+				let result = []
+				return new Promise2(function (resolve,reject){
+					let i = 0
+					next()
+					function next(){
+						arr[i].then(function (res){
+							result.push(res)
+							i++
+							if(i == arr.length){
+								resolve(result)
+							}else{
+								next()
+							}
+						},reject)
+					}
+				})
+			}
+			
+			
+			let p = new Promise2((resolve,reject)=>{
+				setTimeout(()=>{
+					resolve(123)
+				},1000)
+			})
+			
+			p.then(res=>{
+				console.log(res)
+			})
+			
+			
+			
+			let p1 = new Promise2((resolve,reject)=>{
+				setTimeout(()=>{
+					resolve(11)
+				},1000)
+			})
+			let p2 = new Promise2((resolve,reject)=>{
+				setTimeout(()=>{
+					resolve(22)
+				},1000)
+			})
+			Promise2.all([p1,p2]).then(res=>{
+				console.log(res)
+			})
+			
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function fn(...n){
+				console.log(n)
+				return "i am fn";
+			}
+			let newfn = new Proxy(fn,{
+				apply(fn){
+					let res = fn.apply(this, arguments[2])
+					// 可以获取函数返回值
+					console.log( res )
+					return 'i am in proxy'
+				}
+			})
+			console.log(newfn(2,3))
+		</script>
+	</body>
+</html>

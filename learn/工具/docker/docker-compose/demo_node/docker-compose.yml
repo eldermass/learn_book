@@ -1,0 +1,56 @@
+version: "3"
+services:
+  service_nginx:
+    container_name: nginx
+    restart: always
+    image: nginx:stable
+    ports:
+      - "80:80"
+    volumes:
+      - /e/www/docker:/etc/nginx/conf.d
+    links:
+      - service_node
+      - service_php73
+    networks:
+      lnmp-network:
+        aliases:
+          - service_nginx
+    privileged: true
+    depends_on:
+      - service_node
+
+  service_node:
+    container_name: node
+    image: node:10.16.0-alpine
+    restart: always
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/e/www/node:/www"
+    env_file:
+      - ./NODE_ENV.env
+    command: sh -c "cd /www && npm start"
+    networks:
+      lnmp-network:
+        aliases:
+          - service_node
+    privileged: true
+
+  service_php73:
+    container_name: php73
+    image: php:7.3-fpm
+    restart: always
+    expose:
+      - "9000"
+    volumes:
+      - "/e/www/php:/www"
+    networks:
+      lnmp-network:
+        aliases:
+          - service_php73
+    privileged: true
+
+networks:
+  lnmp-network:

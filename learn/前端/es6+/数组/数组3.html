@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//reduce,求和，递归，次方等
+				let arr = [2,2,3];
+				//求和
+				let a = arr.reduce((prev,cur,index,arr) => {
+					return prev+cur;
+				})
+				
+				//求阶乘
+				let b= arr.reduce((prev, cur ,index ,arr) =>{
+					return prev*cur;
+				})
+				//求幂
+				let c = arr.reduce((prev,cur,index,arr) =>{
+					//return Math.pow(prev,cur);
+					return prev ** cur;
+					//幂运算符
+				})
+				
+				
+				document.write(`${a}<br>${b}<br>${c}<br>`);
+			}
+			{//reduceRight 同上，换了个方向而已
+				let arr = [2,2,3];
+				let e = arr.reduceRight((prev,cur,index,arr) =>{
+					return prev ** cur;
+				})
+				document.write(e);
+				
+			}
+		</script>
+	</body>
+</html>

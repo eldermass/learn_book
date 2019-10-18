@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.box{
+				height: 200px;
+				width: 140px;
+				position: relative;
+				margin: 250px auto;
+				transform-style: preserve-3d;
+				transform-origin: center;
+				transform: perspective(800px) rotateY(0);
+			}
+			span{
+				position: absolute;
+				height: 200px;
+				width: 140px;
+				box-sizing: border-box;
+				background: skyblue;
+				text-align: center;
+				line-height: 200px;
+				color: white;
+				border: 10px solid #aaa;
+			}
+		</style>
+	</head>
+	<body onselectstart="return false">
+		<div class="box">
+			
+		</div>
+		<script>
+			let box = document.querySelector('.box')
+			let timer = null
+			let goTimer = null
+			let autoTimer = null
+		 	let re = []
+		    let x = 0
+		    let disX = 0
+		   	let n = 0
+			
+		    for(let i = 1;i<13;i++){
+		    	let span = document.createElement('span')
+		    	span.style.background =`url('img/${i+10}.jpg') 100% 100%`
+		    	span.onclick = (e)=>{
+		    		e.preventDefault()
+		    	}
+		    	box.appendChild(span)
+		    }
+		    window.onload=function (){
+		    	let sp = document.querySelectorAll('span')
+			    for(let [index,val] of sp.entries()){
+			    	val.style.transition = `all 1s ease ${(sp.length - index)*0.1}s`
+			    	val.style.transform = `rotateY(${index*(360/sp.length)}deg) translateZ(500px)`
+			    }
+			    setTimeout(()=>{
+			    	autoTimer = setInterval(()=>{
+				    	box.style.transform = `perspective(800px) rotateY(${n--/20}deg)`
+				    },20)
+			    },2000)
+			    
+			   
+			    box.onmousedown = e=>{
+			    	clearInterval(autoTimer)
+			    	x = e.clientX
+			    	goTimer = setInterval(()=>{
+			    		re[0] = re[1]
+			    	},30)
+			    	
+			    	document.onmousemove =(e)=>{
+						disX = e.clientX - x
+			    		re[1] = e.clientX
+					    box.style.transform = `perspective(800px) rotateY(${(n+disX)/20}deg)`
+				    }
+			    	
+			    
+				    document.onmouseup = ()=>{
+				    	clearInterval(timer)
+				    	clearInterval(autoTimer)
+				    	clearInterval(goTimer)
+				    	document.onmousemove = null
+				    	document.onmouseup = null
+				    	n += disX
+				    	
+				    	let speed = re[1] - re[0]
+				    	
+				    	timer = setInterval(res=>{
+					    	box.style.transform = `perspective(800px) rotateY(${(n+speed)/20}deg)`
+				    		//修改这里
+				    		n += speed
+				    		speed = speed * 0.9
+				    		if(Math.abs(speed) < 1){
+				    			speed = 0
+				    			clearInterval(timer)
+				    			clearInterval(autoTimer)
+				    			autoTimer = setInterval(()=>{
+					    			box.style.transform = `perspective(800px) rotateY(${n--/20}deg)`
+
+				    			},20)
+				    		}
+					    },20)
+				    }
+			    }
+		    }
+		   
+		   	
+		   	
+		</script>
+	</body>
+</html>

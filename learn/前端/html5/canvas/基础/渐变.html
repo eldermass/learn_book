@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas1" width="500" height="500" style="border:1px solid #ccc"></canvas>
+    <canvas id="canvas2" width="500" height="500" style="border:1px solid #ccc"></canvas>
+    <canvas id="canvas3" width="500" height="500" style="border:1px solid #ccc"></canvas>
+    <script>
+        let canvas1 = document.getElementById('canvas1')
+        let canvas2 = document.getElementById('canvas2')
+        let canvas3 = document.getElementById('canvas3')
+        let ctx1 = canvas1.getContext('2d')
+        let ctx2 = canvas2.getContext('2d')
+        let ctx3 = canvas3.getContext('2d')
+
+        // 线性渐变
+        let linearGrad = ctx1.createLinearGradient(0,0,500,500)
+        linearGrad.addColorStop(0 , '#fff')
+        linearGrad.addColorStop(1 , '#000')
+
+        ctx1.fillStyle = linearGrad
+        ctx1.fillRect(0,0,500,500)
+
+        // 径向渐变
+        let radialGrad = ctx2.createRadialGradient(250,250,0,250,250,250)
+        radialGrad.addColorStop(0 , '#ff0000')
+        radialGrad.addColorStop(0.5 , '#00ff00')
+        radialGrad.addColorStop(1 , '#0000ff')
+
+        ctx2.fillStyle = radialGrad
+        ctx2.fillRect(0,0,500,500)
+
+        // 填充图片
+        // context.createPattern(Image, repetition); js中的图片对象 或者 一个canvas画布,一个video，重复模式no-repeat
+        let bgCanvas = document.createElement('canvas')
+        bgCanvas.width = 20; bgCanvas.height = 20
+        let bgctx = bgCanvas.getContext('2d')
+        bgctx.arc(10,10,8,0,Math.PI*2)
+        bgctx.stroke()
+
+        let cp = ctx3.createPattern(bgCanvas, 'repeat')
+        ctx3.fillStyle = cp
+        ctx3.fillRect(0,0,500,500)
+    </script>
+</body>
+</html>

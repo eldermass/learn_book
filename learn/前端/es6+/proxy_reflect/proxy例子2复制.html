@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let DOM = new Proxy({},{
+				get(target,prop){
+					return (attr={},...children)=>{
+						const el = document.createElement(prop)
+						for(let key of Object.keys(attr)){
+							el.setAttribute(key,attr[key])
+						}
+						for(let child of children){
+							if(typeof child == 'string'){
+								child = document.createTextNode(child)
+							}
+							el.appendChild(child)
+						}
+						return el
+					}
+				}
+			})
+			console.log(DOM.div({id:'my'},'iamfucking',DOM.div({id:'my'},'iamfucking')))
+		</script>
+	</body>
+</html>

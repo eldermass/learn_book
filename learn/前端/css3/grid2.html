@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 1fr 3fr 5fr;
+            grid-template-areas: 
+                'head head'
+                'left right'
+                'mid right';
+            grid-row-gap: 10px; /* 列宽 */
+            grid-column-gap: 5px; /* 行宽 */
+            /* justify-items: end;  使网格项变成inline元素，并按制定规则对其 */
+            /* align-items: start; 列方向上变为line（只占一行），并按制定规则对其 */
+            /* align-content: start; 用px未占满时的规则 justify相同 */
+            /* grid-auto-flow: column; 为指定的区域，按指定规则摆放 */
+
+        }
+        .item-1{
+            background-color: lightcoral;
+            grid-area: head;
+        }
+        .item-2{
+            background-color: lightgreen;
+            grid-area: left;
+            /* grid-row-start: 1; */
+        }
+        .item-3{
+            background-color: skyblue;
+            grid-area: right;
+        }
+        .item-4 {
+            background-color: lightseagreen;
+            grid-area: mid;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item-1">123</div>
+        <div class="item item-2">123</div>
+        <div class="item item-3">123</div>
+        <div class="item item-4">123</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//访问一个对象的属性，当属性不存在的时候，就返回^_^，
+			let json = { name:'Chenyue'};
+			
+			let obj = new Proxy(json,{
+				get(target,property){
+					if(property in  target){
+						return target[property]
+					}else{
+//						throw new ReferenceError(`${property}属性不存在`)
+						console.warn(`${property}属性不存在`);
+						return `^_^`
+					}
+				}
+			})
+			
+			console.log(obj.name)
+			console.log(obj.age)		
+			
+		</script>
+	</body>
+</html>

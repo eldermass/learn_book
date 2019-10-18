@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            border: 1px solid pink;
+            background: skyblue;
+            height: 100px;width: 100px;
+            position: absolute;
+            left: 0;top:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box1"></div>
+    <!-- <div id="box2"></div> -->
+<script>
+    class Drag{
+        constructor(el){
+            this.el = document.querySelector(el)
+            this.distance = {
+                x: 0, y: 0
+            }
+            this.init()
+        }
+        init(){
+            this.el.onmousedown = e => {
+                this.distance.x = e.clientX - this.el.offsetLeft
+                this.distance.y = e.clientY - this.el.offsetTop
+
+            //    document.addEventListener('mousemove', this.mouseMove.bind(this))
+            //    document.addEventListener('mouseup', this.mouseUp.bind(this))
+                document.onmousemove = this.mouseMove.bind(this)
+                document.onmouseup = this.mouseUp.bind(this)
+            }
+        }
+        mouseMove(e){
+            this.el.style.left = e.clientX - this.distance.x + 'px'
+            this.el.style.top = e.clientY - this.distance.y + 'px'
+            if(this.el.offsetLeft <= 0){
+                this.el.style.left = 0;
+            }
+            if(this.el.offsetTop <= 0){
+                this.el.style.top = 0;
+            }
+        }
+        mouseUp(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+            // document.removeEventListener('mousemove', this.mouseMove)
+            // document.removeEventListener('mouseup', this.mouseUp)
+        }
+    }
+    new Drag('#box1')
+</script>
+</body>
+</html>

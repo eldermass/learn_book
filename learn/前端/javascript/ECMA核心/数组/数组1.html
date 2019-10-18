@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//改变原数组
+			//push pop shift unshift sort reverse
+			//splice
+			//不改变原数组
+			//concat join  split toString  slice
+			
+//			let arr = new Array(10)  //只传一个值，表示创建一个长度为10的空数组
+			
+			//自己写重写push
+			Array.prototype.push = function (){
+				for(let val of arguments){
+					this[this.length] = val 
+				}
+			}
+			//重写pop
+			Array.prototype.pop = function(){
+				let last = this[this.length - 1]
+				this.length--;
+				return last
+			}
+			Array.prototype.shift = function (){
+				for(let [index,val] of this.entries()){
+					this[index] = this[index+1]
+				}
+				this.length--
+			}
+			Array.prototype.unshift = function (){
+				let newArr = []
+				newArr.length = arguments.length + this.length
+				for(let [index,val] of newArr.entries()){
+					index < arguments.length?
+					newArr[index] = arguments[index]:
+					newArr[index] = this[index-arguments.length]
+				}
+//				this = newArr;
+				return newArr
+			}
+			let arr = [1,2,3]
+			arr.push(1,2)
+		</script>
+	</body>
+</html>

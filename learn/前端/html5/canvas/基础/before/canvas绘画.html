@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>小球大战</title>
+		<style>
+		*{margin: 0;padding: 0;}
+		body{background: #222;}
+			#pan{
+				border: 1px solid #aaa;border-radius: 20px;margin:25% 50%;
+				transform: translate(-50%,-50%);box-shadow: 3px 3px 3px #ddd;
+			}
+			
+		</style>
+	</head>
+	<body onkeydown="moveball();">
+		
+			<canvas id="pan" width="500" height="500"></canvas>
+			
+	</body>	
+	<script>
+			var hua=document.getElementById('pan').getContext('2d');
+			var positon_x=100;
+			var positon_y=100;
+			var ball_r=10;
+			var move_speed=5;
+			var eposition_x=rand(ball_r,500-ball_r);
+			var eposition_y=rand(ball_r,500-ball_r);
+			var xgo=true;
+			var ygo=true;
+			
+			function myball(x,y,r){
+				hua.clearRect(x-2*r,y-2*r,4*r,4*r);
+				hua.beginPath();
+				hua.arc(x,y,r,0,2*Math.PI,false);
+				hua.strokeStyle="black";
+				hua.stroke();
+				hua.fillStyle="burlywood";
+				hua.fill();
+			}
+			myball(positon_x,positon_y,ball_r);
+			function moveball(){
+				switch(event.keyCode){
+					case 83:
+							if(positon_y<500-ball_r){
+								positon_y+=move_speed;
+								myball(positon_x,positon_y,ball_r);
+							}	
+							break;
+					case 87:
+							if(positon_y>ball_r){
+								positon_y-=move_speed;
+								myball(positon_x,positon_y,ball_r);
+							}	
+							break;
+					case 65:
+							if(positon_x>ball_r){
+								positon_x-=move_speed;
+								myball(positon_x,positon_y,ball_r);
+							}
+							break;
+					case 68:
+							if(positon_x<500-ball_r){
+								positon_x+=move_speed;
+								myball(positon_x,positon_y,ball_r);
+							}
+							break;
+				}
+				s= Math.sqrt((positon_x-eposition_x)*(positon_x-eposition_x)+(positon_y-eposition_y)*(positon_y-eposition_y));
+				if(s<20){
+				alert("game over");
+				clearInterval(emove);
+			}
+			}
+			
+			
+			function rand(m,n){
+			return parseInt(m+(n-m)*Math.random());
+		}
+		function enball(x,y,r){
+				hua.clearRect(x-2*r,y-2*r,4*r,4*r);
+				hua.beginPath();
+				hua.arc(x,y,r,0,2*Math.PI,false);
+				hua.strokeStyle="red";
+				hua.stroke();
+				hua.fillStyle="cornflowerblue";
+				hua.fill();
+			}
+		function automove(){
+			if(eposition_x>=500-ball_r){xgo=false;}
+			if(eposition_y>=500-ball_r){ygo=false;}
+			if(eposition_x<=ball_r)xgo=true;
+			if(eposition_y<=ball_r)ygo=true;
+			
+			if(xgo){
+				eposition_x+=move_speed;
+			}else{
+				eposition_x-=move_speed;
+			}
+			if(ygo){
+				eposition_y+=move_speed;
+			}else{
+				eposition_y-=move_speed;
+			}
+			
+			enball(eposition_x,eposition_y,ball_r);
+		}
+		
+		var emove=setInterval(function(){
+			automove();
+			s= Math.sqrt((positon_x-eposition_x)*(positon_x-eposition_x)+(positon_y-eposition_y)*(positon_y-eposition_y));
+			if(s<20){
+				alert("game over");
+				clearInterval(emove);
+			}
+		},100);
+		
+	</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{
+				let [a,b,c]=[8,5,6];
+				console.log(a,b,c);
+			}
+			
+			
+			{//可以给默认值
+				let [a,b,c='暂无数据']=[8,5];
+				console.log(a,b,c);
+			}
+			
+			{//结构赋值json，  结构值和 属性名应该相同
+				let json = {
+					name:'黄孙',
+					age:24,
+					job:'code Einstein'
+				}
+				let {name,age,job}=json;
+				console.log(name,age,job);
+			}
+			
+			{//可以起别名
+				let json = {
+					name:'黄孙',
+					age:24,
+					job:'码畜'
+				}
+				let {name:a,age:b,job:c}=json;
+				console.log(a,b,c);
+			}
+			
+			{//（）可以包裹被解析为块级作用域的{}
+				let e,f;
+				({e,f}={e:'apple',f:'banana'})
+				console.log(e,f);
+			}
+			
+		</script>
+	</body>
+</html>

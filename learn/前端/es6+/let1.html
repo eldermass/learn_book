@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+			//let
+			//1.没有预解析
+			//2.在同一个作用域里只能被定义一次
+			//3.for循环中 （）里作为父级作用域，里面的子集作用域可以重新定义
+			{
+				console.log(a);//not defined
+				let a=5;
+			}
+			
+			{
+				let a=3;
+				let a=4; //has already declared	
+			}
+			{
+				for(let i=0;i<3;i++){
+					let i=8;// it can be declared in son zone
+				}
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

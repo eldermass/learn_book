@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{
+				function show(a,b='空'){
+					document.write(a,b);
+				}
+				show('天梯');
+			}
+			document.write("<br>");
+			
+			{//函数默认值，
+				function showa({a = 'emptyA',b = 'emptyB'}={}){
+					document.write(a+'---'+b+"<br>");
+				}
+				showa({b:'---我是b'});//传第二个值，不传第一个
+				showa();//不传值时
+			}
+			document.write("<br>");
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 使用 新函数覆盖老函数，达到老函数的内容只被执行一次的目的
+        // 惰性求值
+        let getTime = function () {
+            let t = new Date().getTime()
+            getTime = function () {
+                return t
+            }
+            return getTime()
+        }
+        // 惰性函数
+        let getAth = function (type) {
+            if (type == 1) {
+                getAth = function () {
+                    return 'type one'
+                }
+            } else {
+                getAth = function () {
+                    return 'type other'
+                }
+            }
+            return getAth
+        }
+    </script>
+</body>
+</html>

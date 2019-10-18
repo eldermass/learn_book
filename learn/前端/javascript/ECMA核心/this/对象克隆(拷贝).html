@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//浅拷贝
+			let obj ={
+				name:'Jack',
+				age:25,
+				sex:'male',
+				addr:'Beijing',
+				friends:['Smith','Bob',['Tide1','Tide2']]  //浅拷贝时，这里克隆的是地址
+			}
+			let obj1 = {}
+			let obj2 = {}
+			function clone(Origin, Target){
+				let target = Target || {}
+				for(let props in Origin){
+					target[props] = Origin[props]
+				}
+				return target
+			}
+			clone(obj,obj1)
+			
+			//深拷贝
+			
+			function deepClone(Origin, Target){
+				let target = Target || {}
+				for(let props in Origin){
+					if(Object.prototype.toString.call(Origin[props]) == '[object Object]' ||
+					Object.prototype.toString.call(Origin[props]) == '[object Array]'){
+						target[props] = deepClone(Origin[props],target[props])
+					}else{
+						target[props] = Origin[props]
+					}
+				}
+				return target
+			}
+			
+			deepClone(obj,obj2)
+		</script>
+	</body>
+</html>

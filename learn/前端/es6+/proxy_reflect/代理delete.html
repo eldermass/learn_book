@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let json ={
+				a:1,
+				b:2
+			}
+			let newJson = new Proxy(json,{
+				deleteProperty(target,property){
+					console.log(`you are deleting ${property}`)
+					// delete target[property]
+					return Reflect.deleteProperty(target, property)
+				},
+				has(target,property){
+					console.log('using method has()')
+					return true
+				}
+			})
+			
+			delete newJson.a;//调用deleteProperty
+			
+			console.log(1 in newJson);//调用has
+			
+			console.log(json)
+			
+		</script>
+	</body>
+</html>

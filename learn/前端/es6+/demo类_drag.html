@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				height: 100px;
+				width: 100px;
+				background: #00BFFF;
+				position: absolute;
+			}
+			.left{
+				left: 0;
+			}
+			.right{
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1" class="box left"></div>
+		<div id="box2" class="box right"></div>
+	</body>
+	<script>
+		class Drag{
+			constructor(id){
+				this.oDiv = document.querySelector(id);
+				this.disX=0;
+				this.disY=0;
+				this.init();
+			}
+			init(){
+				this.oDiv.onmousedown=function(e){
+					this.disX = e.clientX - this.oDiv.offsetLeft;
+					this.disY = e.clientY - this.oDiv.offsetTop;
+					
+					document.onmousemove =this.fnMove.bind(this);
+					document.onmouseup =this.fnStop.bind(this);
+					return false;
+				}.bind(this);
+			}
+			fnMove(e){
+				this.oDiv.style.left = e.clientX - this.disX +'px';
+				this.oDiv.style.top = e.clientY - this.disY +'px';
+ 			}
+			fnStop(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+			}
+		}
+		//子类
+		class limitDrag extends Drag{
+			fnMove(e){
+				super.fnMove(e);
+				//左边不能越界
+				if(this.oDiv.offsetLeft <= 0){
+					this.oDiv.style.left = 0;
+				}
+				if(this.oDiv.offsetTop <= 0){
+					this.oDiv.style.top = 0;
+				}
+			}
+		}
+		
+		
+		
+		new Drag('#box1');
+		new limitDrag('#box2');
+	</script>
+</html>

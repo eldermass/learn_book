@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" style='border:1px solid #ccc'></canvas>
+<script>
+    let canvas = document.getElementById('canvas')
+    canvas.height = 500; canvas.width = 500
+    let ctx = canvas.getContext('2d')
+    ctx.beginPath()
+    ctx.lineWidth = 50
+    ctx.moveTo(100, 100)
+    ctx.lineTo(300, 300)
+    ctx.strokeStyle = 'skyblue'
+    ctx.lineCap = 'round'
+
+
+    ctx.lineTo(100, 300)
+    ctx.lineJoin = 'miter'
+    // ctx.miterLimit = 10 // 默认值，限制尖角长度
+
+    ctx.stroke()
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 模拟redux的使用场景 -->
+    <div id="show"></div>
+    <div id="btn"></div>
+    <script>
+
+    function createStore () {
+        let state = {
+            screenContent: '公共TV',
+            isPlaying: false
+        }
+        let listeners = []
+        const getState = () => {
+            return state
+        }
+        const dispatch = (action) => {
+            state[action.key] = action.value
+            // 通知所有订阅者更新, 发布订阅
+            listeners.forEach(listener => {
+                listener()
+            })
+        }
+        const subscribe = (listener) => {
+            // 添加订阅函数
+            listeners.push(listener)
+        }
+        return {
+            getState, dispatch, subscribe
+        }
+    }
+
+    // 渲染方法
+    function renderApp (state) {
+        renderScreen(state.screenContent)
+        renderBtn(state.isPlaying)
+    }
+    function renderScreen (screen) {
+        let show = document.getElementById('show')
+        show.innerHTML = screen
+    }
+    function renderBtn (isPlaying) {
+        let text = isPlaying ? '暂停' : '播放'
+        let btn = document.getElementById('btn')
+        btn.innerHTML = `<button>${text}</button>`
+        if (isPlaying) {
+            renderScreen('发现精彩...')
+        }
+    }
+    // 初始化
+    let store = createStore()
+    store.subscribe(() => {
+        renderApp(store.getState())
+    })
+    renderApp(store.getState())
+    // 绑定事件
+    document.querySelector('#btn').addEventListener('click', (e) => {
+        if(e.target.tagName !== 'BUTTON') return 
+        store.dispatch({key: 'isPlaying', value: !store.getState().isPlaying})
+    })
+    </script>
+</body>
+</html>

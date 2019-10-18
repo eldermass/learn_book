@@ -1,0 +1,1 @@
+forfiles /p "C:\db_backup" /s /m *.sql /d -5 /c "cmd /c del @path"

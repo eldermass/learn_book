@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			asd
+		</div>
+	</body>
+	<script>
+		var num = 20
+		var obj ={
+			num:30,
+			fn:(function (num){
+				this.num *= 3; //立即执行，this是window
+				num +=15;
+				var num = 45;
+				return function (){
+					this.num *= 4;
+					num +=20;
+					console.log(num)
+				}
+			})(num)  //实参20
+		}
+		var fn = obj.fn; //赋值地址，同一个函数空间
+		//两者拿到的是同一个  OA，都可以访问私有的num
+		fn()
+		obj.fn()
+	</script>
+</html>

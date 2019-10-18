@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="700" style="border:1px solid #ccc"></canvas>
+    <br>
+    <input type="range" min="0.5" max="3.0" step="0.1" id="slider" value="1" style="width:1200px;display: block">
+    <canvas id="offcanvas" style="border:1px solid #ccc; display:none"></canvas>
+    放大镜大小：<input type="number" value="100" onchange="R = this.value">
+    放大镜倍率： <input type="number" value="2" onchange="mScale = this.value">
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        let offCanvas = document.getElementById('offcanvas')
+        let offCtx = offCanvas.getContext('2d')
+        let slider = document.getElementById('slider')
+        
+        let image = new Image()
+        image.src = './10.jpg'
+        image.onload = function () {
+            drawPic(1)
+            setOffImage()
+            // 滑动效果
+            slider.onmousemove = function () {
+                drawPic(this.value)
+            }
+
+
+            // 镜子效果
+            canvas.onmousedown = function (e) {
+                let point = getPoint(e)
+                magnifier(point)
+                canvas.onmousemove = function (e) {
+                    let point = getPoint(e)
+                    drawPic(slider.value)
+                    magnifier(point)
+                }
+            }
+            //  离场
+            canvas.onmouseup = function () {
+                canvas.onmousemove = null
+                drawPic(slider.value)
+            }
+            canvas.onmouseout = function () {
+                canvas.onmousemove = null
+                drawPic(slider.value)
+            }
+        }
+        
+        let R = 100 // 放大镜边长的一半
+        let mScale = 2 // 放大镜倍率
+        function magnifier(point) {
+            // 切圆
+            ctx.save()
+            ctx.beginPath()
+            ctx.arc(point.x, point.y, R, 0, Math.PI*2)
+            ctx.clip()
+
+            ctx.drawImage(offCanvas, point.ratX * offCanvas.width - R/mScale, point.ratY * offCanvas.height - R/mScale,
+                        2*R/mScale, 2*R/mScale, point.x - R, point.y - R, 2*R, 2*R)
+            ctx.restore()
+        }
+        
+        // canvas里点击位置， 和图片点击位置的百分百
+        function getPoint(e){
+            let scale = slider.value
+            let x = e.clientX - canvas.getBoundingClientRect().left 
+            let y = e.clientY - canvas.getBoundingClientRect().top
+            return {x, y, ratX: (x - (canvas.width - scale * image.width)/2)/(scale * image.width),
+                 ratY: (y - (canvas.height - scale * image.height)/2)/(scale * image.height)}
+        }
+        function setOffImage() {
+            offCanvas.height = image.height
+            offCanvas.width = image.width
+            offCtx.drawImage(image, 0, 0)
+        }
+        
+        function drawPic(scale){
+            let imageWidth = scale * image.width
+            let imageHeight = scale * image.height
+            let x = (canvas.width - imageWidth)/2
+            let y = (canvas.height - imageHeight)/2
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.drawImage(image, x, y, imageWidth, imageHeight)
+        }
+        
+    </script>
+</body>
+</html>

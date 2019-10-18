@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var str = 
+        "spec_array[620410] = new Array(18147815 ,130.00,100,260.00);"+
+        "spec_array[6410410] = new Array(18147819 ,130.00,100,260.00);"+
+        "spec_array[590410] = new Array(18147816 ,130.00,100,260.00);"+
+        "spec_array[6570410] = new Array(18147795 ,130.00,100,260.00);"+
+        "spec_array[6490380] = new Array(18147794 ,105.00,100,210.00);"+
+        "spec_array[6490410] = new Array(18147792 ,130.00,100,260.00);"+
+        "spec_array[6490400] = new Array(18147793 ,130.00,100,260.00);"+
+        "spec_array[580380] = new Array(18147791 ,105.00,100,210.00);"+
+        "spec_array[620400] = new Array(18147814 ,130.00,100,260.00);"+
+        "spec_array[620380] = new Array(18147812 ,105.00,100,210.00);"+
+        "spec_array[6440380] = new Array(18147811 ,105.00,100,210.00);"+
+        "spec_array[6440400] = new Array(18147809 ,130.00,100,260.00);"+
+        "spec_array[6450380] = new Array(18147808 ,105.00,0,210.00);"+
+        "spec_array[6440410] = new Array(18147806 ,130.00,100,260.00);"+
+        "spec_array[6450400] = new Array(18147805 ,130.00,100,260.00);"+
+        "spec_array[6450410] = new Array(18147804 ,130.00,100,260.00);"+
+        "spec_array[680380] = new Array(18147803 ,105.00,0,210.00);"+
+        "spec_array[680400] = new Array(18147802 ,130.00,100,260.00);"+
+        "spec_array[680410] = new Array(18147801 ,130.00,100,260.00);"+
+        "spec_array[540380] = new Array(18147800 ,105.00,0,210.00);"+
+        "spec_array[540400] = new Array(18147799 ,130.00,100,260.00);"+
+        "spec_array[540410] = new Array(18147798 ,130.00,100,260.00);"+
+        "spec_array[6570400] = new Array(18147797 ,130.00,100,260.00);"+
+        "spec_array[6570380] = new Array(18147796 ,105.00,0,210.00);";
+    let reg = /(\[\d+\])[^\(]+(\([^\)]+\))/g
+    
+    let arr = []
+    str.replace(reg, (val, $1, $2) => {
+        arr[$1.replace(/\[|\]/g,'')] = $2.replace(/\(|\)/g,'').split(',')
+    })
+
+    console.log(arr)
+    </script>
+</body>
+</html>

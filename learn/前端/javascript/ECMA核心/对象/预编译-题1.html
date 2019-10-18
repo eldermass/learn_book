@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{
+				function test(){
+					num = 123;
+					function a(){
+						console.log(this)
+					}
+				}
+				/*
+				 预编译时
+					AO{
+						arguments:{}类数组，实参列表
+						this:window,
+						num:undefined,
+						a:function a() {}
+					}
+				 */
+				
+			}
+			var x = 1, y = z = 0
+			function add(n){
+				return n = n+1
+			}
+			//全局GO里储存在add函数体
+			//执行的时候，是不会执行预编译后的语句
+			y = add(x)// x:1 , y:4 , z:0
+			function add(n){
+				return n += 3
+			}
+			z = add(x)//x:1, y:4, z:4
+		</script>
+	</body>
+</html>

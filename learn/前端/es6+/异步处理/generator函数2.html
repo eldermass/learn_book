@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//解决异步的深度嵌套
+			{//使用next()调用
+				function * show(){
+					yield 'welcome';
+					yield 'to';
+					return 'toilet'
+				}
+				let a = show();
+				console.log(a)
+				//循坏
+				for(let val of a){
+					console.log(val)
+					//没有return 的值
+				}
+			}
+			{
+				function * show(){
+					yield 'welcome';
+					yield 'to';
+					yield 'beijing'
+					return 'toilet'
+				}
+				//可以结构和扩展
+				let [a,...b] = show()
+				console.log(a,b)
+				
+				console.log(...show())
+			}
+		</script>
+	</body>
+</html>

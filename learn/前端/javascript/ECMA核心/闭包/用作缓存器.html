@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function eater(){
+				var food = ''
+				var obj ={
+					eat:function (){
+						console.log('i am eating ' + food)
+						food = ''
+					},
+					push:function(myFood){
+						food = myFood
+					}
+				}
+				return obj
+			}
+			
+			var e = eater()
+			e.push('banana')
+			e.eat()
+		</script>
+	</body>
+</html>

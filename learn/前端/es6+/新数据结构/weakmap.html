@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//weakmap的key只能是对象
+				let m = new WeakMap();
+				let json = {a: 1, b: 2};
+				m.set(json,1);
+				console.log(m)
+			}
+		</script>
+	</body>
+</html>

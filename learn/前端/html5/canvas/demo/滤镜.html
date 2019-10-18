@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="600" style="border:1px solid #ccc"></canvas>
+    <p>
+        <button onclick="filter()">灰度</button>
+        <button onclick="blackOrWhite()">黑白</button>
+        <button onclick="reverse()">反色</button>
+        <button onclick="blurpic()">模糊</button>
+        <button onclick="masic()">马赛克</button>
+    </p>
+    <canvas id="canvas2" width="1200" height="600" style="border:1px solid #ccc"></canvas>
+    <script>
+
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        let imageData =''
+        let image = new Image()
+        image.src = './10.jpg'
+        image.onload = function () {
+            ctx.drawImage(image, 0, 0,image.width, image.height)
+            imageData = ctx.getImageData(0,0,1000,600)
+        }
+
+
+        let canvas2 = document.getElementById('canvas2')
+        let ctx2 = canvas2.getContext('2d')
+        
+        function filter() {
+            imageData = ctx.getImageData(0,0,1000,600)
+            let data = imageData.data
+            // 处理图像
+            for(let i = 0; i < imageData.width * imageData.height; i++){
+                let r = data[4 * i + 0]
+                let g = data[4 * i + 1]
+                let b = data[4 * i + 2]
+
+                let grey = r*0.3 + g*0.59 + b*0.11
+
+                data[4 * i + 0] = grey
+                data[4 * i + 1] = grey
+                data[4 * i + 2] = grey
+            }
+            ctx2.putImageData(imageData, 0, 0, 100, 0, 1000, 600)
+        }
+
+        function blackOrWhite(){
+            imageData = ctx.getImageData(0,0,1000,600)
+            let data = imageData.data
+            // 处理图像
+            for(let i = 0; i < imageData.width * imageData.height; i++){
+                let r = data[4 * i + 0]
+                let g = data[4 * i + 1]
+                let b = data[4 * i + 2]
+
+                let grey = r*0.3 + g*0.59 + b*0.11
+                let borw = grey > 255/2 ? 255 : 0
+
+                data[4 * i + 0] = borw
+                data[4 * i + 1] = borw
+                data[4 * i + 2] = borw
+            }
+            ctx2.putImageData(imageData, 0, 0, 0, 0, 1000, 600)
+        }
+        function reverse() {
+            imageData = ctx.getImageData(0,0,1000,600)
+            let data = imageData.data
+            // 处理图像
+            for(let i = 0; i < imageData.width * imageData.height; i++){
+                data[4 * i + 0] = 255 - data[4 * i + 0]
+                data[4 * i + 1] = 255 - data[4 * i + 1]
+                data[4 * i + 2] = 255 - data[4 * i + 2]
+            }
+            ctx2.putImageData(imageData, 0, 0, 0, 0, 1000, 600)
+        }
+        // 模糊
+        function blurpic() {
+            tempImageData = ctx.getImageData(0,0,1000,600)
+            // let tempData = imageData.data 使用模糊后的数据，继续模糊
+            let tempData = tempImageData.data
+
+            imageData = ctx.getImageData(0,0,1000,600)
+            let data = imageData.data
+            
+            let blurR = 2
+            let tolnum = (2*blurR + 1) * (2*blurR + 1)
+            for(let i = blurR; i < imageData.height -blurR; i++)
+                for(let j = blurR; j < imageData.width -blurR; j++){
+                    // 处理周边像素
+                    let tolR = 0, tolG = 0; tolB = 0;
+                    for(let x = -blurR; x <= blurR; x++)
+                        for(let y = -blurR; y <= blurR; y++){
+                            let tp = (i + x) * tempImageData.width + (y + j)
+                            tolR += tempData[4*tp + 0]
+                            tolG += tempData[4*tp + 1]
+                            tolB += tempData[4*tp + 2]
+                        }
+                    // 当前是第p个像素
+                    let p = i * imageData.width + j
+                    data[4*p + 0] = tolR/tolnum
+                    data[4*p + 1] = tolG/tolnum
+                    data[4*p + 2] = tolB/tolnum
+                }
+            ctx2.putImageData(imageData, 0, 0, 0, 0, 1000, 600)
+        }
+        // 马赛克
+        function masic() {
+            let tempImageData = ctx.getImageData(0,0,1000,600)
+            let tempData = tempImageData.data
+            imageData = ctx.getImageData(0,0,1000,600)
+            let data = imageData.data
+
+            let size = 10
+            let tolnum = size * size
+            for(let i = 0; i < imageData.height; i += size)
+                for(let j = 0; j < imageData.width; j += size){
+                    let tolR = 0, tolB = 0, tolG = 0;
+                    for(let x = 0; x < size; x++)
+                        for(let y = 0; y < size; y++){
+                            let tp = (x + i)*tempImageData.width + (y + j)
+                            tolR += tempData[4*tp + 0]
+                            tolG += tempData[4*tp + 1]
+                            tolB += tempData[4*tp + 2]
+                        }
+
+                    for(let x = 0; x < size; x++)
+                        for(let y = 0; y < size; y++){
+                            let p = (x + i) * imageData.width + (y + j)
+                            data[4*p + 0] = tolR/tolnum
+                            data[4*p + 1] = tolG/tolnum
+                            data[4*p + 2] = tolB/tolnum
+                        }
+                }
+            ctx2.putImageData(imageData,0, 0, 0, 0, 1000, 600)
+
+        }
+    </script>
+</body>
+</html>

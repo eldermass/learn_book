@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body:hover .box{
+				transform: rotateX(1360deg) rotateY(1360deg) rotateZ(1360deg);
+				
+				
+			}
+			.box{
+				transform-style: preserve-3d;
+				position: relative;
+				margin: 100px auto;
+				width: 300px;
+				height: 300px;
+				border:1px solid #008B8B;
+				/*perspective: 1000px;*/
+				transition: all 10s ;
+				
+			}
+			/*正面*/
+			.box1{
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: translateZ(150px);
+				width: 300px;
+				height: 300px;
+				background: #00BFFF;
+			}
+			/*反面*/
+			.box2{
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: rotateY(180deg) translateZ(150px);
+				width: 300px;
+				height: 300px;
+				background: #008B8B;
+			}
+			/*右面*/
+			.box3{
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: rotateY(90deg) translateZ(150px);
+				width: 300px;
+				height: 300px;
+				background: salmon;
+			}
+			/*左面*/
+			.box4{
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: rotateY(-90deg) translateZ(150px);
+				width: 300px;
+				height: 300px;
+				background:  #FF8C00;
+			}
+			/*上面*/
+			.box5{
+				transform: rotateX(90deg) translateZ(150px);
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 300px;
+				height: 300px;
+				background:  #999999;
+			}
+			/*下面*/
+			.box6{
+				transform: rotateX(-90deg) translateZ(150px);
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 300px;
+				height: 300px;
+				background: fuchsia;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="box1"></div>
+			<div class="box2"></div>
+			<div class="box3"></div>
+			<div class="box4"></div>
+			<div class="box5"></div>
+			<div class="box6"></div>
+		</div>
+	</body>
+</html>

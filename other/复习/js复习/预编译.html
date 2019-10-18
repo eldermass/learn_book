@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //预编译
+        function test(){
+            num = 123;
+            function a(){
+                console.log(this)
+            }
+            let b = function b(){
+                console.log('b')
+            }
+        }
+    // 1.首先生成一个OA对象，添加属性，值全为undefined
+        // AO {
+        //     arguments:{}类数组，实参列表
+        //     this:window 或 调用者/传入,
+        //     num:undefined,
+        //     a:function a() {}
+        //     b: undefined
+        // }
+    // 2.同步形参到数字
+    // num: test
+    // 3.把 函数赋值到变量上
+</script>
+</body>
+</html>

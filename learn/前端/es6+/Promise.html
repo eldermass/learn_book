@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//Promise:承诺,许诺
+//				作用:解决异步回掉问题
+			{
+				new Promise(function(resolve,reject){
+					//resolve     成功的时候调用
+					//reject 	     失败的时候调用
+					
+				});
+			}
+			{//语法
+				let a=10;
+				let promise1 = new Promise(function(resolve,reject){
+					if(a == 10){
+						resolve('成功');
+					}else{
+						reject('失败');
+					}
+				});
+				//promise1.then(success,failed)
+				promise1.then(res=>{
+					console.log(res);
+				},err=>{
+					console.log(err);
+				})
+			}
+			{//catch错误
+				//then的返回值是依然是promise对象，所以可以连点
+				let b=20;
+				let promise2 = new Promise(function(resolve,reject){
+					if(b==10){
+						resolve('right');
+					}else{
+						reject('bad');
+					}
+				}).then(res=>{
+					console.log(res);
+				}).catch(err=>{
+					console.log(err);
+				})
+			}
+		</script>
+	</body>
+</html>

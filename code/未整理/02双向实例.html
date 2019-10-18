@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="text" oninput="changeText(this.value)">
+    <div id="show"></div>
+    <script>
+        function observer (obj) {
+            if(!obj || typeof obj !== 'object') {
+                return
+            }
+            Object.keys(obj).forEach(key => {
+                defineReactive(obj, key, obj[key])
+            })
+        }
+        function defineReactive (obj, key, val) {
+            // 递归监控子对象
+            observer(val)
+            let dp = new Dep()
+            Object.defineProperty(obj, key, {
+                enumerable: true,
+                configurable: true,
+                get: function reactiveGetter() {
+                    console.log('get value --', val)
+                    if (Dep.target) {
+                        dp.addSub(Dep.target)
+                    }
+                    return val
+                },
+                set: function reactiveSetter(newVal) {
+                    console.log('set value --', newVal)
+                    val = newVal
+                    dp.notify()
+                }
+            })
+        }
+        // 存储Watcher实例，并解耦
+        class Dep {
+            constructor () {
+                this.subs = []
+            }
+            addSub (sub) {
+                // sub是观察实例
+                this.subs.push(sub)
+            }
+            notify () {
+                this.subs.forEach(sub => {
+                    sub.update()
+                })
+            }
+        }
+        Dep.target = null
+        class Watcher {
+            constructor (obj, key, fn) {
+                this.obj = obj
+                this.key = key
+                this.fn = fn
+                Dep.target = this
+                // 读取obj里的key，触发getter
+                this.value = obj[key]
+                Dep.target = null
+            }
+            update () {
+                // 获取新值
+                this.value = this.obj[this.key]
+                this.fn(this.value)
+            }
+        }
+
+        let data = {name: 'jack', age: 20, friends: {one: 'smith', two: 'tim'}}    
+        observer(data)
+        new Watcher(data, 'name', update)
+        function update (val) {
+            text.value = val
+            let div = document.getElementById('show')
+            // let dom = document.createDocumentFragment()
+            div.innerHTML = val
+        }
+        function changeText(value) {
+            data.name = value
+        }
+    </script>
+</body>
+</html>

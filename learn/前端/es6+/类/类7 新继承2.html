@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//父类
+			class Person{
+				constructor(name){
+					this.name=name;
+				}
+				showName(){
+					console.log('父级的showname');
+					return this.name;
+				}
+			}
+			//子类
+			class Student extends Person{
+				constructor(name,age){
+					//super需要放在前面
+					super(name);
+					this.age =age;
+				}
+				showName(){
+					//方法也能继承，如果不写super 就是重写父类方法
+					super.showName();
+					console.log('子集的showname')
+				}
+			}
+			let stu1 =new Student('Jack',23);
+			console.log(stu1);
+			stu1.showName();
+			{//这里面展示了继承方法的 返回值的操作
+				//父类
+			class Person{
+				constructor(name){
+					this.name=name;
+				}
+				showName(){
+					console.log('父级的showname');
+					return this.name;
+				}
+			}
+			//子类
+			class Student extends Person{
+				constructor(name,age){
+					//super需要放在前面
+					super(name);
+					this.age =age;
+				}
+				showName(){
+					//方法也能继承，如果不写super 就是重写父类方法
+					 let a=super.showName();
+					console.log('子集的showname')
+					return a;
+				}
+			}
+			let stu1 =new Student('Jack',23);
+			console.log(stu1);
+			console.log(stu1.showName());
+			}
+		</script>
+	</body>
+</html>

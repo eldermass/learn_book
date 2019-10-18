@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			GO = {
+//				p:undefined;
+//				p1:undefined;
+//				Person:function Person(){}
+//			}
+			
+			function Person(name,age,sex){
+				var a = 0;
+				this.name = name ;
+				this.age = age;
+				this.sex = sex;
+				function sss(){
+					a++;
+					console.log(a);
+				}
+				this.say = sss
+			}
+			var p = new Person()
+//			person --> AO = {
+//				this:{};//有东西
+//				a:0;
+//				sss:function sss(){}
+//				__proto__:{}
+//			}
+			p.say()
+//			say --> AO = {
+//
+//			}
+			p.say()
+			var p1 = new Person()
+			//重新生成一个AO对象 有新的a值
+			p1.say()
+			
+			
+		</script>	
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//对象应该采用大驼峰式命名法
+			//********构造函数的实现**********
+			
+			//当使用new 的时候，这个函数就变成了一个对象
+			function Demo(){
+				//1.这里，生成一个this = {} 的对象，里面仅包含了__proto__属性
+				this.name = '张三';
+				//return {}   这里如果返回对象的话  ，  new的实例将是空对象
+				
+				//2.这里隐式的执行  return this
+			}
+			console.log(new Demo().name)
+			
+			function fn(age){
+				var that = {}
+				that.age = age
+				return that
+			}
+			let f1 = fn('淡淡的')
+			console.log(f1.age)
+			
+		</script>
+	</body>
+</html>

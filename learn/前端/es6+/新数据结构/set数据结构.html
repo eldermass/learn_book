@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//类似数组的数据结构
+			//set的值不能重复
+			{
+				let arr = new Array('a','b','a');
+				let s = new Set(['a','b','a'])
+				console.log(arr,s)
+			}
+			{//添加一个值 和删除一个值
+				let b =new Set();
+				//添加一个值
+				b.add('a');
+				b.add('b')
+				b.add('c')
+				console.log(b)
+				//删除一个值
+				b.delete('b')
+				console.log(b)
+				//检测有没有值
+				let it = b.has('a');
+				console.log(it);
+				//查个数
+				let leng = b.size;
+				console.log(leng);
+				//删除所有
+				b.clear();
+				console.log(b);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="display:block;margin:0 auto;"></canvas>
+    <div style="text-align:center">
+        线条宽度：<input type="number" value="1" onclick="changeWidth(this.value)" onkeyup="changeWidth(this.value)">
+        <button onclick="changeColor('pink')" style="background:pink;height: 18px;width: 35px"> </button>
+        <button onclick="changeColor('skyblue')" style="background:skyblue;height: 18px;width: 35px"> </button>
+        <button onclick="changeColor('black')" style="background:black;height: 18px;width: 35px"> </button>
+        <button onclick="changeColor('yellowgreen')" style="background:yellowgreen;height: 18px;width: 35px"> </button>
+        <button onclick="drawGrid()">清除</button>
+        <input type="color" value="#000000" onchange="cusColor(this.value)">
+    </div>
+    <script src="./grid.js"></script>
+    <script src="./matts.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+//js
+//父类
+function Parent(lastName = '建国'){
+    this.lastName = lastName
+    this.canDo = () => {
+        console.log(`${this.firstName + this.lastName} can sleeping and eating only`)
+    }
+}
+//父类原型上的方法
+Parent.prototype.firstName = '张'
+Parent.prototype.say = function () {
+    console.log(`我名字就是${this.lastName}`)
+}
+//子类
+function Son(lastName,nickname){
+    Parent.call(this,lastName)
+    this.nickname = '红红'
+}
+
+function inherit(Target, Origin){
+    //这里可以直接得到之前的空实例原型
+    let proto = Object.create(Origin.prototype)
+    proto.constructor = Target
+    console.log(proto)
+    Target.prototype = proto
+}
+inherit(Son, Parent)
+
+//子类原型上的方法也能够使用了
+Son.prototype.cry = function () {
+    console.log('son cry')
+}
+
+let s = new Son('小红')
+
+
+
+//es6
+class Father{
+    constructor(lastName='建国'){
+        this.lastName = lastName
+        this.firstName = '张'
+    }
+    canDo(){
+        console.log(`${this.firstName + this.lastName} can do nothing`)
+    }
+}
+
+class Son extends Father{
+    constructor(lastName){
+        super() 
+        this.lastName = lastName
+    }
+    cry(){
+        console.log(`${this.lastName} just can cry`)
+    }
+    canDo(){
+        //方法也能继承，如果不写super，就会覆盖父类方法，类似于c++重写
+        super.canDo();
+        console.log(`${this.lastName} 厉害了，什么都能做`)
+    }
+}
+let s = new Son('红红')    
+</script>
+</body>
+</html>

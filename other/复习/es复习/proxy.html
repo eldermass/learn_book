@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // let person = {
+    //     name: 'Wangjing',
+    //     age: 108
+    // }
+    // let obj  = new Proxy(person, {
+    //     get(target, property){		//代理对象，   访问属性
+    //         console.log(target,property)  
+    //         return `你访问了${property}属性`
+    //     },
+    //     set(target, property, val){
+    //         console.warn('你生下来后名字就只能是' + target[property])
+    //         return `改名为${val}失败`
+    //     }
+    // })
+    // console.log(obj.name)
+    let React = new Proxy({}, {
+        get(target, property){
+            if(property === 'createElement'){
+                return function (tag, attr = {}, ...children) {
+                    let el = document.createElement(tag)
+                    for(let key of Object.keys(attr)){
+                        el.setAttribute(key, attr[key])
+                    }
+                    for(let child of children){
+                        if(typeof child === 'string'){
+                            child = document.createTextNode(child)
+                        }
+                        el.appendChild(child)
+                    }
+                    return el
+                }
+            }
+        }
+    })
+    let dom = React.createElement('div',{id: 'text'},React.createElement('p', {class: 'name'}, 'dogone'))
+    console.log(dom)
+    document.body.appendChild(dom)
+</script>    
+</body>
+</html>

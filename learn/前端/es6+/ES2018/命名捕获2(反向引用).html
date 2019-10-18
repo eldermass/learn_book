@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{//test
+				//再次使用前面一个分块的正则， 就叫做反向引用
+				let reg = /^(?<wel>welcome)-\k<wel>$/;
+				//相当于    /^(?<wel>welcome)-(?<wel>welcome)$/;
+				let str = 'welcome-welcome-welcome';
+				let wel = 'welcome-welcome';
+				
+				console.log(reg.test(str))
+				console.log(reg.test(wel))
+				
+				//  \1 就是反向引用捕获的第一个 正则块
+				let reg1 = /^(?<wel>welcome)-\k<wel>-\1$/;
+				console.log(reg1.test(str))
+			}
+			console.log('-----------------------------')
+			{//replace
+				let str = '2018-05-13';
+				let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+				
+				//$1 对应正则块中出现的顺序
+				//   05/13/2018
+				let str1 = str.replace(reg,'$2/$3/$1');
+				console.log(str1)
+				//命名捕获的方法  （新）  用 $<名>表示分别的位置
+				
+				let str2 = str.replace(reg,'$<month>/$<day>/$<year>')
+				console.log(str2);
+			}
+			
+		</script>
+	</body>
+</html>

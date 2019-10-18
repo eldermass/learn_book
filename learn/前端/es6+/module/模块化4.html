@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="module">
+			//动态的引入,可以使用动态路径
+			let f= true;
+			if(f){
+				//返回的是promise对象
+				import('./1.js').then(res=>{
+					//res就是加载的模块
+					console.log(res);
+				});
+			}else{
+				import('./2.js').then(res=>{
+					console.log(res);
+				}); 
+			}
+			
+			//使用多模块 动态引入
+			Promise.all([
+				import('./3.js'),
+				import('./4.js')
+			]).then(([mod1,mod2])=>{
+				console.log(mod1);
+				console.log(mod2);
+			})
+			
+		</script>
+	</body>
+</html>

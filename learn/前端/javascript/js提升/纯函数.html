@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" onkeyup="show(this.value,arr)"/>
+		<ul>
+			
+		</ul>
+		<script>
+			//纯函数 不依赖改变外部变量，有返回值, y = f(x) 
+			function compare(x){
+				return x>10
+			}
+			
+			let arr = [
+				{name:'Active',age:12},
+				{name:'Adsdwe',age:23},
+				{name:'Bob',age:34},
+				{name:'Cris',age:22}
+			]
+			function show(text ,datas){
+				let ul = document.getElementsByTagName('ul')[0]
+				ul.innerHTML = ''
+				let data = pureFilter(text,datas)
+				
+				for(let val of data){
+					let el = document.createElement('li')
+					el.innerHTML = val.name
+					ul.appendChild(el)
+				}
+			}
+			
+			
+			function pureFilter(text,arr){
+				let newArr = []
+				for(let i = 0; i < arr.length ;i++){
+//					arr[i].name.match(text)&&console.log(arr[i].name.match(text))
+					if(arr[i].name.indexOf(text) != -1){
+						newArr.push(deepClone(arr[i]))
+					}
+				}
+				return newArr				
+			}
+			
+			function deepClone(arr){
+				let newArr = Object.prototype.toString.call(arr) == '[object Array]'?[]:{}
+				for(let i in arr){
+					if(Object.prototype.toString.call(arr[i]) == '[object Array]' ||
+						Object.prototype.toString.call(arr[i]) == '[object Object]'){
+						newArr[i] = deepClone(arr[i])
+					}else{
+						newArr[i] = arr[i]
+					}
+				}
+				return newArr
+			}
+		</script>
+	</body>
+</html>

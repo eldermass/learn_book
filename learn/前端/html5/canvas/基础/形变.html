@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" style="border:1px solid #ccc" ></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        canvas.width = 500; canvas.height = 500;
+        let ctx = canvas.getContext('2d')
+
+        // 平移
+        ctx.save()
+        ctx.translate(100, 100)
+        ctx.fillStyle = 'skyblue'
+        ctx.fillRect(0, 0, 100, 100)
+        ctx.restore()  
+
+        ctx.save()
+        ctx.translate(300, 300)
+        ctx.rotate(Math.PI/4)
+        ctx.scale(0.5, 0.5)
+        ctx.fillStyle = 'skyblue'
+        ctx.fillRect(-50, -50, 100, 100)
+        ctx.restore()
+        
+        // context.transform(a, b, c, d, e, f);
+        // 忽略之前的变化
+        // context.setTransform(a, b, c, d, e, f);
+        // a c e 
+        // b d f
+        // 0 0 1
+        // 变换矩阵模型
+        // a d 水平，垂直缩放
+        // b c 水平，垂直倾斜
+        // e f 水平，垂直位移
+        ctx.save()
+
+        ctx.setTransform(1, 0, 0, 2, 300, 0)
+        ctx.fillStyle = 'skyblue'
+        ctx.fillRect(0, 0, 100, 100)
+        ctx.restore()
+        
+        // 标准的正方形
+        // ctx.fillStyle = 'skyblue'
+        // ctx.fillRect(0, 0, 50, 50)
+    </script>
+</body>
+</html>

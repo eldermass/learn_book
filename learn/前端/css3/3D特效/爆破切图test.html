@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.wrap{
+				height: 1000px;
+				width: 1000px;
+				border: 1px solid #000;
+				position:relative;
+				perspective: 1000px;
+				transform-style: preserve-3d;
+			}
+			.wrap div{
+				height: 100px;	
+				width: 100px;
+				box-sizing: border-box;
+				position: absolute;
+				opacity: 1;
+				text-align: center;
+				line-height: 100px;
+				background: url(img/1.jpg);
+				background-repeat: no-repeat;
+				transition: all 1s;
+				transform-origin: 0 0 ;
+			}
+			.active{
+				opacity: 0;
+				transform: rotate(360deg) scale(0);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap"></div>
+		<script>
+
+			let picArr = ['11.jpg','12.jpg','13.jpg']
+			let num = 0
+			let flag = true
+			function sliceImg(ele){
+				let wrap = document.querySelector(ele)
+				for(let i = 0;i < 10; i++){ 	 //行
+					for(let j = 0; j < 10; j++){ //列
+						let el = document.createElement('div')
+						el.style.top = 100*i + 'px'
+						el.style.backgroundPositionY = -100*i + 'px'
+						el.style.left = 100*j + 'px'
+						el.style.backgroundPositionX = -100*j + 'px'
+//						el.innerHTML = i + "-" + j
+						el.classList.add('stay')
+						el.id = i + "-" + j
+						wrap.appendChild(el)
+					}
+				}
+				//绑定旋转消失
+				wrap.onclick = function (){
+					
+					let divs = document.querySelectorAll('.stay')
+					if(flag){
+						for(let one of divs){
+							one.style.transform="skew("+ (60*Math.random())+"deg) rotateZ("+Math.random()*90+"deg) translateZ("+(Math.random()*1000)+"px)";
+           					one.style.opacity="0";
+						}
+						flag = false
+					}else{
+						num++;
+						if(num == picArr.length){
+							num = 0
+						}
+						for(let one of divs){
+							one.classList.remove('active')
+							one.style.transform = ''
+							one.style.opacity = ''
+							one.style.backgroundImage = `url(img/${picArr[num]})`
+						}
+						flag = true
+					}
+					
+				}
+			}
+			
+			sliceImg('.wrap')
+		</script>
+	</body>
+</html>

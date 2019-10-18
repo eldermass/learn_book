@@ -1,0 +1,35 @@
+{
+  "name": "next-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "koa": "node serverkoa.js",
+    "exp": "node serverexp.js",
+    "serve": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@zeit/next-typescript": "^1.1.1",
+    "express": "^4.16.4",
+    "i18next": "^15.0.9",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "node-sass": "^4.11.0",
+    "react-i18next": "^10.8.1",
+    "react-redux": "^7.0.2",
+    "redux": "^4.0.1",
+    "styled-jsx-plugin-sass": "^1.0.0",
+    "typescript": "^3.4.3"
+  }
+}

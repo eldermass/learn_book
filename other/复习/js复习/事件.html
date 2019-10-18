@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" style="height: 80px;width: 120px;border: 1px solid pink">
+        <div id="innerBox" style="height: 40px;width: 40px;border: 1px solid skyblue">inner</div>
+    </div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+<script>
+    let box = document.getElementById('box')
+    let innerB = document.getElementById('innerBox')
+    box.addEventListener('click', function (e){
+        // console.log(e)
+        // console.log(this)
+        console.log('outter')
+        //阻止传播
+        e.stopPropagation()
+    }, true)
+    innerB.addEventListener('click', function (e) {
+        console.log('inner')
+    })
+    //事件委托
+    let ul = document.getElementsByTagName('ul')[0]
+    ul.addEventListener('click', function(e){
+        console.log(e.target)
+    })
+
+</script>
+</body>
+</html>

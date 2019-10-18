@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border:1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let ctx = canvas.getContext('2d')
+        
+        // 弧线
+        ctx.beginPath();
+        ctx.moveTo(20,20);           // 创建开始点
+        // ctx.lineTo(100,20);          // 创建水平线
+        ctx.arcTo(150,20,150,100,80); // 创建弧  控制点 和 结束点
+        // ctx.lineTo(150,120);         // 创建垂直线
+        ctx.stroke();                // 进行绘制
+
+        // 二次贝塞尔曲线
+        // tinyurl.com/html5quadratic
+        ctx.beginPath()
+        ctx.moveTo(200, 20) //开始点
+        ctx.quadraticCurveTo(250, 20, 250, 100)//  控制点 和 结束点
+        ctx.stroke();    
+
+        // 三次贝塞尔曲线
+        // tinyurl.com/html5bezier
+        ctx.beginPath()
+        ctx.moveTo(270, 20)
+        ctx.bezierCurveTo(350, 100, 270, 150, 350, 200)
+        ctx.stroke();    
+
+    </script>
+</body>
+</html>

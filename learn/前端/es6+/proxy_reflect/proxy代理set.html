@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let obj = new Proxy({},{
+				set(target,property,value){
+					if(property == 'age'){
+						if(!Number.isInteger(value)){
+							throw new TypeError(' is not integer')
+						}
+						if(value>100){
+//							console.warn('you are too old')
+							throw new RangeError('you are too old')
+						}
+					}
+					return target[property]=value;
+				}
+			})
+			obj.age = 123;
+		</script>
+	</body>
+</html>

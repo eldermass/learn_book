@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			
+			function Demo(){
+				//var this = Object.create(Demo.prototype)  
+				//var this = {
+//					__proto__:Demo.prototype
+//				}
+				this.name = 'demo\'s name'
+			}
+//			console.log(demo.prototype)
+//			demo.prototype 是demo函数的原型,demo被构造时，实例d.__proto__继承于这个函数
+			//Demo原型里包含两个属性：__proto__  //指向更上一个原型、 constructor
+			//函数在被 new 构造时，生成并返回的this空对象里，包含了一个__proto__
+			
+			//__proto__里的属性会被提到最顶层，即demo.age1 == demo.__proto__.age1
+			Demo.__proto__.age1 = 10
+			Demo.prototype.age2 = 20
+			//????????????
+			console.log(Demo.age1)//10
+			console.log(Demo.age2)//undefined
+			
+			
+			//实例
+			//实例中包含了自定义属性和，__proto__属性，__proto__是和原型 
+//			demo.prototype类似相互映射的，__proto__是指向原型prototype所指向的空间,
+//			这个指向是可以被修改的
+			let d = new Demo()
+			console.log(d.age1)//undefined
+			console.log(d.age2)//20
+			
+			
+		</script>
+	</body>
+</html>

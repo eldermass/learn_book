@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//圣杯模式继承
+			function inherit(Target, Origin){
+				let temp = Object.create(Origin.prototype)
+				Target.prototype = temp 
+				Target.constructor = Target
+			}
+			Father.prototype.F = 'FFFFF'
+			function Father(){
+				this.fa = 'father'
+			}
+			function Son(so,fa){
+				Father.call(this,fa)
+				this.so = so
+			}
+			inherit(Son,Father)
+			
+			Son.prototype.S = 'SSSSSS'
+			let s = new Son('son','father')
+			
+			//深度拷贝
+			let obj = {
+				name : "Jack",
+				wife : {
+					one : "Smith",
+					two : 'Bob'
+				}
+			}
+			let obj1 = {}
+			
+			function deepClone(Target, Origin){
+				let target = Target || {}
+				for(let prop in Origin){
+					if(Object.prototype.toString.call(Origin[prop]) == '[object Array]' ||
+						Object.prototype.toString.call(Origin[prop]) =='[object Object]'){
+							target[prop] = deepClone(target[prop],Origin[prop])
+					}else{
+						target[prop] = Origin[prop]
+					}
+				}
+				return target
+			}
+			deepClone(obj1, obj)
+			
+			//找出a-z字符串中第一个只出现一次的字符
+		</script>
+	</body>
+</html>

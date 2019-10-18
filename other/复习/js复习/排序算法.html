@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    let arr = []
+    for(let i = 0; i < 20000; i++){
+        arr.push(parseInt(Math.random() * 10000))
+    }
+    arr1 = JSON.parse(JSON.stringify(arr))
+    arr2 = arr.map(v => v)
+    arr3 = arr.map(v => v)
+
+    // console.time('bubble')
+    // bubble(arr1)
+    // console.timeEnd('bubble')
+
+    // console.time('select')
+    // select(arr2)
+    // console.timeEnd('select')
+
+    // console.time('insert')
+    // insert(arr3)
+    // console.timeEnd('insert')    
+
+    console.time('quick')
+    quick(arr)
+    console.timeEnd('quick')
+
+    // console.log(arr)
+    // 冒泡排序
+    function bubble(arr){
+        let flag = false
+        let len = arr.length
+        for(let i = 0; i < len; i++){
+            for(let j = 0; j < len - i; j++){
+                if(arr[j] > arr[j+1]){
+                    let temp = arr[j]
+                    arr[j] = arr[j+1]
+                    arr[j+1] = temp
+                    flag = true
+                }
+            }
+            if(!flag){
+                break
+            }else{
+                flag = false
+            }
+        }
+    }
+
+    // 选择排序
+    function select(arr){
+        let len = arr.length
+        for(let i = 0; i < len; i++){
+            let minVal = arr[i]
+            let minIndex = i
+            for(let j = i; j < len; j++){
+                if(arr[j] < minVal){
+                    minVal = arr[j]
+                    minIndex = j
+                }
+            }
+            arr[minIndex] = arr[i]
+            arr[i] = minVal
+        }
+    }
+
+    // 插入排序
+    function insert(arr){
+        let len = arr.length
+        for(let i = 1; i < len; i++){
+            let insertVal = arr[i]
+            let insertIndex = i
+            while(insertIndex > 0 && insertVal < arr[insertIndex - 1]){
+                arr[insertIndex] = arr[insertIndex - 1]
+                insertIndex--
+            }
+            arr[insertIndex] = insertVal
+        }
+    }
+
+    // 快速排序法 
+    function quick(arr){
+        (function sort(left, right, arr){
+            let l = left, r = right;
+            let mid = arr[Math.round((left + right)/2)]
+            while(l < r){
+                while(arr[l] < mid) l++
+                while(arr[r] > mid) r--
+                if(l > r) break
+
+                let temp = arr[l]
+                arr[l] = arr[r]
+                arr[r] = temp
+
+                if(arr[l] == mid) --r
+                if(arr[r] == mid) ++l
+            }
+            if(l == r){
+                r-- ; l++;
+            }
+            if(left < r) sort(left, r, arr)
+            if(l < right) sort(l, right, arr)
+        }(0, arr.length - 1, arr))
+    }
+</script>    
+</body>
+</html>

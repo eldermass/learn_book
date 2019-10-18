@@ -1,0 +1,10 @@
+一.db.runCommand()
+    1. 高级指令
+        db.test.drop()  高级命令  等同于
+    2. 基础指令，例如
+        db.runCommand({'drop': 'test'})  // {指令： 目标} 会返回一个更为详细的文档
+    3. 底层指令
+        db.$cmd.findOne({'drop': 'test'})
+
+
+    

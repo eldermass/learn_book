@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blob对象</title>
+</head>
+<body>
+  <div contenteditable="true" id="text">
+    窗前明月光，疑是地上霜
+  </div>
+  <h1>
+    <button onclick="downLoadFile()">下载文件</button>
+  </h1>
+  <script>
+    // Blob 对象能直接访问二进制文件 new Blob([source|array], { type: MIME })
+    function downLoadFile(res){
+      const ele = document.createElement('a');
+            ele.setAttribute('href', window.URL.createObjectURL(new Blob( [document.querySelector("#text").innerHTML], { type: 'text/plain' }))); //设置下载文件的url地址
+            ele.setAttribute('download' , 'download');//用于设置下载文件的文件名
+            ele.click();
+    }
+  </script>
+</body>
+</html>

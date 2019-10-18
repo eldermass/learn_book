@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			'use strict'
+//			es3 和 es5冲突的按es5执行
+// 1. arguments.callee   func.caller  不能用
+// 2.使用变量必须先声明
+// 3.局部的this必须被赋值，预编译this不再指向为window
+// 4.拒绝重复属性和参数
+// 5.禁止使用eval()
+			//with能添加作用域链最底端，直接找obj的AO
+			let obj ={
+				name:'obj'
+			}
+			let name = 'window'
+			with(obj){
+				// let name ='with'
+				console.log(name) // obj
+			}
+			//能解决命名空间的问题，可以直接访问-添加的obj-最近的执行期上下文AO
+
+		</script>
+	</body>
+</html>

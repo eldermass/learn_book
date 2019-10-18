@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+        img{
+            width: 1000px;height: 600px;
+        }
+        /* 轮播区域 */
+        .main{
+            height: 600px;width: 100%;text-align: center;
+            position: relative;
+        }
+        .main-item{
+            position: absolute;top:0;left:50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+        .main-item h1{
+            position: absolute;top:0;left:50%;
+            transform: translateX(-50%)
+        }
+        .main-item-active{
+            display: block;
+        }
+        /* 控制区域 */
+        .ctrl{
+            height: 15px;text-align: center;
+            margin-top: -15px;
+        }
+        .ctrl-item{
+            height: 15px;width: 100px;display: inline-block;
+            background-color: #dfdfdf;position: relative;
+            border-left: 1px solid #aaa
+        }
+        .ctrl-item img{
+            width: 100px;height: 60px;opacity: 0;
+            position: absolute;top: -75px;left: 0;
+        }
+        .ctrl-item-active{
+            background-color:#b5b5b5;
+        }
+        /* 控制区动画 */
+        .ctrl-item:hover img{
+            transition: all 0.5s;
+            top: -60px;opacity: 1;
+            -webkit-box-reflect: below 0 linear-gradient(transparent,transparent 70%,rgba(255,255,255,0.6))
+        }
+        .ctrl-item-active:hover img{
+            -webkit-box-reflect:none;
+            top: -75px;opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="main" id="main">
+            <!-- <div class="main-item main-item-active">
+                <h1>图一</h1>
+                <img src="./img/1.jpg">
+            </div>
+            <div class="main-item">
+                <h1>图二</h1>
+                <img src="./img/2.jpg">
+            </div> -->
+        </div>
+        <div class="ctrl" id="ctrl">
+            <!-- <div class="ctrl-item ctrl-item-active">
+                <img src="./img/1.jpg">
+            </div>
+            <div class="ctrl-item">
+                <img src="./img/2.jpg">
+            </div> -->
+        </div>
+    </div>
+    <script>
+        let main = document.getElementById('main')
+        let ctrl = document.getElementById('ctrl')
+        let data = [
+            {src:'./img/1.jpg', msg:'1'},
+            {src:'./img/14.jpg', msg:'2'},
+            {src:'./img/15.jpg', msg:'3'},
+            {src:'./img/16.jpg', msg:'4'},
+            {src:'./img/17.jpg', msg:'5'},
+            {src:'./img/11.jpg', msg:'6'},
+            {src:'./img/12.jpg', msg:'7'},
+            {src:'./img/13.jpg', msg:'8'},
+        ]
+        for(let [index, image] of data.entries()){
+            createMain(image, index)
+            createCtrl(image, index)
+        }
+
+        function createMain(image, index){
+            let div = document.createElement('div')
+            div.className = 'main-item'
+            div.setAttribute('key', index)
+            if(index == 0)
+                div.classList.add('main-item-active')
+            let h1 = document.createElement('h1')
+            h1.innerHTML = '图' + image.msg
+            let img = document.createElement('img')
+            img.src = image.src
+            div.appendChild(h1)
+            div.appendChild(img)
+            main.appendChild(div)
+        }
+        function createCtrl(image, index){
+            let div = document.createElement('div')
+            div.className = 'ctrl-item'    
+            div.setAttribute('key', index)
+            if(index == 0)
+                div.classList.add('ctrl-item-active')  
+            div.onclick = function () {
+                bindEvent(index)
+            }
+            
+            let img = document.createElement('img')
+            img.src = image.src
+            div.appendChild(img)
+            ctrl.appendChild(div)
+        }
+        function bindEvent(index) {
+            let mainitems = main.getElementsByClassName('main-item')
+            for(let i = 0; i < mainitems.length; i++){
+                let key = mainitems[i].getAttribute('key')
+                if(key == index)
+                    mainitems[i].classList.add('main-item-active')
+                else
+                    mainitems[i].classList.remove('main-item-active')
+            }
+            let ctrlitems = ctrl.getElementsByClassName('ctrl-item')
+            for( let i = 0; i < ctrlitems.length; i++){
+                let key = ctrlitems[i].getAttribute('key')
+                if(key == index)
+                    ctrlitems[i].classList.add('ctrl-item-active')
+                else
+                    ctrlitems[i].classList.remove('ctrl-item-active')
+            }
+        }
+    </script>
+</body>
+</html>

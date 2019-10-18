@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//使用闭包，实现类似命名空间的作用
+			//可以完全避免变量污染的问题，常用 ~~~
+//			使用with语句
+//			with(obj){ console.log(obj) }
+			name = 'bcd'
+			let demo = (function (){
+				let name = 'abc'
+				let callName = function(){
+					console.log(name)
+				}
+				return function(){
+					callName()
+				}
+			}())
+			demo()
+			
+			//连续调用方法
+			let deng = {
+				somke:function(){
+					console.log('I am somking')
+					return this
+				},
+				drink:function(){
+					console.log('I am drinking')
+					return this
+				}
+			}
+			deng.somke().drink()
+		</script>
+	</body>
+</html>

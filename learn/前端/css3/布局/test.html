@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			let likeArr = {
+				0:'Jack',
+				1:'Smith',
+				2:'Bob',
+				length:1,
+				push:Array.prototype.push,
+				splice:Array.prototype.splice
+			}
+			let newA = Array.prototype.filter.call(likeArr,val=>{
+				return val == 'Jack'
+			})
+//			likeArr.filter()
+		</script>
+	</body>
+</html>

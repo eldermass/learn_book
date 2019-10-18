@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>WebSocket</title>
+	</head>
+	<body>
+		<h1>Test</h1>
+		<input type="text" id="text"/>
+		<button id="sendtext">发送</button>
+		<div id="output"></div>
+		<script>
+			let websocket = new WebSocket('ws://echo.websocket.org');
+			websocket.onopen=function(){
+				console.log('ws open');
+				document.querySelector('#output').innerHTML='connected'
+			}
+			websocket.onclose =function(){
+				console.log('ws close')
+			}
+			websocket.onmessage=function(e){
+				console.log(e)
+				document.querySelector('#output').innerHTML=e.data
+			}
+			document.querySelector('#sendtext').onclick=function(){
+				let txt = document.querySelector('#text').value
+				websocket.send(txt)
+			}
+		</script>
+	</body>
+</html>

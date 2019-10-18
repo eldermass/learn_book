@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="700" style="border:1px solid #ccc"></canvas>
+    <canvas id="offCanvas" width="1200" height="700" style="border:1px solid #ccc"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+        let offCanvas = document.getElementById('offCanvas')
+        let ctx = canvas.getContext('2d')
+        let offCtx = offCanvas.getContext('2d')
+
+        let scale = 2
+
+        let image = new Image()
+        image.src = '10.jpg'
+        image.onload = function () {
+          ctx.drawImage(image, 100, 50)
+          
+          offCtx.drawImage(image, 0, 0)
+        }
+        canvas.onclick = function (e) {
+            let point = getPoint(e)
+            let r = 50
+            ctx.drawImage(image, point.x - r/2 , point.y - r/2, 50, 50, point.x + 100 -r,  point.y + 50 -r,100,100)
+        }
+        function getPoint(e) {
+            let x = e.clientX - canvas.getBoundingClientRect().left - 100
+            let y = e.clientY - canvas.getBoundingClientRect().top - 50
+            return {x, y}
+        }
+
+    </script>
+</body>
+</html>

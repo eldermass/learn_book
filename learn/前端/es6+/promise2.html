@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{
+				let p1 = Promise.resolve('aaa');
+				p1.then(res=>{
+					console.log(res);
+				})
+			}
+			{//promise all必须res的状态都是成功的
+				let p1=Promise.resolve('aaa');
+				let p2=Promise.resolve('bbb');
+				let p3=Promise.resolve('ccc');
+				Promise.all([p1,p2,p2]).then(res=>{
+					console.log(res);
+				})
+			}
+			{//promise race从上到下，执行到错误为止
+				let p1=Promise.resolve('aaa');
+				let p2=Promise.reject('bbb');
+				let p3=Promise.resolve('ccc');
+				Promise.race([p1,p2,p2]).then(res=>{
+					console.log(res);
+				})
+			}
+
+		</script>
+	</body>
+</html>

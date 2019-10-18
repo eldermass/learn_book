@@ -1,0 +1,56 @@
+一. 文档 
+    1. 增
+        db.test.insert({}) 插入 不能超过4m  
+        db.test.insert([{}, {}]) 多个插入
+        db.test.save({})
+    2. 删
+        db.test.remove() 删除所有数据
+        db.test.remove({条件}) 
+        db.test.drop()   删除所有数据 和 索引
+    3. 查
+        db.test.count()  计数
+        db.test.find()   找查
+        db.test.find(query, field, limit, skip, batchSize, options)   找查的参数
+        db.test.find({name: 'huang', age: {$gt: 20}}, {'_id': 0}) 多条件找查, 不返回id
+        比较操作符  $lt $lte $gt $gte $ne 对应 < <= > >= != 
+                    $in: [1, 5] 在数组中的 $nin 不在其中
+                    $or: [{条件1}, {条件2}]
+                    $not: 取非
+                    $mod: [5, 0] 取模 %5为0的
+        · 高级查询规则
+            null 匹配自身和不存在。 alias: null, 匹配没有别名或者别名为null的
+            $exist 是否存在该键     alias: true  匹配存在别名的
+            /.+/i 正则表达式 js规则  
+            数组:   
+                fruit: 'apple'    单元素匹配
+                fruit.2: 'apple'    下标单元素匹配
+                fruit: {$size: 3}   长度匹配
+                fruit: {$all: ['apple', 'banana']}   多元素匹配
+            内嵌文档(子对象)
+                userName: {'first': 'wang', 'last': 'jing'}  完全匹配
+                userName.first: 'wang', userName.last: 'jing' 属性匹配
+                #elemMatch  内嵌文档，多条件匹配
+        · where查询  js对象函数查询 性能低
+            用函数循环遍历文档，
+            db.fruit.find({$where: function () {for(let key in this){if(key =='apple'){return true}}}})
+        · 查询游标
+            1. let cursor = db.number.find() 定义游标
+            2. cursor.next()  查询下一个值
+                while(cursor.hasNext()){ cursor.next() }  查询最后一个
+            游标操作
+            db.number.find().limit(5)
+            db.number.find().skip(5)  跳过5个匹配的值, 用于分页
+            db.number.find().sort({x: 1, y: -1})， 1 升序， -1 降序
+
+            
+        
+    4. 改 ({查询条件}, {更新的值}, 是否在没找到old插入新的, 是否多文档更新)
+        db.test.update({old},{new}) 全量更新
+        db.test.update({条件}, {'$set': {'password': 'ddd'}})  局部更新
+        db.test.update({条件}, {'$unset': {'age': 23}})        去除一个 键值
+        db.test.update({条件}, {'$inc': {age: 1}})             age 加一
+        db.test.update({条件}, {'$push': {title: 'nameList'}}) 给title数组push一个值
+        db.test.update({条件}, {'$addToSet': {title: 'nameList'}}) 避免重复的push添加
+        db.test.update({条件}, {'$pop': {title: 1}}) 给title数组pop一个值 ， 1尾部， -1头部 删除
+        db.test.update({条件}, {'$pull': {title: ‘nameList}})  删除数组中的 指定位置
+        

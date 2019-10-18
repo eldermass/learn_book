@@ -1,0 +1,26 @@
+{
+  "name": "xqyyserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "crypto": "^1.0.1",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.15.2",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.7",
+    "socket.io": "^2.2.0"
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			{// =>左边是参数 ，，右边是return的值 不写{}直接return
+				let show = (a,b) => a+b;
+				console.log(show(11,22));
+			}
+			{// 箭头函数中的this是 定义 函数时的指向，而不是调用时的指向
+				let json1={
+					id: '007',
+					show:function(){
+						setTimeout(function(){
+							alert(this.id); //这里的this是 使用函数时所在的对象，window对象
+						},1000);
+					}
+				}
+				json1.show();
+				let json2={
+					id:'007',
+					show:function(){
+						setTimeout(()=>{
+							alert(this.id);//这里的this是 定义函数时，它所在的对象
+						},2000);
+
+					}
+				}
+				json2.show();
+			}
+			{//箭头函数里没有arguments,用剩余参数代替
+				function getshow(){
+					console.log(arguments);
+				}
+				getshow(1,2,3);
+				
+				let getshow1 = (...args)=>{
+					console.log(args);
+				}
+				getshow1(1,2,3,4);
+			}
+			{//箭头函数不能当构造函数
+				
+			}
+			
+		</script>
+	</body>
+</html>

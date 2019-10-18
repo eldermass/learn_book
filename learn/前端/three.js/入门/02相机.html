@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{margin: 0}
+        canvas{height: 100%;width: 100%}
+    </style>
+</head>
+<body>
+    <script src="../js/three.js"></script>
+    <script>
+        // 正投影相机 OrthographicCamera(左，右，上，下，近，远)
+        // 透视投影相机 PerspectiveCamera(视角，横纵比，近，远)
+        let scene = new THREE.Scene()
+        let camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 1000)
+        
+        let renderer = new THREE.WebGLRenderer()
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        renderer.setClearColor(0xffffff)
+        document.body.appendChild(renderer.domElement)
+        
+        function lineX () {
+            let geometry = new THREE.Geometry() 
+            geometry.vertices.push(
+                new THREE.Vector3(-2, 0, 0),
+                new THREE.Vector3(10, 0, 0)
+            )
+            let material = new THREE.MeshBasicMaterial({color: 0xff0000})
+            let line = new THREE.Line(geometry, material)
+            scene.add(line)
+        }
+        lineX()
+        function lineY () {
+            let geometry = new THREE.Geometry()
+            geometry.vertices.push(
+                new THREE.Vector3(0, -2, 0),
+                new THREE.Vector3(0, 10, 0)
+            )
+            let material = new THREE.MeshBasicMaterial({color: 0x00ff00})
+            let line = new THREE.Line(geometry, material)
+            scene.add(line)
+        }
+        lineY()
+        function lineZ () {
+            let geometry = new THREE.Geometry()
+            geometry.vertices.push(
+                new THREE.Vector3(0, 0, -2),
+                new THREE.Vector3(0, 0, 10)
+            )
+            let material = new THREE.MeshBasicMaterial({color: 0x0000ff})
+            let line = new THREE.Line(geometry, material)
+            scene.add(line)
+        }
+        lineZ()
+        function Cube () {
+            let geometry = new THREE.CubeGeometry(1, 1, 1)
+            let material = new THREE.MeshBasicMaterial({color: 0x444444})
+            let cube = new THREE.Mesh(geometry, material)
+            cube.position.x = cube.position.y = cube.position.z = 1
+            scene.add(cube)
+        }
+        Cube()
+        camera.position.x = 3
+        camera.position.y = 3
+        camera.position.z = 3
+        // camera.up.x = 1
+        // camera.up.y = 0
+        // camera.up.z = 0
+        // up使坐标轴以向量的方向为显示时的向上方向
+        camera.up = new THREE.Vector3(1,1,0)
+        camera.lookAt(new THREE.Vector3(0,0,0))
+
+        
+
+        function render () {
+            requestAnimationFrame(render)
+            // camera.rotation.x += 1
+
+            renderer.render(scene, camera)
+        }
+        // renderer.render(scene, camera)
+
+        render()
+    </script>
+</body>
+</html>
