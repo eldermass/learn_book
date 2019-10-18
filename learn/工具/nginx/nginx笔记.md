@@ -1,23 +1,24 @@
-# nginx笔记
+# nginx 笔记
 
-[文章地址](https://www.cnblogs.com/pyyu/p/10085444.html)
+<!-- [location 匹配语法](https://www.cnblogs.com/pyyu/p/10085444.html) -->
+[nginx文档](http://www.nginx.cn/doc/index.html)
 
 ## 一. 控制命令
 
-``` bash
+```bash
 # 检测配置是否正确
 nginx -t
 # 重新加载配置
 nginx -s reload
 # 立即停止
 nginx -s stop
-# 优雅停止
+# 优雅停止，会等待现有连接都断掉
 nginx -s quit
-# 重新打开日志， log日志文件换名字，文件资源依然连接,所以要重新链接文件资源
+# 重新打开日志，如：log日志文件换名字，文件资源依然连接,所以要重新链接文件资源
 nginx -s reopen
 ```
 
-## 二、 nginx配置
+## 二、 nginx 配置
 
 ### 1. 路径重写
 
@@ -33,7 +34,7 @@ try_files $uri /index.php?$uri
 
 ### 2. 反向代理
 
-``` bash
+```bash
 # 代理到某个地址
 proxy_pass 192.168.0.1:80;
 # 人为在头信息挂上用户真实地址
@@ -42,7 +43,7 @@ proxy_set_headr X_Forwarded_For $remote_addr;
 
 ## 三、 集群和负载均衡
 
-``` bash
+```bash
 # 集群，申明上游服务器组
 upstream servers_name {
   server 192.168.0.1:80 weight=1 max_fails=2 fail_timeout=30s;
@@ -53,9 +54,9 @@ proxy_pass http://servers_name;
 
 ```
 
-## Location语法
+## Location 语法
 
-``` bash
+```bash
 匹配符 匹配规则 优先级
 =    精确匹配    1
 ^~    以某个字符串开头    2
@@ -94,11 +95,11 @@ server {
         return 403;
     }
 }
+```
 
+> nginx 指定文件路径有 root 和 alias 两种方法，区别在方法和作用域：
 
-nginx指定文件路径有root和alias两种方法
-区别在方法和作用域：
-
+```bash
 方法：
 
 root
@@ -113,7 +114,7 @@ alias
 
 root和alias区别在nginx如何解释location后面的url，这会使得两者分别以不同的方式讲请求映射到服务器文件上
 
-root参数是root路径+location位置
+root参数是root路径 + location位置
 
 root实例：
 
@@ -125,13 +126,11 @@ web服务器会返回服务器上的/data/av/av/index.html
 
 root实例2：
 location ~* .*\.(jpg|gif|png|js|css)$ {
-       root  /data/av/;
+       root  /data/static/;
 }
 
 请求url是pythonav.cn/girl.gif时
 web服务器会返回服务器上的/data/static/girl.gif
-
-
 
 
 alias实例：
@@ -148,4 +147,72 @@ location ^~ /av {
     alias /data/static/;
 }
 
+```
+
+### 示例 conf 文件
+
+```conf
+
+user  nginx;
+# 工作进程 一般cpu数 * 核数
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+# 一个work能保持的链接数
+events {
+    worker_connections  1024;
+}
+# 集群，申明上游服务器组, 通过proxy_pass 代理到本服务器组
+upstream servers_name {
+  server 192.168.0.1:80 weight=1 max_fails=2 fail_timeout=30s;
+  server 192.168.0.2:80 weight=1 max_fails=2 fail_timeout=30s;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    # 日志的格式
+    # http_x_forwarded_for 被代理用户的真实ip
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    # access_log 日志写入路径 使用的格式
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+    # 一个虚拟主机， 以上配置均可单独写入以下虚拟主机配置
+    server {
+      listen 80;
+      # 可以放多个域名
+      server_name test.com bb.com;
+
+      location / {
+        root   /www;
+        index   index.html index.php;
+        # 不存在这个文件时， url重写到index.php
+        if ( !-e $request_filename) {
+          rewirte (.*)$ /index.php$1;
+        }
+        # 先尝试文件路径，不行就重写路径
+        try_files $uri /index.php?$uri;
+
+        # 代理到某个地址
+        proxy_pass 192.168.0.1:80;
+        # 人为在头信息挂上用户真实地址
+        proxy_set_headr X_Forwarded_For $remote_addr;
+
+      }
+    }
+
+    include /etc/nginx/conf.d/*.conf;
+}
 ```

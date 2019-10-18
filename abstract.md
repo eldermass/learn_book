@@ -1,9 +1,6 @@
 # 摘要
 
-[回到github仓库](https://github.com/RiseUpCY/learn_mark)  
-[去gitbook](https://60late-cy.gitbook.io/mark/undefined)
-
-## 入门笔记
+## 语言
 
 ### 1. Linux入门
 
@@ -21,7 +18,7 @@
 
 [python入门](learn/后端/python/python入门.md)
 
-## 二、开发工具
+## 二、工具
 
 ### 1. Git
 
@@ -35,7 +32,7 @@
 
 [nginx入门笔记](learn/工具/nginx/nginx笔记.md)
 
-## 三、构建记录
+## 三、构建
 
 ### 1. next
 
@@ -44,13 +41,3 @@
 ### 2. webpack
 
 [html_js打包](build/webpack/readme.md) 未完善
-
-## 四、博客文章
-
-### 1. 基础知识
-
-[五层协议](blog/网络基础/internet五层协议.md)
-
-## 五、源码学习记录
-
-[Promise](code/Promise/promise.md)
