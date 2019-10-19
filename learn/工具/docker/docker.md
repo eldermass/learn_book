@@ -36,8 +36,11 @@
 # 如：  docker run -d -p 80:80  ubuntu ping www.baidu.com
 # (sh -c '... && ...' 可执行多条命令)
 
-# dockerfile构建镜像
+# dockerfile构建镜像, docker build [选项] <上下文路径/URL/->
+# 使用Git repo路径时，指定默认的 master 分支，构建目录为 url#path 。
+# 还可使用tar路径 docker build http://server/context.tar.gz
   docker build -t image:tag .
+              -f                      指定Dockerfile
 
 # 容器生成镜像
   docker commit container_id image:tag

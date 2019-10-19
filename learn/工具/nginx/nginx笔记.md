@@ -1,7 +1,9 @@
 # nginx 笔记
 
 <!-- [location 匹配语法](https://www.cnblogs.com/pyyu/p/10085444.html) -->
-[nginx文档](http://www.nginx.cn/doc/index.html)
+
+[nginx 文档](http://www.nginx.cn/doc/index.html)
+[nginx 与 php-cgi](https://www.cnblogs.com/donghui521/p/10334776.html)
 
 ## 一. 控制命令
 
@@ -188,16 +190,27 @@ http {
 
     keepalive_timeout  65;
 
-    #gzip  on;
+    # gzip 相关配置
+    gzip  on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+
+    gzip_comp_level 2;
+    gzip_types text/plain application/x-javascript application/javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary on;
+    gzip_disable "MSIE [1-6]\.";
+
     # 一个虚拟主机， 以上配置均可单独写入以下虚拟主机配置
     server {
       listen 80;
       # 可以放多个域名
       server_name test.com bb.com;
+      #charset koi8-r;
 
       location / {
         root   /www;
         index   index.html index.php;
+
         # 不存在这个文件时， url重写到index.php
         if ( !-e $request_filename) {
           rewirte (.*)$ /index.php$1;
@@ -207,12 +220,77 @@ http {
 
         # 代理到某个地址
         proxy_pass 192.168.0.1:80;
+
         # 人为在头信息挂上用户真实地址
         proxy_set_headr X_Forwarded_For $remote_addr;
 
       }
+
+      location ~.*\.(js|css)?$ {
+        # 过期时间
+        expires 1h;
+        proxy_pass http://127.0.0.1;
+      }
+      #error_page  404              /404.html;
+
+      # 重定向到静态错误页 /50x.html
+      error_page   500 502 503 504  /50x.html;
+      location = /50x.html {
+          root   html;
+      }
+
+      # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+      #
+      # location ~ \.php$ {
+      #     proxy_pass   http://127.0.0.1;
+      # }
+
+      #  pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+      #
+      # location ~ \.php$ {
+      #     root           html;
+      #     fastcgi_pass   127.0.0.1:9000;
+      #     fastcgi_index  index.php;
+
+      #     反向引用传参    SCRIPT_FILENAME 一般是 $document_root$fastcgi_script_name;
+      #
+      #     fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+      #     fastcgi_param  PATH_INFO $1;
+
+      #     引入参数配置文件
+      #     include        fastcgi_params;
+      # }
+
+      #  deny access to .htaccess files, if Apache's document root
+      #  concurs with nginx's one
+      #
+      # location ~ /\.ht {
+      #     deny  all;
+      # }
+
+      # HTTPS server
+      #
+      # server {
+      #    listen       443 ssl;
+      #    server_name  localhost;
+
+      #    ssl_certificate      cert.pem;
+      #    ssl_certificate_key  cert.key;
+
+      #    ssl_session_cache    shared:SSL:1m;
+      #    ssl_session_timeout  5m;
+
+      #    ssl_ciphers  HIGH:!aNULL:!MD5;
+      #    ssl_prefer_server_ciphers  on;
+
+      #    location / {
+      #        root   html;
+      #        index  index.html index.htm;
+      #    }
+      # }
     }
 
     include /etc/nginx/conf.d/*.conf;
 }
+
 ```

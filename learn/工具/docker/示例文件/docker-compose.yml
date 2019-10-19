@@ -1,59 +1,3 @@
-# docker-compose 使用
-
-[docker-compose.yml 的使用](https://www.jianshu.com/p/658911a8cff3)
-[各个参数的解释](https:#blog.csdn.net/qq_36148847/article/details/79427878)
-[启动命令](https://www.cnblogs.com/moxiaoan/p/9299404.html)
-
-## docker-compose 命令
-
-```bash
-# 检查配置是否ok
-  docker-compose config  -q
-
-# 运行
-  docker-compose up           执行当前目录的.yml文件
-            -d                后台运行
-            --force-recreate  可以强制重建容
-
-  docker-compose down         停止所有容器，并删除容器
-
-# 列出所运行的容器
-  docker-compose ps
-
-# 查看服务日志
-  docker-compose logs
-
-# 某服务里3000端口，映射的公共端口
-  docker-compose port service_name 3000
-
-# 构建或重构某服务
-  docker-compose build service_name
-
-# 启动/停止/删除/指令停止 服务
-  docker-compose start/stop/rm/kill service_name
-
-# 在一个服务上执行命令
-  docker-compose run service_name command
-
-```
-
-## Dockerfile 文件
-
-[php-fpm的拓展](https://my.oschina.net/jack088/blog/3006794)
-[Dockerfile语法]](https://blog.csdn.net/wo18237095579/article/details/80540571)
-
- docker build 命令会将该目录下的内容打包交给 Docker 引擎以帮助构建镜像构建时传给 Docker 引擎。为避免传输上下文目录过大，可以用 .gitignore 一样的语法写一个 .dockerignore ，该文件是用于剔除不需要作为上下文传递给 Docker 引擎的。
-
-```Dockerfile
-
-```
-
-## docker-compose.yml 文件
-
-长语法表示展开表示  
-[语法参数详解](https://blog.csdn.net/qq_36148847/article/details/79427878)
-
-```yml
 # 格式的版本
 version: "3"
 
@@ -67,7 +11,7 @@ services:
     # 指定使用镜像，如果你还指定了build，它将使用指定的build选项构建它，并使用image指定的名字和标记对其进行标记。
     image: nginx:stable
     # 从Dockerfile 构建镜像，参数可以在Dockerfile中通过$buildno访问
-    build:
+    build: 
       context: ./dir
       dockerfile: Dockerfile
       args:
@@ -137,8 +81,5 @@ services:
       nofile:
         soft: 20000
         hard: 40000
-# 网络别名
 networks:
   lnmp-network:
-
-```

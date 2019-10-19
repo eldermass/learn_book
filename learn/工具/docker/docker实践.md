@@ -1,8 +1,17 @@
 # docker 实践
 
+[从 0 开始](https://blog.csdn.net/bskfnvjtlyzmv867/article/details/81044217)
+[github自动构建到docker-hub](https://www.jianshu.com/p/b20bcfba52a8)
+[docker网络映射关系](https://www.cnblogs.com/brock0624/p/9788710.html)
+[php-fmp+nginx组合环境](https://www.cnblogs.com/freefei/p/7904165.html)
+[laravel部署实践](https://segmentfault.com/a/1190000013020851)
+
 ## docker 使用流程
 
 ```bash
+# ubuntu下安装
+apt-get install docker.io
+
 # 根据目录下dockerfile构建镜像
   docker build -t image_name .
 
@@ -33,36 +42,63 @@
 
 使用 webhook 来实现服务端 docker 的自动 pull  
 [参考](https://www.jianshu.com/p/e4cacd775e5b)  
-[参考 2](https:#blog.csdn.net/auv1107/article/details/51999592)  
+[参考 2](https:#blog.csdn.net/auv1107/article/details/51999592)
 npm github-webhook-handler
+
+## linux 上部署示例
 
 ```bash
 #!/bin/bash
-echo "正在停止所有docker里面的容器ing..."
-docker stop $(docker ps -a -q)
-echo "停止成功,正在删除容器ing..."
-docker rm $(docker ps -a -q)
-dockerlist=`docker images`
-echo "$dockerlist"
-docker rmi $(docker images -q)
-echo "清除所有镜像完毕"
-echo "正在进行新的文件打包部署..."
-cd docker/Adventure
-mvn package docker:build
-echo "打包构建成功"
-docker run -p 80:80 -t adventure/docker
-echo `docker ps`
-echo "end ..."
-```
 
-\$ docker run -d --name nginx --network host nginx # host 共享主机网络，bridge 桥接主机网络
+LOG_PATH=~/logs/deploy_logs.txt;
+FLAG=deploying;
+date >> $LOG_PATH;
+echo "开始重新部署\n" >> $LOG_PATH;
+
+if [ ! -e $FLAG ]
+then
+    touch $FLAG;
+    echo "拉取最新镜像";
+    docker pull asd285653184/music;
+
+    #echo "停止容器";
+    #CONTAINERS=`docker ps -a -q`;
+    #docker stop $CONTAINERS;
+
+    #echo "清空容器";
+    #docker rm $CONTAINERS;
+
+    #echo "清除docker镜像";
+    #docker rmi `docker images -a -q`;
+
+    echo "重新部署项目";
+    cd ~/project/music;
+
+    git pull;
+    docker-compose up -d;
+
+    echo "清空悬空镜像或者容器";
+
+    docker image prune -a -f;
+    docker container prune -f;
+
+    cd ~;
+    rm $FLAG;
+    echo "部署成功\n" >> $LOG_PATH;
+else
+    echo "正在重新部署中......";
+    echo "已在重新部署中......\n停止部署\n" >> $LOG_PATH;
+fi
+
+
+```
 
 ## docker-desktop
 
-1. docker在win10下关机后容器会失效，一般来说重启一下desktop，然后在重启容器就会好了。然而有些时候
-必须要重启docker的服务才能恢复正常，虽然没找到原因，但是写了一个脚本来简化重启服务的过程。
+1. docker 在 win10 下关机后容器会失效，一般来说重启一下 desktop，然后在重启容器就会好了。然而有些时候
+   必须要重启 docker 的服务才能恢复正常，虽然没找到原因，但是写了一个脚本来简化重启服务的过程。
 
-> 重启docker服务的脚本
+> 重启 docker 服务的脚本
 
 ```bat
 @echo off
@@ -99,7 +135,7 @@ start "" "C:\Program Files\Docker\Docker\Docker Desktop.exe"
 
 ```
 
-> 启动docker容器的脚本
+> 启动 docker 容器的脚本
 
 ```bat
 @echo off

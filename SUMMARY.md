@@ -57,6 +57,7 @@
       * [docker入门](learn/工具/docker/docker.md)
       * [docker-compose](learn/工具/docker/docker-compose.md)
       * [docker实践](learn/工具/docker/docker实践.md)
-    * [nginx入门](learn/工具/nginx/nginx笔记.md)
+    * [travis](learn/工具/travis/持续集成.md)
+    * [nginx笔记](learn/工具/nginx/nginx笔记.md)
 
 * [其他](other/README.md)
