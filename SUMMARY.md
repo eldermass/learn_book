@@ -49,7 +49,7 @@
       * [shell编程](learn/服务器/linux/shell编程入门.md)
 
   * [数据库](learn/数据库/README.md)
-    * [redis入门](learn/数据库/redis入门.md)
+    * [redis入门](learn/数据库/redis/redis入门.md)
 
   * [工具](learn/工具/README.md)
     * [git分支管理](learn/工具/git/branch.md)
