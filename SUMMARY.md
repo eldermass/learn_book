@@ -46,6 +46,7 @@
   * [服务器](learn/服务器/README.md)
     * [linux](learn/服务器/linux/README.md)
       * [linux入门](learn/服务器/linux/linux入门.md)
+      * [linux实践](learn/服务器/linux/linux实践.md)
       * [shell编程](learn/服务器/linux/shell编程入门.md)
 
   * [数据库](learn/数据库/README.md)

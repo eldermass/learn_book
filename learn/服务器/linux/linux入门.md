@@ -2,9 +2,7 @@
 
 ## 一、基础命令
 
-[linux 免密 ssh](https://blog.csdn.net/wenyun_kang/article/details/77413714)
-
-### 一. 开关机
+## 一. 开关机
 
 ```bash
 # 登录
@@ -24,7 +22,7 @@ reboot              直接重启
 sync                同步内存到磁盘上
 ```
 
-### 二. 用户管理
+## 二. 用户管理
 
 ```bash
 # 用户 -> 用户组 -> 家目录
@@ -41,12 +39,14 @@ passwd username         修改某账户密码
 userdel username        删除用户
     -r                  同时删除根目录
 
-id username             查询用户信息
+id                      查询用户信息
+    username            查询指定用户信息
+
 su - username           切换用户
 
 ```
 
-### 三、组和权限管理
+## 三、组和权限管理
 
 ```bash
 # 用户组
@@ -63,26 +63,27 @@ groupdel groupname      删除组
 usermod -g groupname username   修改用户的组
         -G groupname     修改附加组群，逗号隔开
 
-
-
 ```
 
-### 四、文件权限管理
+## 四、文件权限管理
 
 ```bash
 ls -l                    r是可读，w可写,x 可执行
 文件属性    连接数 文件拥有者 所属群组 文件大小 文件修改时间    文件名
 drwxr-xr-x    7     cy      cy      4096    Jun  7 11:46   dir
-文件属性：  - 普通文件  d 目录文件 l 链接文件  c 字符设备【键盘】  b 块文件【硬盘】
-         r 可读  w 可写  x 可执行 - 没有权限 (每3个一组，所有者，组权限，其他权限)
+文件属性：
+    首字母,    - 普通文件  d 目录文件 l 链接文件  c 字符设备【键盘】  b 块文件【硬盘】
+    其他9个,   r 可读  w 可写  x 可执行 - 没有权限 (每3个一组，所有者，组权限，其他权限)
 
 
 chmod 700 /home/dir         改变文件、目录权限 4(读)、2(写)、1(执行)
     u 拥有者，g组成员，o其他人，a所有人
+
 chmod 751 file              分配file所有者7，所属组5，其他1的权限
 chmod u=rwx,g=rx,o=x file   上例的另一种形式
 
-chmod o+w   file    给o(其他)加上可写权限
+chmod +x file               给组都加上执行权限
+chmod o+w   file            给o(其他组)加上可写权限
 
 chown user file             改变文件所有者
 chown user:group  file      同事改变所属组
@@ -92,7 +93,7 @@ chgrp group file            改变文件的组
 
 ```
 
-### 五、压缩解压
+## 五、压缩解压
 
 1、 gzip，gunzip 压缩解压缩，不保留源文件
 
@@ -122,16 +123,17 @@ tar -zcvf a.tar.gz a.txt b.txt
 
 ```
 
-### 六、任务调度
+## 六、任务调度
 
 ```bash
 /etc/crontab            数据存放地
 
 crontab                 定时任务
     -l                  列表
-    -e                  编辑例：1 * * 1,6 * ls -l /home/cy >> /home/cy/b.txt
-                        *每  1-5连续  1,5不连续   */5每隔5个单位时间
+    -e                  编辑例：1 * * 1,5 * ls -l /home/cy >> /home/cy/b.txt
+                        *每  1-5连续  1,5不连续   */5 每隔5个单位时间
     -r                  删除
+
 编辑内容
     第一个*             第几分钟0-59
     第二个*             每天的第几小时0-23
@@ -141,7 +143,7 @@ crontab                 定时任务
 
 ```
 
-### 七、磁盘分区和挂载
+## 七、磁盘分区和挂载
 
 ```bash
 lsblk   -f            查看分区和挂载情况 sdx~   x分区块，~第几部分
@@ -166,23 +168,21 @@ du /home
 
 ```
 
-[脚本任务 jobs](https://www.cnblogs.com/kaituorensheng/p/3980334.html)
+## 八、进程管理
 
-### 八、进程管理
-
-[任务管理](https://www.cnblogs.com/kaituorensheng/p/3980334.html#_label6)
+[任务管理](https://www.cnblogs.com/kaituorensheng/p/3980334.html)
 
 ```bash
 #  查看进程 ps -aux
     ps
-        -a 所有  -u 用户界面    -x  显示后台运行参数
+        -a  所有  -u 用户界面    -x  显示后台运行参数
         -ef         显示父进程(ppid)
 
 # 杀死进程
     kill    pid     杀死进程
         -9          强制杀死
 
-    killall     进程名称(可以使用通配符) 用于杀死有很多子进程的父进程
+    killall         进程名称(可以使用通配符) 用于一组进程
 
     pstree
         -p          pid的进程树
@@ -212,14 +212,14 @@ top/atop            即时监控进程
 
 网络进程监控
     netstat         查看网络服务进程
-        -tunlp|grep 端口号
+        -tunlp | grep 端口号
 
 查看文件系统的端口占用
     lsof -i(:端口号)    列出当前系统打开文件
 
 ```
 
-### 九、服务管理
+## 九、服务管理
 
 ```bash
 # 查看全部服务
@@ -227,6 +227,9 @@ top/atop            即时监控进程
 
 # 查看服务详情
     service mysql status
+
+# 启动
+    service mysql stop
 
 # 管里启动服务
     setup               指令
@@ -239,37 +242,50 @@ top/atop            即时监控进程
 
 ```
 
-### 十、apt 相关命令
+## 十、apt 相关命令
 
-/etc/apt/source.list 可以切换为清华软件仓库
-
-> apt-get update 更新源
-
-install -y package  安装包
-remove --purge package   移除包
--f install          修复安装
-build-dep package   安装相关编译环境
-upgrade             更新安装的包
-dist-upgrade        系统升级
-source package      下载其源代码
-install package --reinstall 重新安装
-
-apt-cache search package 找查包  
-show package 显示包详情  
-depends package 查看依赖了哪些包
-rdepends package 查看被哪些包依赖了
-
-### 十一、其他
+/etc/apt/source.list 可以切换为
+[清华镜像源](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)
 
 [apt-cache 使用](https://jingyan.baidu.com/article/22a299b51648e09e19376ae7.html)
 
 ```bash
+apt-get update                  更新源
+
+apt-cache search package        找查包  
+
+apt-get install package         安装包
+    -y                          跳过确认
+    --reinstall                 重新安装
+
+apt-get remove package          移除包
+    --purge                     同时清理配置
+
+apt-get -f install              修复安装
+
+apt-get build-dep package       安装相关编译环境
+apt-get upgrade                 更新安装的包
+apt-get dist-upgrade            系统升级
+
+apt-get source package          下载其源代码
+
+apt-get show package            显示包详情  
+apt-get depends package         查看依赖了哪些包
+apt-get rdepends package        查看被哪些包依赖了
+
+```
+
+## 十一、其他
+
+```bash
 
 init [0-6]              指定运行级别
-    /etx/inittab        修改启动级别
+/etx/inittab            修改启动级别
+
 select-editor           切换默认编辑器
+/etc/profile            环境变量位置
+
 tree                    打印目录结构
 telnet ip port          测试网络
-/etc/profile            环境变量位置
 
 ```
