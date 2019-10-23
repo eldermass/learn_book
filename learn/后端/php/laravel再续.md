@@ -1,12 +1,18 @@
-# laravel再续
+# laravel 再续
 
 ## 一、核心构架
 
 ### 1. 服务容器
 
-[控制反转（IoC）和依赖注入（DI）](https://laravelacademy.org/post/769.html)  
+[控制反转（IoC）和依赖注入（DI）](https://laravelacademy.org/post/769.html)
 
-``` php
+```php
+// 通过服务提供者(xxProvider)里注册一个服务
+// 例如： $this->app->bind(接口名，闭包函数返回结果实例)    接口名即是使用时的服务名
+
+```
+
+```php
 // 可通过app辅助函数访问，可以依赖注入等
 app(IService::class);
 // 新加一个服务容器过程
@@ -21,9 +27,9 @@ php artisan make:Provider ServiceProvider
 
 ## 模型关联
 
-[文档](https://learnku.com/docs/laravel/5.8/eloquent-relationships/3932)  
+[文档](https://learnku.com/docs/laravel/5.8/eloquent-relationships/3932)
 
-``` php
+```php
 // $with = [] 自动带上关联属性
 // 一对一 hasOne
 // params： 关联的表模型， 关联表的key，本表的key
@@ -46,13 +52,11 @@ $this->belongsToMany(User::class, Groups::class)
 // params: 关联表， 中间表，中间表对应本地key，关联表key， 本地的key，中间表对关联表的key，
 $this->hasManyThrough(User::class, Groups::class)
 
-...
-
 ```
 
-## Artisan命令
+## Artisan 命令
 
-app/Console/Commands 下commands方法引入了两个自定义命令来源，可以加入更多
+app/Console/Commands 下 commands 方法引入了两个自定义命令来源，可以加入更多
 
 ## 广播
 
