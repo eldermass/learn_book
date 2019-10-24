@@ -6,10 +6,10 @@
 
 ``` python
 运算符 + - * /除法 //除整 %模 **幂
-逻辑运算符 and or not
-成员运算符 in    not in
+逻辑运算符 and / or / not
+成员运算符 in / not in
 身份运算符(比较内存地址)  
-          is   is not
+          is / is not
 位运算符
     & 按位与 2 & 3 = 2 (0b10 与 0b11 得 0b10)
     | 按位或

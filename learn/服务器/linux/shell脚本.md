@@ -1,6 +1,6 @@
 # shell 编程入门
 
-<!-- 文件头 #!/bin/bash -->
+文件头指明执行程序 #!/bin/bash  #!/usr/bin/python
 
 ## 一、变量
 
