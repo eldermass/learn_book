@@ -1,14 +1,14 @@
-# python入门
+# python 入门
 
 ## 数据类型
 
 ### 运算符
 
-``` python
+```python
 运算符 + - * /除法 //除整 %模 **幂
 逻辑运算符 and / or / not
 成员运算符 in / not in
-身份运算符(比较内存地址)  
+身份运算符(比较内存地址)
           is / is not
 位运算符
     & 按位与 2 & 3 = 2 (0b10 与 0b11 得 0b10)
@@ -27,7 +27,7 @@ isinstance(a, (int, str, float))
 
 int float bool complex
 
-``` python
+```python
 # 整形浮点型 int float
 2/2 = 1.0
 2//2 = 1 # 整除
@@ -49,19 +49,23 @@ bool([]) == false
 
 有序：str list tuple(可通过下标访问，可以[0:3]切片操作)
 集合：set (无序，没有索引，不能切片)
-字典：dict (key: value的概念)
+字典：dict (key: value 的概念)
 
 list[0:length:步长]， 切片操作
-hex(id(a)), a的内存地址
+hex(id(a)), a 的内存地址
 
 #### 字符串 str
 
-``` python
+```python
 # 单引号 双引号 三引号
-# 三引号可以直接换行
+# 三引号可以指定多行字符串
+
+# 字符串可以直接运算
 'asd' * 2 = 'asdasd'
-# 字符串加r表示原始字符串
+
+# r 表示 原始字符串 \n 不会换行
 a = r'abc\nbcd'
+
 # 字符串截取
 'hello world'[0:4] = 'hell'
 
@@ -69,7 +73,7 @@ a = r'abc\nbcd'
 
 #### 列表 list
 
-``` python
+```python
 # 引用类型
 [1, 'two', true, []]
 # 选取列表
@@ -82,7 +86,7 @@ a = r'abc\nbcd'
 
 #### 元组 tuple
 
-``` python
+```python
 # 值类型，不可修改
 (1, 2, [3, 4])
 
@@ -93,7 +97,7 @@ a, b, c = tu
 
 #### 集合 set
 
-``` python
+```python
 # 引用类型， 无序的
 {1, 2, 3} == {2, 3, 1}
 
@@ -101,14 +105,14 @@ a, b, c = tu
 
 #### 字典 dict
 
-``` python
+```python
 # 引用类型
 {'key': 'value'}
 ```
 
 #### 枚举类型
 
-``` python
+```python
 # 继承自类, 并不是单独的类型
 from enum import Enum
 
@@ -133,7 +137,7 @@ class VIP(IntEnum):
 
 ### 流程控制
 
-``` python
+```python
 # 可用pass保留结构完整
 # 判断
 value = input() # 获取输入值
@@ -143,7 +147,7 @@ else:
     pass
 ```
 
-``` python
+```python
 # while循环
 while counter:
     counter -= 1
@@ -163,7 +167,7 @@ else:
 
 ## 模块
 
-``` python
+```python
 # 包
 # 让一个目录成为一个包，就需要目录下有__init__.py文件
 # 这个文件下一般写 __all__ = ['需要导出的变量']
@@ -187,7 +191,7 @@ from module_name import var/mod/*
 
 ## 函数
 
-``` python
+```python
 def funcname(self, parameter_list):
     pass
 # 可以返回多个参数构成元祖
@@ -202,7 +206,7 @@ r1, r2, r3 = (res1, res2, res3)
 
 ## 类与对象
 
-``` python
+```python
 class Stu():
     name = ''
     # 私有属性, 将被改名_Stu__private
@@ -233,7 +237,7 @@ print(s.__dict__)
 # '私有属性、方法' 以__开头
 ```
 
-``` python
+```python
 # 继承
 class Stu(Person):
     def __init__(self, name):
@@ -245,7 +249,7 @@ class Stu(Person):
 
 ## 正则
 
-``` python
+```python
 # 字符串检测函数
 a.index('some')
 'some' in a
@@ -276,7 +280,7 @@ r1.groups()
 
 ## JSON
 
-``` python
+```python
 import json
 # 序列化
 json.dumps()
@@ -289,7 +293,7 @@ json.loads()
 
 ### 局部变量
 
-``` python
+```python
 # 局部可以访问上级的变量，但是不能像js那样修改
 # 闭包变量被赋值时就会被认为是局部变量
 def curve_pre():
@@ -330,7 +334,7 @@ filter(lambda x: x > 3, a)
 
 ## 装饰器
 
-``` python
+```python
 import time
 def decorator(func):
     # args 参数列表，kw 关键字参数(以字典接收剩余参数)
@@ -346,7 +350,7 @@ def f1():
 
 ## 其他
 
-``` python
+```python
 # 列表推到式，适用list, set, tuple, dict
 # 平方为例
 a = [1,2,3,4,5,6]
@@ -367,7 +371,7 @@ print(b) # ['张三', '李四', '王五']
 b = {value:key for key, value in stu.items()}
 ```
 
-``` python
+```python
 None 不等于 '' | 0 | [] | False
 # None 是属于 NoneType对象
 if None: # 这里的等同于  bool(None)
