@@ -2,15 +2,29 @@
 
 ## 一、核心构架
 
-### 1. 服务容器
+### 1. 服务容器、契约
 
 [控制反转（IoC）和依赖注入（DI）](https://laravelacademy.org/post/769.html)
 
-```php
-// 通过服务提供者(xxProvider)里注册一个服务
-// 例如： $this->app->bind(接口名，闭包函数返回结果实例)    接口名即是使用时的服务名
-// 在类型提示的时候，使用服务名便可实现依赖注入
+<!-- [契约解释]](https://learnku.com/articles/17638) -->
 
+```php
+// config/app.php文件 providers数组里面定义了许多的服务提供器
+'providers' => [ App\Providers\TestServiceProvider::class, ]
+
+// 服务提供者 (xxProvider文件)，负责注册服务，注册后服务才可依赖注入等
+// 例如： $this->app->bind(接口，闭包或接口的实现)  第二个参数的目的是获取一个实例返回到调用者
+// 在类型提示的时候，使用服务名便可实现依赖注入（注入服务），接口名就是使用时的服务名
+$this->app->bind(DemoInterface::class, DemoProvider::class);
+
+// 这里的接口一般就是指的（契约），而DemoProvider，DemoProvider2222就是该契约的实现，受到接口的约束
+interface DemoInterface
+{
+    function demo();
+}
+
+// 通过接口约束，这样能够很轻松的切换驱动服务，而不改动使用时的逻辑代码
+$this->app->bind(DemoInterface::class, DemoProvider2222::class);
 ```
 
 ```php

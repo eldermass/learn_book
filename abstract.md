@@ -6,7 +6,7 @@
 
 [Linux入门](learn/服务器/linux/linux入门.md)  
 [linux实践](learn/服务器/linux/linux实践.md)  
-[Shell编程入门](learn/服务器/linux/shell编程入门.md)  
+[Shell编程入门](learn/服务器/linux/shell编程.md)  
 
 ### 2. 数据库
 
