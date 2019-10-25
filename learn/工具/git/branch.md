@@ -1,10 +1,8 @@
-# git 操作
+# Git
 
-## 分支管理
+## 常用命令
 
-### 一、基本操作
-
-0.基础操作
+### 基础操作
 
 ```bash
     git --version    查看安装的版本
@@ -40,7 +38,9 @@
 
 ```
 
-1.[分支管理](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86)
+### 分支管理
+
+[分支管理](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E7%AE%A1%E7%90%86)
 
 ```bash
 git branch 显示本地分支
@@ -61,7 +61,9 @@ git clean 参数
     -df 删除 文件 和 目录
 ```
 
-2.[远程分支](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
+### 远程分支
+
+[远程分支](https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
 
 在本地命名为 origin/master，就是远程分支，只有标记不可操作，fetch 可得到远程指针标记
 
@@ -94,7 +96,9 @@ git clean 参数
     git push origin :serverfix
 ```
 
-3.[重写历史](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2)
+### 重写历史
+
+[重写历史](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2)
 
 ```bash
 git commit --amend          重写最近的一次提交(推送后提交会有冲突)
@@ -115,12 +119,16 @@ git rebase --onto master server client  多分支变基，指定基底，
 
 ```
 
-4.[版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
+### 版本修订
+
+[版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
 
 ```bash
-    git log -3 查看最近三个提交
+    git log -3  查看最近三个提交
         --stat  查看修改的状态
-    git reflog 查看最近三次操作
+
+    git reflog  查看最近的操作
+        -n      显示条数
 
     查看HEAD中有,远程master里不同的内容
     git show origin/master..HEAD
@@ -153,18 +161,89 @@ git rebase --onto master server client  多分支变基，指定基底，
     git stash branch name
 ```
 
-5.版本退回
+git cherry-pick
+
+<!-- https://www.jianshu.com/p/723ed1326964 -->
 
 ```bash
-git reset --hard HEAD~1     回到上1个版本
-git reset --hard 版本号     切换到某个时态git reflog 查看
+# 取出某一次提交版本，然后追加为当前分支的最后一次提交，貌似只能取本地commit的
+git cherry-pick 版本号
+
+# 当有冲突的时候，cherry-pick会中断
+# 解决冲突后，git add  然后 git cherry-pick --continue
+# 或者使用git cherry-pick --abort 放弃操作
+```
+
+### 版本回退
+
+git reset
+
+```bash
+git reset HEAD~1            回到上1个版本
+git reset 版本号            切换到某个时态git reflog 查看
         --hard              add之前,并不保留提交前的更改
         --soft              更新add 和 commit 之间,保留更新
         --mixed/默认        更新 add变更前,保留更新
 
 ```
 
-### 场景
+git revert
+
+```bash
+# 将指的提交版本，从当前分支中移除，然后在把结果当成一次新的提交
+git revert -n 版本          重做分支
+```
+
+### 子模块
+
+> 带有子模块的项目在根目录下会有.gitsubmodule 文件，记录着各个子模块的信息, 例如
+
+```bash
+[submodule "houduan"]
+    path = code/backend
+    url = https://gitee.com/sixtylate/houduan.git
+    branch = master
+```
+
+[submoudle 使用](http://blog.jqian.net/post/git-submodule.html)
+
+```bash
+# 新增子模块
+git submodule add <git@repo> <local path>
+
+# 克隆，主项目并不会自动拉取子项目，需要手动拉取
+git submodule init
+git submodule update
+# 或使用组合命令
+git submodule update --init --recursive
+
+# foreach可以管理多个子分支
+git submodule foreach 'git checkout -b <branch_name>'
+
+```
+
+### .gitignore 文件
+
+[参考文档](https://git-scm.com/docs/gitignore)
+
+<!-- https://blog.csdn.net/wozaixiaoximen/article/details/78647508 -->
+
+```bash
+'#'     表示注释，使用'\'转义
+
+'!'     表示否定，前面忽略的文件/目录将会被重新包含。如果父级目录被忽略，则子文件不能被再次包含。
+
+'/'     如果结尾有/，则表示只匹配目录。比如，a/表示a是目录。
+        如果不包含/，则会全局匹配。比如a，匹配任何目录下的a。
+        如果开头有/，则表示匹配根目录。比如，/a表示根目录下的a
+
+'*'     通配符*不能跨目录。
+'**'    如 **/a，表示任何目录下的a。
+        如 abc/**，递归匹配abc下的所有文件和目录。
+        如 a/**/b，其中的**表示0到多层目录。
+```
+
+## 使用场景
 
 ```bash
     1. 切换到新的分支开始工作
