@@ -48,6 +48,7 @@
       * [linux入门](learn/服务器/linux/linux入门.md)
       * [linux实践](learn/服务器/linux/linux实践.md)
       * [shell编程](learn/服务器/linux/shell编程.md)
+      * [vim](learn/服务器/vim/vim.md)
 
   * [数据库](learn/数据库/README.md)
     * [redis入门](learn/数据库/redis/redis入门.md)
