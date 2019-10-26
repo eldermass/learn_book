@@ -1,11 +1,15 @@
 # python 入门
 
+[w3c 教程](https://www.w3cschool.cn/python3)
+
 ## 数据类型
 
 ### 运算符
 
 ```python
 运算符 + - * /除法 //除整 %模 **幂
+赋值运算符 += ...   同上
+比较运算符 > < != == <= >=
 逻辑运算符 and / or / not
 成员运算符 in / not in
 身份运算符(比较内存地址)
@@ -50,7 +54,7 @@ bin() int() oct() hex()
 
 ### 组
 
-有序(sequence)：str list tuple (可通过下标访问，可以[0:3]切片操作)
+有序序列(sequence)：str list tuple (可通过下标访问，可以[0:3]切片操作)
 集合：set (无序，没有索引，不能切片)
 字典：dict (key: value 的概念)
 
@@ -77,23 +81,45 @@ b[-1] # n
 # 字符串切片，变量[头下标:尾下标]， 前闭后开
 'hello world'[2:4] # 'll'
 
+# 格式占位符%s
+# https://blog.csdn.net/jiangbo721/article/details/78468571
+c = 'place %s' % 'holder' # 传入单值
+c = 'i am %s, age is %s}' % ('zhangsan', '23')  # 传入元组
+c = "I'm %(name)s. I'm %(age)d year old" % {'name':'Vamei', 'age':99} # 传入字典
+e = 'i am {}, age is {}'.format('z3', 23)
+
 ```
 
 #### 列表 list
 
 ```python
 # 引用类型
-l = [1, 'two', true, []]
+a = [1, 'two', true, []]
 
-# 选取列表
-l[0] = 2
-l[0:2] # return [1, 'two']
+# 选取列表，前闭后开区间
+a[0] = 2
+a[0:2] # return [1, 'two']
 
 # 运算
-l[1:2] = [7, 7] # 插入
-l[1:2] = []     # 删除
 [1, 2] * 2      # [1, 2, 1, 2]
 [1, 2] + [3]    # [1, 2, 3]
+
+# 修改区间的值
+a[1:2] = [7, 7] # 插入
+a[1:2] = []     # 删除
+
+# 方法
+a.append(val)   # 入栈一个值，push
+a.extend(list)  # 扩展数组，concat
+a.insert(i, val)# 插入值到i位置
+a.remove(n)     # 移除第n个元素
+a.pop(n)        # pop出第n个值
+a.clear()
+a.index(val)    # 找出value值的index
+a.count(val)    # val出现次数
+a.reverse()     # 倒序
+a.sort()        # 排序
+a.copy()
 
 ```
 
@@ -109,6 +135,12 @@ a, b, c = tu
 
 # 元组 可以切片(同上),可以相加
 tu + tu # (1,2,3,1,2,3)
+
+# 方法
+len()
+max()
+min()
+tuple() # 把列表转化为元组
 ```
 
 #### 集合 set
@@ -138,16 +170,29 @@ a ^ b # {1, 2, 5, 6}
 ```python
 # 引用类型
 users = {'Tom': 1320, 'Jack': 1557, 'Rose': 1886}
-del users['Rose'] # 删除
+# 删除
+del users['Rose']
 
 # 可以从sequence中构建字典
 dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
 
-# 获取key的list
-users.keys()
+# 内置方法
+dict.keys()    # keys 的 list
+dict.values()
+dict.items()   # 返回 (key, value) 元组
+dict.clear()
+
+dict.copy()    # 浅拷贝
+dict.fromkeys(seq, value) # 根据序列生成字典
+dict.get(key, default)    # 获取指定字段，没有返回默认值
+dict.setdefault(key, default)
+dict.update(dict2) # 把dict2 更新到dict
 
 # 成员测试
 "Tom" in users # True
+
+# 方法
+len() str()
 ```
 
 #### 枚举类型
@@ -175,14 +220,29 @@ class VIP(IntEnum):
 
 表达式(Expression)：预算符(operator)和操作数(operand)构成的序列
 
+```bash
+# 单行注释
+'''
+多行注释
+'''
+"""
+多行注释
+"""
+```
+
 ### 流程控制
 
 ```python
 # 可用pass保留结构完整
+
+# 获取输入值
+value = input()
+
 # 判断
-value = input() # 获取输入值
-if value :
-    print('大于')
+if condition:
+    print('something', end = '\n')
+elif condition:
+    pass
 else:
     pass
 ```
@@ -195,9 +255,12 @@ while counter:
 else
     print(EOF)
 
+# range(start, end, step))
 # for循环
-for x in range(0, 10):
+for x in range(0, 10, 2):
     print(x)
+    if x > 5:
+        break
 
 for item in l:
     print(key)
@@ -231,17 +294,46 @@ from module_name import var/mod/*
 
 ## 函数
 
+### 函数申明
+
 ```python
-def funcname(self, parameter_list):
+def funcname(parameter_list):
     pass
+
+# 可变参数
+def add(*args):
+    # args is a tuple
+    for x in args:
+        print(x, end=' ')
+
 # 可以返回多个参数构成元祖
 return res1, res2, res3
+
 # 解构元组
-r1, r2, r3 = (res1, res2, res3)
+r1, r2, r3 = func()
 
-# 必须参数 def add(x, y)
-# 形参任意赋值,可以切换传参顺序 add(y = 2, x =1)
+# 函数参数为必须参数 def add(x, y)
+# 形参任意赋值对应,可以切换传参顺序
+add(y = 2, x =1)
 
+```
+
+### 局部变量
+
+```python
+# 局部可以访问上级的变量，但是不能像js那样修改
+# 闭包变量被赋值时就会被认为是局部变量
+def curve_pre():
+    # 使用global关键字可以改变全局变量
+  global name
+  name = 'curve_pre'
+  def curve():
+    # 申明非本地变量
+    nonlocal name
+    print('i am curve and ' + name)
+  return curve
+
+curve_pre()
 ```
 
 ## 类与对象
@@ -331,7 +423,7 @@ json.loads()
 
 ## 函数式、闭包
 
-### 局部变量
+### 闭包变量
 
 ```python
 # 局部可以访问上级的变量，但是不能像js那样修改

@@ -19,6 +19,7 @@
 [laravel再续](learn/后端/php/laravel再续.md)
 
 [python入门](learn/后端/python/python入门.md)
+[python基础](learn/后端/python/python基础.md)
 
 ## 二、工具
 
