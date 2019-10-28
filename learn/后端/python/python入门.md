@@ -119,8 +119,39 @@ a.index(val)    # 找出value值的index
 a.count(val)    # val出现次数
 a.reverse()     # 倒序
 a.sort()        # 排序
-a.copy()
+a.copy()        # 复制
 
+# 列表推导式
+a = [1,2,3,4]
+a1 = [5,10]
+b = [x*3 for x in a] # [3, 6, 9, 12]
+c = [[x, x*3] for x in a ] # [[1, 3], [2, 6], [3, 9], [4, 12]]
+# 使用 if 过滤
+d = [x*3 for x in a if x > 3] # [12]
+e = [x+y for x in a for y in a1] # [6, 11, 7, 12, 8, 13, 9, 14]
+
+# 例：3*4 矩阵替换为4*3
+matrix = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12]
+]
+
+b = [[row[i] for row in matrix] for i in range(4)]
+```
+
+队列
+
+```python
+from collections import deque
+
+q = deque([1, 2, 3, 4])
+
+q.append(5)
+
+q.popleft()
+
+print(list(q))
 ```
 
 #### 元组 tuple
@@ -162,7 +193,7 @@ a & b # {3, 4}
 # 不同时存在
 a ^ b # {1, 2, 5, 6}
 
-
+# 支持 列表推导式
 ```
 
 #### 字典 dict
@@ -193,6 +224,8 @@ dict.update(dict2) # 把dict2 更新到dict
 
 # 方法
 len() str()
+
+# 支持 列表推导式
 ```
 
 #### 枚举类型
@@ -268,23 +301,40 @@ else:
     print('遍历完了')
 ```
 
-## 模块
+## 包与模块
 
 ```python
-# 包
-# 让一个目录成为一个包，就需要目录下有__init__.py文件
-# 这个文件下一般写 __all__ = ['需要导出的变量']
+# 模块 会找查sys.path的路径
+# 引入模块全部内容
+import module_name # 使用 module_name.var
+# 部分引入，var可使用 *(不含_开头的属性)
+from module_name import var # 直接使用 var
+
+# 模块中 __name__ 判断是否是引入调用，__main__为自己执行
+dir(module_name) # 获取模块所定义的名称
+
+# 别名
+import module_name as alias
+
+
+# 包是一种管理 Python 模块命名空间的形式，采用"点模块名称"。
+# 目录下有__init__.py文件，就会被 python 当做包
+sound/                          顶层包
+      __init__.py               初始化 sound 包
+      formats/                  文件格式转换子包
+              __init__.py
+              wavread.py
+              wavwrite.py
+
+# 引入同模块， 可以直接引入模块或变量
+from sound.formats import wavread
+
+# __init__.py 文件下一般写 __all__ = ['需要导出的模块']， 对应使用时的ipmort *
+# 包名.文件名（__init__.py模块的模块名就是包名）
 print(__package__)
 print(__name__)
 print(__doc__)
 print(__file__)
-
-# 模块
-# 包名.文件名（__init__.py模块的模块名就是包名）
-import module_name
-module_name.var
-# 别名
-import module_name as alias
 
 # 其他方式引入
 from module_name import var/mod/*
