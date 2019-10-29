@@ -81,7 +81,7 @@ b[-1] # n
 # 字符串切片，变量[头下标:尾下标]， 前闭后开
 'hello world'[2:4] # 'll'
 
-# 格式占位符%s
+# 格式占位符%s，这是老的格式化，现在一般用str.format()
 # https://blog.csdn.net/jiangbo721/article/details/78468571
 c = 'place %s' % 'holder' # 传入单值
 c = 'i am %s, age is %s}' % ('zhangsan', '23')  # 传入元组

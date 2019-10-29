@@ -45,4 +45,47 @@ while True:
         sys.exit()
 ```
 
+### 输入和输出
+
+[详解](https://www.w3cschool.cn/python3/python3-inputoutput.html)
+
+```python
+# 输出
+print()
+sys.stdout()
+# str(), repr()显示特殊字符，参数可以是所有对象
+# 格式化输出 rjust ljust center zfill str.format
+for x in range(1, 11):
+    print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
+
+
+
+# 读写文件 文件名，mode(r，w，a，r+)
+f = open('1.txt', 'r+')
+string = f.read(size) # size 默认为负
+# 单行读取readline， 多行读取 readlines(sizehint)
+# 迭代 for line in f:
+
+f.write(string)     # 写入
+f.close()           # 释放资源
+f.tell()            # 返回位置
+f.seek()            # 指定位置
+
+
+
+# pickle 模块， 序列化和反序列化
+import pickle
+f = open('1.txt', 'wb')
+pickle.dump({'name': 'zahngsan','age': 18,'hobby': 'sleeping'}, f)
+f.close()
+
+# 反序列化
+import pickle
+f.open('1.txt', 'wb')
+data = pickle.load(f)
+f.close()
+
+
+```
+
 ## 2. 系统模块
