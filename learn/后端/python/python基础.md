@@ -45,21 +45,9 @@ while True:
         sys.exit()
 ```
 
-### 输入和输出
-
-[详解](https://www.w3cschool.cn/python3/python3-inputoutput.html)
+### 文件操作
 
 ```python
-# 输出
-print()
-sys.stdout()
-# str(), repr()显示特殊字符，参数可以是所有对象
-# 格式化输出 rjust ljust center zfill str.format
-for x in range(1, 11):
-    print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
-
-
-
 # 读写文件 文件名，mode(r，w，a，r+)
 f = open('1.txt', 'r+')
 string = f.read(size) # size 默认为负
@@ -70,6 +58,12 @@ f.write(string)     # 写入
 f.close()           # 释放资源
 f.tell()            # 返回位置
 f.seek()            # 指定位置
+f.flush()           # 刷新文件缓冲
+
+# 预定义清理行为
+with open("myfile.txt") as f:
+    for line in f:
+        print(line, end="")
 
 
 
@@ -85,6 +79,53 @@ f.open('1.txt', 'wb')
 data = pickle.load(f)
 f.close()
 
+```
+
+### OS 模块
+
+```python
+# 检测文件权限，os.access('1.txt', os.F_OK)是否存在path mode: xrwf
+os.access(path, mode)
+os.mkdir() # ... 有很多，具体看文档
+
+```
+
+### 错误和异常
+
+```python
+while True:
+    try:
+        x = int(input("Please enter a number: "))
+        break
+    except ValueError:
+        print("Oops!  That was no valid number.  Try again   ")
+        # raise 可以再次抛出被捕获的异常
+        raise
+    else:
+        print('这句话将在没有捕获到异常时执行')
+    finally:
+        print('无论什么情况都会走到这里')
+
+# 处理多个异常时用元组，或省略通配所有类型的错误
+except (RuntimeError, TypeError, NameError):
+    pass
+
+# 使用 raise 抛出异常
+raise NameError('fuck')
+```
+
+### 输入和输出
+
+[详解](https://www.w3cschool.cn/python3/python3-inputoutput.html)
+
+```python
+# 输出
+print()
+sys.stdout()
+# str(), repr()显示特殊字符，参数可以是所有对象
+# 格式化输出 rjust ljust center zfill str.format
+for x in range(1, 11):
+    print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
 
 ```
 
