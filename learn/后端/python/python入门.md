@@ -391,7 +391,7 @@ curve_pre()
 ```python
 class Stu():
     name = ''
-    # 私有属性, 将被改名_Stu__private
+    # 私有属性、方法,以__开头, 将被改名_Stu__private
     __private = '私有属性，只是改了个名字而已，并没法阻止访问'
     def __init__(self, name):
         # 构造函数
@@ -410,14 +410,17 @@ class Stu():
         pass
 # 实例化
 s = Stu()
+
 # 类似js，直接添加属性
-s.newattr = ''
+s.newattr = '新属性'
 s.say()
+
 # 打印实例的字典
 print(s.__dict__)
 
-# '私有属性、方法' 以__开头
 ```
+
+继承
 
 ```python
 # 继承
@@ -426,7 +429,41 @@ class Stu(Person):
         # 调用父类构造函数 1
         Person.__init__(self, name)
         # 调用父类构造函数 2
-        super(Stu, self).__init(name)
+        super(Stu, self).__init__(name)
+
+# 多重继承
+# 同名的属性、方法会由左至有查找
+class Stu(Person, Animal):
+    def __init__(self):
+        pass
+
+```
+
+类专有方法
+
+```python
+__init__ : 构造函数，在生成对象时调用
+__del__ : 析构函数，释放对象时使用
+__repr__ : 打印，转换
+__setitem__ : 按照索引赋值
+__getitem__: 按照索引获取值
+__len__: 获得长度
+__cmp__: 比较运算
+__call__: 函数调用
+__add__: 加运算
+__sub__: 减运算
+__mul__: 乘运算
+__div__: 除运算
+__mod__: 求余运算
+__pow__: 乘方
+```
+
+运算符重载
+
+```python
+def __add__(self, other):
+    return self.age + other.age
+
 ```
 
 ## 正则
