@@ -81,13 +81,38 @@ f.close()
 
 ```
 
-### OS 模块
+### 模块
+
+os 模块
 
 ```python
 # 检测文件权限，os.access('1.txt', os.F_OK)是否存在path mode: xrwf
 os.access(path, mode)
+os.chdir()      # 切换目录
+os.system(command) # 执行脚本命令
 os.mkdir() # ... 有很多，具体看文档
 
+# 文件通配符 glob
+glob.glob('*.py')
+```
+
+sys 模块
+
+```python
+import sys
+
+sys.argv
+# sys 还有 stdin，stdout 和 stderr 属性，
+sys.stderr.write('warnning!')
+
+
+还有许多模块，如 math/random/urllib 网路库/smtplib 邮件库/datetime/ zlib 数据压缩 / timeit 性能度量
+/doctest 测试/ unittest 细粒度测试
+from urllib.request import urlopen
+for line in urlopen('http://www.baidu.com/'):
+
+t = zlib.compress(s) # 压缩
+zlib.decompress(t)   # 解压
 ```
 
 ### 错误和异常

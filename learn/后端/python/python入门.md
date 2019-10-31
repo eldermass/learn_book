@@ -473,19 +473,20 @@ def __add__(self, other):
 a.index('some')
 'some' in a
 
-# 正则
+# 正则，使用re模块
 import re
 re.findall('parttern', a)
 # 规则和其他语言差不多
 # 默认贪婪匹配，量词加?即可进入非贪婪
+a = re.findall(r'\bf[a-z]*', 'which foot or hand fell fastest')
 
 # re.I 忽略大小写， re.S .匹配任意
-re.findall('parttern', a, re.I | re.S)
+re.findall('parttern', string, re.I | re.S)
 
 # 替换类似js replace, count替换多少个，count 为0表示无限制
-re.sub('parttern', 'target', a, count)
+re.sub('parttern', 'target', string, count)
 # 回调中使用 matched = value.group() 取值
-re.sub('parttern', 回调func, a, count)
+re.sub('parttern', 回调func, string, count)
 # 或
 string.replace('a', '')
 re.match # 从头匹配
