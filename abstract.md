@@ -2,6 +2,10 @@
 
 ## 语言
 
+### 0. 前端
+
+[javascript](learn/前端/javascript/js.md)
+
 ### 1. Linux入门
 
 [Linux入门](learn/服务器/linux/linux入门.md)  
