@@ -229,5 +229,18 @@ python 的匹配模式
 ### GUI 编程
 
 ```python
+# 使用 python 自带的服务器快速启动一个cgi服务
+# 启动目录即是根目录，cgi-bin/ 目录下放置cgi文件
+# 根路径默认会访问根目录的 index 文件
+python -m http.server --cgi 8000
+
+```
+
+### 连接数据库
+
+<!-- 使用pycharm下载会有问题，建议你在pycharm里的File>setting>Project untitled>Project Interpreter>点击右边的+号  然后搜索PyMySQL然后点击左下角的Install 进行下载   -->
+```python
+# 安装、使用提供的驱动库
+pip install PyMySQL
 
 ```
