@@ -239,8 +239,69 @@ python -m http.server --cgi 8000
 ### 连接数据库
 
 <!-- 使用pycharm下载会有问题，建议你在pycharm里的File>setting>Project untitled>Project Interpreter>点击右边的+号  然后搜索PyMySQL然后点击左下角的Install 进行下载   -->
+
 ```python
 # 安装、使用提供的驱动库
 pip install PyMySQL
 
+# 对于支持事务的数据库， 在Python数据库编程中，当游标建立之时，就自动开始了一个隐形的数据库事务。
+# commit()方法游标的所有更新操作，rollback（）方法回滚当前游标的所有操作。每一个方法都开始了一个新的事务。
+
+# 该方法获取下一个查询结果集。结果集是一个对象
+fetchone()
+# 接收全部的返回结果行.
+fetchall()
+# 这是一个只读属性，并返回执行execute()方法后影响的行数。
+rowcount
+
 ```
+
+示例
+
+```python
+import pymysql
+
+db = pymysql.connect('localhost', 'root', 'password', 'database')
+
+# 使用 cursor() 方法创建一个游标对象 cursor
+cursor = db.cursor()
+
+# 使用 execute()  方法执行 SQL 查询
+cursor.execute("SELECT * from auth")
+
+# 使用 fetchone() 方法获取所有数据.
+data = cursor.fetchall()
+
+for item in data:
+    print(item)
+
+# 插入/更新/删除等改变数据操作时，需要提交到数据库执行 commit
+in_sql = """
+    insert into auth(auth) values('{0}')
+""".format('插入的值')
+
+try:
+    cursor.execute(in_sql)
+# 提交到数据库执行
+    db.commit()
+except:
+# 回滚
+    db.rollback()
+
+# 关闭数据库连接
+db.close()
+
+```
+
+### 网络编程
+
+[网络编程模块](https://www.w3cschool.cn/python3/python3-socket.html)
+
+```python
+# Python 提供了两个级别访问的网络服务。
+# 低级别的网络服务支持基本的 Socket，它提供了标准的 BSD Sockets API，可以访问底层操作系统Socket接口的全部方法。
+# 高级别的网络服务模块 SocketServer， 它提供了服务器中心类，可以简化网络服务器的开发。
+
+```
+
+### SMTP 发送邮件
