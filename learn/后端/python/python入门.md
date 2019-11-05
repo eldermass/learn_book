@@ -352,9 +352,14 @@ def funcname(parameter_list):
 
 # 可变参数
 def add(*args):
-    # args is a tuple
+    # args is a tuple 剩余参数，当做元组
     for x in args:
         print(x, end=' ')
+
+# 关键字参数
+def add(**kargs):
+    # karg is type of dict 指定关键字的参数，如：x=1
+    pass
 
 # 可以返回多个参数构成元祖
 return res1, res2, res3
@@ -570,6 +575,8 @@ def f1():
 
 ## 其他
 
+### 列表推导式
+
 ```python
 # 列表推到式，适用list, set, tuple, dict
 # 平方为例
@@ -591,6 +598,8 @@ print(b) # ['张三', '李四', '王五']
 b = {value:key for key, value in stu.items()}
 ```
 
+### None 类型
+
 ```python
 None 不等于 '' | 0 | [] | False
 # None 是属于 NoneType对象
@@ -605,4 +614,24 @@ class Test():
 # 判断时，会先尝试调用__bool__, 不行时再调用__len__
 test = Test()
 bool(test) # 就是 False
+```
+
+### with as 预定义清理语句
+
+```python
+# 基本思想是with所求值的对象必须有一个enter()方法，一个exit()方法。
+with open("/tmp/foo.txt") as file:
+    data = file.read()
+
+# 例如
+class He:
+    def __enter__(self):
+        print('you are in')
+        return 'VALUE'
+
+    def __exit__(self, type, value, trace):
+        print('you are out')
+
+with He() as L:
+    print(L)
 ```
