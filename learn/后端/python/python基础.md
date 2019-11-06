@@ -306,6 +306,50 @@ db.close()
 
 ### SMTP 发送邮件
 
+163端口：
+
+![port](http://img4.cache.netease.com/help/2011/2/1/201102010936447869c.png)
+
+QQ端口：
+
+| 邮箱   | POP3服务器（端口995） | SMTP服务器（端口465或587） |
+| :----- | :-------------------- | :------------------------- |
+| qq.com | pop.qq.com            | smtp.qq.com                |
+
+```python
+#!/usr/bin/python3
+
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
+mail_from = '291825458@qq.com'
+mail_to = ['285653184@qq.com']
+
+server_host = 'smtp.qq.com'
+server_user = '291825458@qq.com'
+server_pass = 'password'
+
+# 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
+message = MIMEText('这是一封邮件，邮件发送...', 'plain', 'utf-8')
+# 发件人
+message['From'] = Header("明天就是周末", 'utf-8')
+# 收件人
+message['To'] = Header("你好", 'utf-8')
+# 标题
+subject = '明天就是周末了'
+message['Subject'] = Header(subject, 'utf-8')
+
+# try:
+smtpObj = smtplib.SMTP(server_host, 25)
+smtpObj.login(server_user, server_pass)
+
+smtpObj.sendmail(mail_from, mail_to, message.as_string())
+print("邮件发送成功")
+# except smtplib.SMTPException:
+#     print("Error: 无法发送邮件")
+```
+
 ### 多线程
 
 Python3 通过两个标准库 \_thread 和 threading 提供对线程的支持。
