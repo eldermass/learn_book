@@ -70,6 +70,13 @@ hex(id(a)), a 的内存地址
 # r 表示 原始字符串 \n 不转义
 a = r'abc\nbcd'
 
+# unicode 相互转换
+chr(9)
+ord(' ')
+# \d：十进制；\o：八进制；\x 十六进制
+# \u unicode码
+# \xaa ⇒ chr(0xaa) ⇒ chr(16*a+a)
+
 # 字符串可以直接运算
 b ='python' * 2 # 'pythonpython'
 
@@ -507,7 +514,7 @@ r1.groups()
 
 ```python
 import json
-# 序列化
+# 序列化 为 string
 json.dumps()
 # 反序列化
 json.loads()
@@ -574,6 +581,16 @@ def f1():
 ```
 
 ## 其他
+
+### 调试技巧
+
+```python
+# 当 assert 后面跟的是 False 时， 将抛出错误
+assert False, 'blabla'
+
+ locals: 执行 locals() 之后, 返回一个字典, 包含(current scope)当前范围下的局部变量。
+ globals: 执行 globals() 之后, 返回一个字典, 包含(current scope)当前范围下的全局变量。
+```
 
 ### 列表推导式
 

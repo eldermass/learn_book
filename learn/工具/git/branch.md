@@ -78,7 +78,7 @@ git clean 参数
 
     推送到某分支 本地：远程
     git push origin serverfix
-    git push origin serverfix:serverfix
+    git push origin localfix:serverfix
 
     远程分支的内容合并到当前分支
     git merge origin/serverfix

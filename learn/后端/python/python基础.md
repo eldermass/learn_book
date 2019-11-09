@@ -306,15 +306,15 @@ db.close()
 
 ### SMTP 发送邮件
 
-163端口：
+163 端口：
 
 ![port](http://img4.cache.netease.com/help/2011/2/1/201102010936447869c.png)
 
-QQ端口：
+QQ 端口：
 
-| 邮箱   | POP3服务器（端口995） | SMTP服务器（端口465或587） |
-| :----- | :-------------------- | :------------------------- |
-| qq.com | pop.qq.com            | smtp.qq.com                |
+| 邮箱   | POP3 服务器（端口 995） | SMTP 服务器（端口 465 或 587） |
+| :----- | :---------------------- | :----------------------------- |
+| qq.com | pop.qq.com              | smtp.qq.com                    |
 
 ```python
 #!/usr/bin/python3
@@ -578,4 +578,32 @@ with open('data.json', 'w') as f:
 # 读取数据文件
 with open('data.json', 'r') as f:
     data = json.load(f)
+```
+
+### 时间函数
+
+```python
+import time
+
+# 时间戳
+time.time()
+
+# 时间元组, 对应年月日时分秒等9个数据
+time.localtime(timestamp)
+
+# 格式化的时间
+time.asctime(time_tuple)
+
+# time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+time.strftime(format, time_tuple)
+time.strptime(string, format)
+
+# 推迟调用线程的运行，secs指秒数。
+time.sleep(secs)
+
+# 距离格林威治的偏移秒数，如 UTC-8 大于了世界时 8 小时，所以值为 -28800
+# time.time() + time.timezone 总是等于 世界时
+time.timezone
+time.tzname     # 时区名
+
 ```
