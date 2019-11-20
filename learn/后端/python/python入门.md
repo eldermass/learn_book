@@ -59,6 +59,7 @@ bin() int() oct() hex()
 字典：dict (key: value 的概念)
 
 list[0:length:步长]， 切片操作
+list[start, end, step]
 hex(id(a)), a 的内存地址
 
 #### 字符串 str
@@ -551,7 +552,7 @@ def add(x, y):
 # lambda prama_list: expr
 lambda x, y: x + y
 # 三元表达式
-x > y ? x : y
+# x > y ? x : y
 x if x > y else y
 
 # map 遍历
