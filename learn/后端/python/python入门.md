@@ -94,8 +94,9 @@ b[-1] # n
 c = 'place %s' % 'holder' # 传入单值
 c = 'i am %s, age is %s}' % ('zhangsan', '23')  # 传入元组
 c = "I'm %(name)s. I'm %(age)d year old" % {'name':'Vamei', 'age':99} # 传入字典
-e = 'i am {}, age is {}'.format('z3', 23)
-
+e = 'i am {0}, age is {1}'.format('z3', 23)
+e = 'i am {}, age is {}'.format(*('z3', 23)) # 传入元组
+e = 'i am {name:s}, age is {age:d}'.format(**{'name': '张三', 'age': 23})       # 传入字典
 ```
 
 #### 列表 list
