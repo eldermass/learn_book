@@ -47,6 +47,8 @@ while True:
 
 ### 文件操作
 
+[详解](https://www.runoob.com/python/python-func-open.html)
+
 ```python
 # 读写文件 文件名，mode(r，w，a，r+)
 f = open('1.txt', 'r+')
@@ -75,7 +77,7 @@ f.close()
 
 # 反序列化
 import pickle
-f.open('1.txt', 'wb')
+f.open('1.txt', 'rb')
 data = pickle.load(f)
 f.close()
 
