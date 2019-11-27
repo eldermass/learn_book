@@ -92,7 +92,7 @@ def run(page,start_url):
         url_m3u8 = 'http://rzlkq.com:8091/%s/1000kb/hls/index.m3u8'%num  #拼接视频链接
         video_Name = line["vod_name"]
         key_url = 'http://rzlkq.com:8091/%s/1000kb/hls/key.key'%num #拼接key链接
-        key = requests.get(url=key_url,timeout=120,headers=headers).content  #取得key 16位密钥
+        key = requests.get(url=key_url,timeout=120,headers=headers).content  #取得key 16位密钥, bytes 类型
         getVideo_requests(url_m3u8,video_Name,key)
 
 def url_inpur():

@@ -88,6 +88,10 @@ services:
     external_links:
       - mysql
       - redis_1:redis
+    # 桥接时在容器里访问宿主网络，会在/etc/hosts 里写入 域名解析到宿主 172.21.0.1  api.firmoo.test
+    # 容器里通过 ip addr 可查看到宿主网络
+    extra_hosts:
+      - "api.firmoo.test:172.21.0.1"
     # 覆盖容器启动后默认执行的命令
     command: sh -c 'ping www.baidu.com'
     # 环境变量
@@ -110,6 +114,7 @@ services:
       lnmp-network:
         aliases:
           - service_nginx
+    # 是否以最高权限开启容器
     privileged: true
     # 本服务依赖的服务，顺序在其后启动
     depends_on:
