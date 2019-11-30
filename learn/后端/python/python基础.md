@@ -51,7 +51,7 @@ while True:
 
 ```python
 # 读写文件 文件名，mode(r，w，a，r+)
-f = open('1.txt', 'r+')
+f = open('1.txt', 'r+'， encoding='utf-8') # 因为默认 gbk 有可能写不进去 unicode 编码
 string = f.read(size) # size 默认为负
 # 单行读取readline， 多行读取 readlines(sizehint)
 # 迭代 for line in f:
