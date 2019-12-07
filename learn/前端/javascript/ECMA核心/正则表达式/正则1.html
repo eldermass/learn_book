@@ -25,6 +25,8 @@
 			data.match(/windows (?=\d+)/);  // ["windows "]
 			data.match(/windows (?:\d+)/);  // ["windows 98"]
 			data.match(/windows (\d+)/);    // ["windows 98", "98"]
+// 例如： 	/^(.(?![@#$%￥…]))*$/    正向反预查，不包含某些字符的字符串
+
 //			反向引用
 //					let reg = /(\w)\1/g     \1反向引用第一个子表达式(第一个括号内的)的内容
 //					let reg = /(\w)\1(\w)\2/g    ('aabb').replace(reg,'$2$2$1$1')    :aabb->bbaa
