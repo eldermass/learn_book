@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function LinkedList() {
+                let Node = function(element) {
+                    this.element = element;
+                    this.next = null;
+                };
+
+                let length = 0;
+                let head = null;
+
+                this.append = function(element) {
+                    let node = new Node(element),
+                        current;
+
+                    if (head === null) head = node;
+                    else {
+                        current = head;
+                        // 找到最后一个
+                        while (current.next) {
+                            current = current.next;
+                        }
+                        current.next = node
+                    }
+                    length++
+                };
+            }
+        </script>
+    </body>
+</html>

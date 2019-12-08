@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 队列
+            let Queue = (function() {
+                let items = new WeakMap();
+                return class Queue {
+                    constructor(arr) {
+                        items.set(this, []);
+                        if (Object.prototype.toString.call(arr) === "[object Array]") {
+                            arr.forEach(i => {
+                                items.get(this).push(i);
+                            });
+                        }
+                    }
+                    enqueue(item) {
+                        items.get(this).push(item);
+                    }
+                    dequeue() {
+                        return items.get(this).shift();
+                    }
+                    front() {
+                        // 查看头元素
+                        return items.get(this)[0];
+                    }
+                    isEmpty() {
+                        return items.get(this).length === 0;
+                    }
+                    print() {
+                        console.log(items.get(this).toString());
+                    }
+                    size() {
+                        return items.get(this).length;
+                    }
+                };
+            })();
+
+            // 优先队列
+            let PriorityQueue = (function() {
+                const items = new WeakMap();
+
+                function QueueElement(element, priority) {
+                    this.element = element;
+                    this.priority = priority;
+                }
+
+                return class PriorityQueue {
+                    constructor() {
+                        items.set(this, []);
+                    }
+                    enqueue(element, priority) {
+                        let item = new QueueElement(element, priority);
+
+                        let added = false;
+                        let qs = items.get(this);
+                        for (let i = 0; i < qs.length; i++) {
+                            // 小的优先
+                            if (item.priority < qs[i].priority) {
+                                qs.splice(i, 0, item);
+                                added = true;
+                                break;
+                            }
+                        }
+
+                        if (!added) qs.push(item);
+                    }
+                };
+            })();
+
+            // 循环队列
+            function hotPotato(nameList, num) {
+                let queue = new Queue(nameList);
+
+                let eliminated = "";
+                while (queue.size() > 1) {
+                    for (let i = 0; i < num; i++) {
+                        queue.enqueue(queue.dequeue());
+                    }
+                    eliminated = queue.dequeue();
+                    console.log(eliminated + "在游戏中被淘汰");
+                }
+                return queue.dequeue();
+            }
+            let name = ["John", "Jack", "Ingrid", "Carl", "Camila", "Bob", "Jimmy"];
+            let winner = hotPotato(name, 7);
+            console.log(winner + '取得了游戏的胜利')
+        </script>
+    </body>
+</html>
