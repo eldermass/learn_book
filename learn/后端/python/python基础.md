@@ -416,11 +416,12 @@ class myThread (threading.Thread):
         self.name = name
         self.counter = counter
     def run(self):
+        # 该线程要执行的内容
         print ("开始线程：" + self.name)
-        print_time(self.name, self.counter, 5)
+        print_time(self.name, self.counter, 1)
         print ("退出线程：" + self.name)
 
-def print_time(threadName, delay, counter):
+def print_time(threadName, counter, delay):
     while counter:
         if exitFlag:
             threadName.exit()
@@ -430,7 +431,7 @@ def print_time(threadName, delay, counter):
 
 # 创建新线程
 thread1 = myThread(1, "Thread-1", 1)
-thread2 = myThread(2, "Thread-2", 2)
+thread2 = myThread(2, "Thread-2", 5)
 
 # 开启新线程
 thread1.start()
