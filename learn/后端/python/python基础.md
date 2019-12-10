@@ -1,5 +1,7 @@
 # 基础
 
+[常用系统模块](https://learnku.com/docs/pymotw/string-string-constants-and-templates/3360)
+
 ## 1. 常识
 
 ```bash
