@@ -69,6 +69,14 @@
 //			uniCode编码      \u000000   4位16进制数字
 //			第一层区间 \u010000 -\u01ffff
 //			第16层区间 \u100000 -\u10ffff
+
+
+		// 后行断言 es10
+		let test = 'world hello'
+		console.log(test.match(/(?<=world\s)hello/))
+		// ["hello", index: 6, input: "world hello", groups: undefined]
+		// (?<…)是后行断言的符号，(?..)是先行断言的符号，然后结合 =(等于)、!(不等)、\1(捕获匹配)。
+
 		</script>
 	</body>
 </html>
