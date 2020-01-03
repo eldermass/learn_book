@@ -10,6 +10,14 @@
 # -*- coding: UTF-8 -*-
 ```
 
+### 扩展类型
+
+```python
+# 枚举类型
+enum
+
+```
+
 ### 迭代器和生成器
 
 ```python
@@ -165,26 +173,36 @@ for x in range(1, 11):
 ```python
 import re
 # 尝试从字符串的起始位置匹配一个模式
-# 参数分别是，模板，字符串，标志位类似js里的img
+# 参数分别是，模板，字符串，flags 标志位类似js里的img
 re.match(pattern, string, re.M|re.I)
 # group     所有匹配到的组
 # groups    子匹配的元组
 
+# 多重匹配
+re.findall()
+
 # 扫描整个字符串并返回第一个成功的匹配。
-# 方法、参数同match
+# 方法、参数同match， flags 标志位
 re.search(pattern, string, flags=0)
+# 例：
+re.search( r'(.*) are (.*?) .*', line, re.M|re.I)
 
 # 用于替换字符串中的匹配项。
 # repl 替换为的字符串， max最大替换次数，默认0所有
 re.sub(pattern, repl, string, max=0)
 
-# 正则表达式修饰符 - 标志位
+# 将一个表达字符串转换为一个 RegexObject
+# 提前编译好，能减少运行时的开销
+compile()
+
+# 正则表达式修饰符 - 标志位  -- flags
 re.I  使匹配对大小写不敏感
 re.L  做本地化识别（locale-aware）匹配
 re.M  多行匹配，影响 ^ 和 $
 re.S  使 . 匹配包括换行在内的所有字符
 re.U  根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.
 re.X  该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。
+
 
 ```
 

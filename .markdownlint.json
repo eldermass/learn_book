@@ -1,4 +1,11 @@
 {
     "MD033": false,
-    "MD013": false
+    "MD013": false,
+    "MD030": {
+        "ul_single": 3,
+        "ul_multi": 3
+    },
+    "MD007": {
+        "indent": 4
+    }
 }
