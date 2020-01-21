@@ -12,7 +12,7 @@
   "devDependencies": {
     "crypto": "^1.0.1",
     "jsonwebtoken": "^8.4.0",
-    "knex": "^0.15.2",
+    "knex": "^0.19.5",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-multer": "^1.0.2",
