@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 平铺数组 Array.prototype.flat()
+            // newArray = arr.flat(depth) // depth是指定要提取嵌套数组的结构深度，默认值为 1
+            const numbers2 = [1, 2, [3, 4, [5, 6]]];
+            console.log(numbers2.flat(2)); // [1, 2, 3, 4, 5, 6]
+
+            // Array.prototype.flatMap()
+            let arr = [1, 2, 3];
+            console.log(arr.map(item => [item * 2]).flat()); // [2, 4, 6]
+            console.log(arr.flatMap(item => [item * 2])); // [2, 4, 6]
+
+            // 生成对象 Object.fromEntries()
+            const object = { x: 23, y: 24 };
+            const entries = Object.entries(object); // [['x', 23], ['y', 24]]
+            const result = Object.fromEntries(entries); // { x: 23, y: 24 }
+            // 实现过滤
+            let res = Object.fromEntries(Object.entries(obj).filter(([a, b]) => b > 21))
+            console.log(111, res) // {b: 22, c: 23}
+
+            // String.trimStart 和 String.trimEnd 移除开头和结尾的空格
+
+            // String.prototype.matchAll
+
+            // try-catch语句中的参数变为了一个可选项
+
+            // BigInt
+
+            // Symbol.prototype.description
+
+            // Function.prototype.toString()
+        </script>
+    </body>
+</html>
