@@ -119,6 +119,16 @@ git rebase --onto master server client  多分支变基，指定基底，
 
 ```
 
+### 分支比较
+
+```bash
+    git diff local origin/baranch
+            --stat      # 只显示文件列表
+
+# 指定单个文件
+    git diff local origin/baranch filepath
+```
+
 ### 版本修订
 
 [版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
