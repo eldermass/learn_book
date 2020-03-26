@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./rxjs.js"></script>
+</head>
+<body>
+    <script>
+        let { of, Observable, from } = rxjs
+
+        let ob = new Observable(subscribe => {
+            // 这是一个数据流
+            subscribe.next(1)
+            setTimeout(() => {
+                subscribe.next(3)
+                subscribe.complete()               
+                subscribe.next(4)
+            }, 1000);
+            subscribe.next(2)
+        })
+
+        // 这里开始订阅
+        ob.subscribe({
+            next: value => { console.log('got a value ' + value) },
+            error: err => { console.log('ob error', err) },
+            complete: () => { console.log('it is over') }
+        })
+        
+
+
+
+
+
+
+        
+        // from(thowNumberDelay()).subscribe(value => {
+        //     console.log(value)
+        // })
+        
+        
+        
+        function thowNumberDelay() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('what the fuck')
+                }, 1000)
+            })
+        }
+    </script>
+</body>
+</html>
