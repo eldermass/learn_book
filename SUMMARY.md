@@ -43,6 +43,7 @@
     -   [前端](学习/前端/README.md)
 
         -   [javascript](学习/前端/javascript/js.md)
+        -   [rxjs入门](学习/前端/rxjs/rxjs入门.md)
 
     -   [后端](学习/后端/README.md)
 

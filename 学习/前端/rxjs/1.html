@@ -1,53 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./rxjs.js"></script>
-</head>
-<body>
-    <script>
-        let { of, Observable, from } = rxjs
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="./rxjs.js"></script>
+    </head>
+    <body>
+        <script>
+            let { of, Observable, from, interval, pipe, Subject } = rxjs;
+            let { map, first, concatAll, exhaust, filter, multicast } = rxjs.operators;
 
-        let ob = new Observable(subscribe => {
-            // 这是一个数据流
-            subscribe.next(1)
+            const source = interval(1000)
+            const subject = new Subject()
+
+            const mulitcasted = source.pipe(multicast(subject))
+
+            let s1 = mulitcasted.subscribe(x => console.log('A: ' + x))
+            let s2;
+
+            let connect = mulitcasted.connect()
+            
             setTimeout(() => {
-                subscribe.next(3)
-                subscribe.complete()               
-                subscribe.next(4)
-            }, 1000);
-            subscribe.next(2)
-        })
+                s2 = mulitcasted.subscribe(y => console.log('BBBBB: ' + y))    
+            }, 2500)
 
-        // 这里开始订阅
-        ob.subscribe({
-            next: value => { console.log('got a value ' + value) },
-            error: err => { console.log('ob error', err) },
-            complete: () => { console.log('it is over') }
-        })
-        
+            // 清理
+            setTimeout(() => {
+                s2.unsubscribe()
+            }, 5000)
 
+            setTimeout(() => {
+                s1.unsubscribe()
+                connect.unsubscribe()
+            }, 8000);
+            
 
-
-
-
-
-        
-        // from(thowNumberDelay()).subscribe(value => {
-        //     console.log(value)
-        // })
-        
-        
-        
-        function thowNumberDelay() {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve('what the fuck')
-                }, 1000)
-            })
-        }
-    </script>
-</body>
+        </script>
+    </body>
 </html>

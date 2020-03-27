@@ -1,8 +1,9 @@
 # RXJS
 
 [入门](https://www.jianshu.com/p/bc4d8ce267d1)
+[官方文档](https://rxjs-dev.firebaseapp.com/guide/overview)
 
-## 使用
+## 一、基本原理
 
 > rxjs 里的四个执行过程  
 > Creating Observables 创建一个 Ob  
@@ -72,8 +73,138 @@ let ob = new Observable(function subscribe(subscriber) {
 Because Observable Executions may be infinite, and it's common for an Observer to want to abort execution in finite time, we need an API for canceling an execution. Since each execution is exclusive to one Observer only, once the Observer is done receiving values, it has to have a way to stop the execution, in order to avoid wasting computation power or memory resources.
 
 ```js
-let ob = from(1, 2)
+let ob = from(1, 2);
 const subscription = ob.subscribe(x => console.log(x));
 // Later: 取消订阅
 subscription.unsubscribe();
+```
+
+## 二、操作符
+
+操作符有两大类：管道操作符、创建操作符
+
+1. A Pipeable Operator is a function that takes an Observable as its input and returns another Observable
+
+2. Creation Operators are the other kind of operator, which can be called as standalone functions to create a new Observable
+
+```js
+// 管道操作符 改造并生成一个新的 Ob 实例
+// observableInstance.pipe(operator())
+map(x => x * x)(of(1, 2, 3)).subscribe(v => {
+    console.log(`value: ${v}`);
+});
+
+first()(of(1, 2, 3)).subscribe(v => {
+    console.log(`value: ${v}`);
+});
+
+// 管道操作 用于连接多个操作
+// obs.pipe(op1(), op2(), op3(), op3());
+of(1, 2, 3)
+    .pipe(
+        map(x => x * x),
+        first()
+    )
+    .subscribe(v => console.log(`value: ${v}`));
+```
+
+```js
+// 创建操作符，用于创建一个新的 Ob 实例
+// Of(1, 2, 3) 或 from() 等
+```
+
+操作符非常的多，不够用的时候也可以创建自定义的操作符
+
+```js
+// Use the pipe() function to make new operators
+function discardOddDoubleEven() {
+    return pipe(
+        filter(v => !(v % 2)),
+        map(v => v + v)
+    );
+}
+
+of(1, 2, 3, 4, 5, 6)
+    .pipe(discardOddDoubleEven())
+    .subscribe(x => console.log(x));
+
+// Creating new operators from scratch
+// 看文档
+```
+
+### Subscription
+
+调用 unsubscribe() add(ChildSubscription) remove(ChildSubscription) 清理订阅者
+
+### Subject
+
+An RxJS Subject is a special type of Observable that allows values to be multicasted to many Observers.
+
+```js
+// 1. 就像 EventEmitters 一样，需要先订阅，然后在通知数据。可以同时广播到多个订阅者
+const subject = new Subject();
+
+subject.subscribe({
+    next: v => console.log(`observerA: ${v}`)
+});
+subject.subscribe({
+    next: v => console.log(`observerB: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+
+// 2. Subject is an Observers
+const subject = new Subject();
+
+subject.subscribe({
+    next: v => console.log(`observerA: ${v}`)
+});
+subject.subscribe({
+    next: v => console.log(`observerB: ${v}`)
+});
+
+const ob = from([1, 2, 3]).subscribe(subject);
+// 会将subject里的两次订阅操作合并为同一个，输出顺序 112233
+
+// 3. 广播到多个观察者
+const source = from([1, 2, 3]);
+const subject = new Subject();
+const multicasted = source.pipe(multicast(subject));
+
+// These are, under the hood, `subject.subscribe({...})`:
+multicasted.subscribe({
+    next: v => console.log(`observerA: ${v}`)
+});
+multicasted.subscribe({
+    next: v => console.log(`observerB: ${v}`)
+});
+
+// This is, under the hood, `source.subscribe(subject)`:
+multicasted.connect();
+
+// 4. connect 开始广播
+const source = interval(1000);
+const subject = new Subject();
+
+const mulitcasted = source.pipe(multicast(subject));
+
+let s1 = mulitcasted.subscribe(x => console.log("A: " + x));
+let s2;
+
+let connect = mulitcasted.connect();
+
+setTimeout(() => {
+    s2 = mulitcasted.subscribe(y => console.log("BBBBB: " + y));
+}, 2500);
+
+// 清理
+setTimeout(() => {
+    s2.unsubscribe();
+}, 5000);
+
+setTimeout(() => {
+    s1.unsubscribe();
+    connect.unsubscribe();
+}, 8000);
 ```
