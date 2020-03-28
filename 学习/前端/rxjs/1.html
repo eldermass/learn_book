@@ -8,34 +8,25 @@
     </head>
     <body>
         <script>
-            let { of, Observable, from, interval, pipe, Subject } = rxjs;
-            let { map, first, concatAll, exhaust, filter, multicast } = rxjs.operators;
+            let { of, Observable, ReplaySubject, BehaviorSubject, from, interval, pipe, Subject } = rxjs;
+            let { map, first, concatAll, refCount, exhaust, filter, multicast } = rxjs.operators;
 
-            const source = interval(1000)
-            const subject = new Subject()
+            const subject = new ReplaySubject(2); // buffer 3 values for new subscribers
 
-            const mulitcasted = source.pipe(multicast(subject))
+            subject.subscribe({
+                next: v => console.log(`observerA: ${v}`)
+            });
 
-            let s1 = mulitcasted.subscribe(x => console.log('A: ' + x))
-            let s2;
+            subject.next(1);
+            subject.next(2);
+            subject.next(3);
+            subject.next(4);
 
-            let connect = mulitcasted.connect()
-            
-            setTimeout(() => {
-                s2 = mulitcasted.subscribe(y => console.log('BBBBB: ' + y))    
-            }, 2500)
+            subject.subscribe({
+                next: v => console.log(`observerB: ${v}`)
+            });
 
-            // 清理
-            setTimeout(() => {
-                s2.unsubscribe()
-            }, 5000)
-
-            setTimeout(() => {
-                s1.unsubscribe()
-                connect.unsubscribe()
-            }, 8000);
-            
-
+            subject.next(5);
         </script>
     </body>
 </html>

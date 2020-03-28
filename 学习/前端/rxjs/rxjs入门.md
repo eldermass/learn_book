@@ -192,7 +192,8 @@ const mulitcasted = source.pipe(multicast(subject));
 let s1 = mulitcasted.subscribe(x => console.log("A: " + x));
 let s2;
 
-let connect = mulitcasted.connect();
+let connect = mulitcasted.connect(); // 关键的一步，开始广播
+// refCount操作符， 可以是这一步自动检测，并开始
 
 setTimeout(() => {
     s2 = mulitcasted.subscribe(y => console.log("BBBBB: " + y));
