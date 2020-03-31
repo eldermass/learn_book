@@ -8,25 +8,29 @@
     </head>
     <body>
         <script>
-            let { of, Observable, ReplaySubject, BehaviorSubject, from, interval, pipe, Subject } = rxjs;
-            let { map, first, concatAll, refCount, exhaust, filter, multicast } = rxjs.operators;
+            let { of, Observable, asyncScheduler, debounceTime, AsyncSubject, ReplaySubject, BehaviorSubject, from, interval, pipe, Subject } = rxjs;
+            let { map, first, concatAll, observeOn, throttleTime, refCount, exhaust, filter, multicast } = rxjs.operators;
+            let { TestScheduler } = rxjs.testing
+        
 
-            const subject = new ReplaySubject(2); // buffer 3 values for new subscribers
+            const testScheduler = new TestScheduler((actual, expected) => {
+                // expect(actual).deep.equal(expected)
+                console.log(actual, expected)
+            })
 
-            subject.subscribe({
-                next: v => console.log(`observerA: ${v}`)
-            });
+            // This test will actually run *synchronously*
+            // it('generate the stream correctly', () => {
+                testScheduler.run(helpers => {
+                    const { cold, expectObservable, expectSubscriptions } = helpers;
+                    const e1 =  cold('-a--b--c---|');
+                    const subs =     '^----------!';
+                    const expected = '-a-----c---|';
+                
+                    expectObservable(e1.pipe(throttleTime(3, testScheduler))).toBe(expected);
+                    expectSubscriptions(e1.subscriptions).toBe(subs);
+                });
+            // });
 
-            subject.next(1);
-            subject.next(2);
-            subject.next(3);
-            subject.next(4);
-
-            subject.subscribe({
-                next: v => console.log(`observerB: ${v}`)
-            });
-
-            subject.next(5);
         </script>
     </body>
 </html>

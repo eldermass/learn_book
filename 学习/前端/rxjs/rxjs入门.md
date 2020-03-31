@@ -138,7 +138,7 @@ of(1, 2, 3, 4, 5, 6)
 
 ### Subject
 
-An RxJS Subject is a special type of Observable that allows values to be multicasted to many Observers.
+An RxJS Subject is a special type of Observable that allows values to be multicasted to many Observers. 这里有许多衍生出来的 Subject ，例如 BehaviorSubject, ReplaySubject, AsyncSubject
 
 ```js
 // 1. 就像 EventEmitters 一样，需要先订阅，然后在通知数据。可以同时广播到多个订阅者
@@ -208,4 +208,19 @@ setTimeout(() => {
     s1.unsubscribe();
     connect.unsubscribe();
 }, 8000);
+```
+
+### Scheduler
+
+调度程序控制订阅何时启动以及何时发送通知, 由三部分组成。
+
+```js
+const s = new Observable(subscriber => {
+    subscriber.next(1);
+    subscriber.next(2);
+}).pipe(observeOn(asyncScheduler));
+
+console.log("first");
+s.subscribe(x => console.log("got a value: " + x));
+console.log("last");
 ```
