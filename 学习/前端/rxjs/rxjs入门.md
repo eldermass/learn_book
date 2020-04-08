@@ -2,6 +2,7 @@
 
 [入门](https://www.jianshu.com/p/bc4d8ce267d1)
 [官方文档](https://rxjs-dev.firebaseapp.com/guide/overview)
+[vue-rx入门](https://zhuanlan.zhihu.com/p/98960192)
 
 ## 一、基本原理
 
