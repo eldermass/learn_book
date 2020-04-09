@@ -33,17 +33,19 @@ vm.$observables.msg.subscribe(msg => console.log(msg))
 
 ## v-stream 的使用
 
-```js
-;<div>
+```html
+<div>
   <p>you've inputed debounce: {{ value }}</p>
   <input type="text" v-stream:input="$valueChange" />
 </div>
+```
 
+```js
 export default {
   subscriptions() {
     this.$valueChange = new Subject()
 
-    // 获得一个新的 Suject 对象
+    // 获得一个新的 Ob 对象
     this.$valueChangeText = this.$valueChange.pipe(
       map((res) => {
         return res.event.target.value
