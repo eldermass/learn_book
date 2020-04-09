@@ -1,8 +1,8 @@
 # RXJS
 
-[入门](https://www.jianshu.com/p/bc4d8ce267d1)
-[官方文档](https://rxjs-dev.firebaseapp.com/guide/overview)
-[vue-rx入门](https://zhuanlan.zhihu.com/p/98960192)
+[入门](https://www.jianshu.com/p/bc4d8ce267d1)  
+[官方文档](https://rxjs-dev.firebaseapp.com/guide/overview)  
+[vue-rx入门](https://zhuanlan.zhihu.com/p/98960192) 或 [笔记](./vue-rx入门.md)
 
 ## 一、基本原理
 
