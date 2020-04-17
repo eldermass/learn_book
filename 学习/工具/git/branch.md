@@ -34,7 +34,8 @@
     git checkout -- file    移除改动的文件
     git clean -n
                 -df         清理追踪的变化
-    git rm --cached         清理缓存文件
+    git rm -r --cached .    清理缓存文件
+
 
 ```
 
