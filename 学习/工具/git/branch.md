@@ -135,8 +135,10 @@ git rebase --onto master server client  多分支变基，指定基底，
 [版本修订](https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC%EF%BC%88Revision%EF%BC%89%E9%80%89%E6%8B%A9)
 
 ```bash
-    git log -3  查看最近三个提交
-        --stat  查看修改的状态
+    git log
+        -n          查看最近 n 个提交
+        --stat      查看修改的状态
+        --online    单行显示
 
     git reflog  查看最近的操作
         -n      显示条数
