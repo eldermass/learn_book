@@ -200,9 +200,9 @@ Element.prototype.reverseElement = function () {
 
 ## DOM 操作
 
-### 捕获和冒泡
+### 事件处理模型
 
-浏览器中事件的触发是先由 `html结构` 由上至下捕获，到触发事件后，在由下至上冒泡的
+浏览器中事件的触发是先由 html **结构上**(非视觉上)的嵌套关系，由上至下捕获，成功捕获并执行事件后，再由下至上冒泡的。focus blur change submit reset select 没有冒泡
 
 ```js
 // 添加事件监听的时候，第三参数为true时，可以时事件在捕获期触发
@@ -216,7 +216,31 @@ element.addEventListener(
 
 // stopPropagation 可以阻止事件传递（冒泡 或 捕获 ）
 event.stopPropagation() // propagation-蔓延
+// ie -->  e.cancelBuble
 ```
+
+默认事件、阻止默认事件
+
+```js
+/* 右键菜单事件  oncontextmenu */
+// 阻止默认事件
+/*
+    return false
+    e.preventDefault()     ie--> e.returnValue = false
+    a标签能写在行间取消默认事件，<a href='javascript:void(0)'>a</a>
+*/
+
+//  事件对象
+//  e || window.event  -->ie
+//  事件源对象 e.target 或 e.srcElement  记录了点击的对象，然后冒泡过来的
+
+//  事件委派
+//  通过冒泡,操作事件源对象
+
+// 让某个元素能捕获window的全部事件
+// el.setCapture()  el.releaseCapture()  ie能用
+```
+-----------------------------------------上面修改一下------------------------------------------------------
 
 ### 获取 css 计算属性
 
