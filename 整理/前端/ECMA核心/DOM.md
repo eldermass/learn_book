@@ -197,3 +197,39 @@ Element.prototype.reverseElement = function () {
     }
 }
 ```
+
+## DOM 操作
+
+### 捕获和冒泡
+
+浏览器中事件的触发是先由 `html结构` 由上至下捕获，到触发事件后，在由下至上冒泡的
+
+```js
+// 添加事件监听的时候，第三参数为true时，可以时事件在捕获期触发
+element.addEventListener(
+    "click",
+    (e) => {
+        alert("i am div")
+    },
+    true
+)
+
+// stopPropagation 可以阻止事件传递（冒泡 或 捕获 ）
+event.stopPropagation() // propagation-蔓延
+```
+
+### 获取 css 计算属性
+
+```js
+// box.style返回行内样式表      read-write
+
+// 获取css计算属性
+// getComputedStyle(el,伪元素) 获取(显示值)的样式表   read-only
+Element.prototype.getStyle = function (prop) {
+    if (window.getComputedStyle) {
+        return getComputedStyle(this)[prop]
+    } else {
+        return this.currentStyle[prop]
+    }
+}
+```
