@@ -205,42 +205,41 @@ Element.prototype.reverseElement = function () {
 浏览器中事件的触发是先由 html **结构上**(非视觉上)的嵌套关系，由上至下捕获，成功捕获并执行事件后，再由下至上冒泡的。focus blur change submit reset select 没有冒泡
 
 ```js
-// 添加事件监听的时候，第三参数为true时，可以时事件在捕获期触发
-element.addEventListener(
-    "click",
-    (e) => {
-        alert("i am div")
-    },
-    true
-)
+/*  事件监听
+    1  句柄监听  el.onclick = func
+    2  添加监听，可以多个 addEventListener(even,func,boolean) 事件类型，函数
+            第三个参数   true - 事件句柄在捕获阶段执行
+                        false- 默认。事件句柄在冒泡阶段执行
+            ie9里 attachEvent  --detachEvent
+* */
 
-// stopPropagation 可以阻止事件传递（冒泡 或 捕获 ）
-event.stopPropagation() // propagation-蔓延
-// ie -->  e.cancelBuble
-```
+/*  解除事件监听
+    el.onclick = false  或  null
+    el.removeEventListener(event,func,boolean)  func一定是同一个引用
+* */
 
-默认事件、阻止默认事件
+/* 阻止事件传递（冒泡 或 捕获 ）propagation-蔓延
+event.stopPropagation()
+ie -->  e.cancelBuble
+* */
 
-```js
-/* 右键菜单事件  oncontextmenu */
-// 阻止默认事件
-/*
+/* 阻止默认事件
+    e.preventDefault()
+    e.returnValue = false   -->  ie
+
     return false
-    e.preventDefault()     ie--> e.returnValue = false
     a标签能写在行间取消默认事件，<a href='javascript:void(0)'>a</a>
-*/
+* */
 
-//  事件对象
-//  e || window.event  -->ie
-//  事件源对象 e.target 或 e.srcElement  记录了点击的对象，然后冒泡过来的
+/* 事件源对象
+记录了事件触发源的元素, 可以用作 事件委派
+    e.target
+    e.srcElement  -->  ie
 
-//  事件委派
-//  通过冒泡,操作事件源对象
-
-// 让某个元素能捕获window的全部事件
-// el.setCapture()  el.releaseCapture()  ie能用
+让某个元素能捕获 window 的全部事件
+    el.setCapture()  el.releaseCapture()  仅 ie 能用
+* */
 ```
------------------------------------------上面修改一下------------------------------------------------------
 
 ### 获取 css 计算属性
 
@@ -255,5 +254,65 @@ Element.prototype.getStyle = function (prop) {
     } else {
         return this.currentStyle[prop]
     }
+}
+```
+
+### 元素位置的操作
+
+```js
+/*  窗口滚动条位置
+    window.pageXOffset
+    window.pageYOffset
+
+ie：
+    document.body.scrollTop/Left
+    document.documentElement.scrollTop/Left
+ * */
+
+/* 操作滚动条
+    window.scroll(x,y)      等于scrollTo()  滚动至x,y位置  对应pageYOffset
+    window.scrollBy(x,y)    向某方向滚动 x，y 距离， 累加的
+ * */
+
+/* 可视区 (能看到的部分) 窗口
+window.innerHeight
+window.innerWidth
+
+兼容ie
+    混合模式    document.body.clientHeight   ~~body的高
+    标准模式    document.documentElement.clientHeight   ~~html的高
+ * */
+
+/* 获取元素宽高
+el.getBoundClientRect()
+ * */
+
+/* 屏幕的宽高
+scrollHeight    不含border
+clientHeight    不含border
+offsetHeight    含有border
+screen.height   屏幕的高
+window.screen.availHeight   可用高度
+
+offsetWidth offsetHeight   //   包含border的整体宽高
+offsetTop   offsetLeft  //      注意，这是相对于有定位的上级元素的位置 ,不含父级的border
+父级有定位就是相对于父级，父级没定位就往上级找
+box.offsetParent  //    返回一个有定位父级元素，没有就是body
+ * */
+
+//  封装方法getElementPosition 获取当前元素距离文档的位置
+function getElementPosition(el) {
+    let p = {
+        x: 0,
+        y: 0,
+    }
+    if (el.offsetParent != null) {
+        //这样是没有加上父级border的，需要完善
+        p.x += getElementPosition(el.offsetParent).x
+        p.y += getElementPosition(el.offsetParent).y
+    }
+    p.x += el.offsetLeft
+    p.y += el.offsetTop
+    return p
 }
 ```
