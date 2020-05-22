@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        
+    </body>
+    <script>
+        
+        function getSearch() {
+            // 用json方法创建的对象，用以获取exec返回的json值
+            let searchs = {} 
+            let i = 0
+            let match = null
+            // let search = 'a=111&b=222'
+            let search = decodeURIComponent(location.search.substring(1))
+
+            let reg = /(([^&]+)=([^&]+))/g
+            // 每次 exec 会在匹配第一个后停住，并记录游标，在次执行时会从游标处继续往后匹配，所以这里不会有死循环
+            while ((match = reg.exec(search)) !== null) {
+                // match是一个数组，searchs 对象按键值对接收数组值
+                searchs[match[2]] = match[3] 
+            }
+            return searchs
+        }
+
+        getSearch()
+
+        
+        //快速排序法
+        var arr = Array(2, 1, 6, 4, 5, 7)
+        quickSort(0, arr.length - 1, arr)
+        document.write("<br>" + arr)
+        function quickSort(left, right, arr) {
+            var l = left
+            var r = right
+            var temp = 0
+            var point = arr[parseInt((left + right) / 2)]
+            while (l < r) {
+                while (arr[l] < point) l++
+                while (point < arr[r]) r--
+                if (l >= r) break
+                temp = arr[r]
+                arr[r] = arr[l]
+                arr[l] = temp
+
+                if (arr[l] == point) --r
+                if (arr[r] == point) ++l
+            }
+            if ((l = r)) {
+                l++
+                r--
+            }
+            if (left < r) quickSort(left, r, arr)
+            if (l < right) quickSort(l, right, arr)
+        }
+    </script>
+</html>

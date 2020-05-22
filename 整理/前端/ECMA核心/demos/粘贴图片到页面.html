@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <input id="input" type="text" />
+        <img id="img" src="" alt="" />
+        <script>
+            let input = document.getElementById("input")
+
+            input.addEventListener("paste", paste)
+
+            function paste(event) {
+                var items = (
+                    event.clipboardData || event.originalEvent.clipboardData
+                ).items
+
+                console.log(event, items, items.length, items[0].kind)
+                if (items.length > 0 && items[0].kind === "file") {
+                    var blob = items[0].getAsFile()
+                    // console.log(blob)
+                    var reader = new FileReader()
+                    var filename = new Date().getTime() + ".png"
+                    reader.onload = function (e) {
+                        var base64 = e.target.result
+
+                        console.log("base64: ", base64)
+
+                        document.getElementById("img").src = base64
+
+                        // base64 = base64.replace(
+                        //     /^data:image\/(png|jpg);base64,/,
+                        //     ""
+                        // )
+                        // var path = writeImg(filename, base64);
+                    }
+                    reader.readAsDataURL(blob)
+                }
+            }
+        </script>
+    </body>
+</html>
