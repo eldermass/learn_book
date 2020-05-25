@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<script>
-			function a(){
-				function b(){
-					var b =234
-				}
-				var a = 123
-				b()
-				console.log(a)
-			}
-			var global = 100
-			a()
-			//a 定义时， a.[[scope]]   作用域链存储了GO对象
-			//a 执行时， a.[[scope]]   作用域链存储了AO和GO对象
-			
-//			with(obj){
-//				
-//			}
-		</script>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <script>
+            function a() {
+                function b() {
+                    var b = 234
+                }
+                var a = 123
+                b()
+                console.log(a)
+            }
+            var global = 100
+            a()
+            //a 定义时， a.[[scope]]   作用域链存储了GO对象
+            //a 执行时， a.[[scope]]   作用域链存储了AO和GO对象
+
+            //			with(obj){
+            //
+            //			}
+        </script>
+    </body>
 </html>
