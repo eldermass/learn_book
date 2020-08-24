@@ -28,7 +28,7 @@
 
     git clone https filename                克隆分支
     git push --set-upstream origin master   第一次提交线上仓库
-    git branch --set-upstream-to  origin master/origin 创建本地分支与远程分支的关联
+    git branch --set-upstream-to=origin/<branch> barnch_local 创建本地分支与远程分支的关联
 
 
     git checkout -- file    移除改动的文件
