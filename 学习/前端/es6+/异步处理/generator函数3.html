@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
-		<script>
-			function * gen(){
-				let val = yield 'riseupcy';
-				yield axios.get(`https://api.github.com/users/${val}`);
-			}
-			let g1 = gen();
-			let username = g1.next().value;
-			console.log(username);
-			
-//			console.log(g1.next().value);
-			//next 里面的传值，就是value值
-			g1.next().value.then(res=>{
-				console.log(res.data)
-			})
-			function * show(){
-				let val = yield 'Jack';
-				yield `${val}`;
-			}
-			let s1 = show();
-			let name = s1.next().value
-			console.log(name)
-			console.log(s1.next('asd'))
-		</script>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+        <script>
+            function* gen() {
+                let val = yield "riseupcy";
+                yield axios.get(`https://api.github.com/users/${val}`);
+            }
+            let g1 = gen();
+            let username = g1.next().value;
+            console.log(username);
+
+            //			console.log(g1.next().value);
+            //next 里面的传值，就是value值
+            g1.next().value.then(res => {
+                console.log(res.data);
+            });
+            function* show() {
+                let val = yield "Jack";
+                yield `${val}`;
+            }
+            let s1 = show();
+            let name = s1.next().value;
+            console.log(name);
+            console.log(s1.next("asd"));
+
+
+			// 使用 yeild* 可以调用其他生成器
+            function* gen2() {
+                yield 2;
+                yield 3;
+            }
+            function* gen1() {
+                yield 1;
+                yield* gen2();
+                yield 4;
+            }
+        </script>
+    </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <div
+            id="box"
+            style="
+                height: 100px;
+                width: 100px;
+                background: hotpink;
+                position: absolute;
+                border: 5px solid #ccc;
+            "
+        ></div>
+        <div
+            id="tap"
+            style="
+                height: 100px;
+                width: 100px;
+                background: hotpink;
+                position: absolute;
+                right: 0;
+                border: 5px solid #ccc;
+            "
+        ></div>
+        <script>
+            let tap = document.getElementById("tap")
+            tap.addEventListener("mouseover", (e) => {
+                console.log("移到了 tap 上")
+            })
+            tap.addEventListener("mouseout", (e) => {
+                console.log("移出了 tap 外")
+            })
+
+
+            class Drag {
+                constructor(ele) {
+                    this.position = { x: 0, y: 0 }
+                    this.el = document.querySelector(ele)
+                    this.init()
+                }
+                init() {
+                    this.el.onmousedown = function (e) {
+                        this.position.x = e.clientX - this.el.offsetLeft
+                        this.position.y = e.clientY - this.el.offsetTop
+                        document.onmousemove = this.fnMove.bind(this)
+                        document.onmouseup = this.fnStop.bind(this)
+                        return false
+                    }.bind(this)
+                }
+                fnMove(e) {
+                    this.el.style.left = e.clientX - this.position.x + "px"
+                    this.el.style.top = e.clientY - this.position.y + "px"
+                }
+                fnStop() {
+                    document.onmousemove = false
+                    document.onmouseup = false
+                }
+            }
+            new Drag("#box")
+        </script>
+    </body>
+</html>

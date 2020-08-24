@@ -43,6 +43,7 @@
     -   [前端](学习/前端/README.md)
 
         -   [javascript](学习/前端/javascript/js.md)
+        -   [rxjs入门](学习/前端/rxjs/rxjs入门.md)
 
     -   [后端](学习/后端/README.md)
 
@@ -76,7 +77,7 @@
         -   [travis](学习/工具/travis/持续集成.md)
         -   [nginx 笔记](学习/工具/nginx/nginx笔记.md)
 
--   [其他](其他/README.md)
+-   [整理](整理/README.md)
 
 <!-- -   [构建](build/README.md)
 

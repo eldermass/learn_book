@@ -5,6 +5,7 @@
 ### 1. 前端
 
 [javascript](学习/前端/javascript/js.md)
+[rxjs入门](学习/前端/rxjs/rxjs入门.md)
 
 ### 2. Linux 入门
 

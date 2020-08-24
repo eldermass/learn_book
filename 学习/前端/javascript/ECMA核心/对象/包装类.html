@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<script>
-			//包装类
-			let num = 4
-			
-			num.len = 'aaa'
-			//当设置一个不存在的属性时
-			//new Number(4).len = 3; 然后在 delete 
-			//
-			console.log(num.len)  //undefined
-			//当访问一个不存在的属性时
-			//new Number(4).len 
-			//*以上两个len属性是在不同实例上的*
-			{
-				let k = new Number(55) 
-				console.log(k)
-				//k是一个对象数字，加的属性是可以访问的
-			}
-			{
-				let str = 'asdfg'
-				str.length = 2 
-				console.log(str.length) // 5
-				//本例子使用了包装类
-			}
-		</script>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
+    <body>
+        <script>
+            //包装类
+            let num = 4
+
+            num.len = "aaa"
+            //当设置一个不存在的属性时
+            //new Number(4).len = 3; 然后在 delete
+            //
+            console.log(num.len) //undefined
+            //当访问一个不存在的属性时
+            //new Number(4).len
+            //*以上两个len属性是在不同实例上的*
+            {
+                let k = new Number(55)
+                console.log(k)
+                //k是一个对象数字，加的属性是可以访问的
+            }
+            {
+                let str = "asdfg"
+                str.length = 2
+                console.log(str.length) // 5
+                //本例子使用了包装类
+            }
+        </script>
+    </body>
 </html>

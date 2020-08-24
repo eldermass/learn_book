@@ -77,3 +77,10 @@ app/Console/Commands 下 commands 方法引入了两个自定义命令来源，�
 
 [入门教程](https://laravelacademy.org/post/8559.html)  
 [经验](https://segmentfault.com/a/1190000015772826)
+
+## 其他
+
+```bash
+# ide-helper 修改单个模型帮助
+art ide-helper:models -W -R "\App\Models\Shop\CountryTip"
+```

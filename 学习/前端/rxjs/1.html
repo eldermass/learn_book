@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="./rxjs.js"></script>
+    </head>
+    <body>
+        <script>
+            let { of, Observable, asyncScheduler, AsyncSubject, ReplaySubject, BehaviorSubject, from, interval, pipe, Subject } = rxjs;
+            let { map, first, concatAll, observeOn, debounceTime, throttleTime, refCount, exhaust, filter, multicast, startWith } = rxjs.operators;
+            let { TestScheduler } = rxjs.testing
+        
+            let valueChange$ = new Subject();
+        
+            let valueChangeText$ = valueChange$.pipe(
+                map(res => res.event.target.value),
+                startWith(""),
+                debounceTime(500)
+            );    
+
+        </script>
+    </body>
+</html>

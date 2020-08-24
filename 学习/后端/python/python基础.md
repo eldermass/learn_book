@@ -10,6 +10,19 @@
 # -*- coding: UTF-8 -*-
 ```
 
+注释
+
+```python
+class Test:
+    def add(self, a: int, b: int) -> int:
+        """
+        :type a: int
+        :type b: int
+        :rtype: int
+        """
+        return a + b
+```
+
 ### 扩展类型
 
 ```python

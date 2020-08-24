@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+    </head>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-
-	<body>
-		<script>
-			function roll() {
-				var arr = []
-				for(var i = 0; i < 10; i++) {
-					//()提供一个作用域，单独把里面的内容框出来,变为表达式，表达式就能够执行了
-					//立即执行函数，相当于立即把i传给了j
-					(function(j) {
-						//预解析时 只能得到   arr[j] = Function ， 并不会解析内部的表达式
-						arr[j] = function() {
-							console.log(j);
-						}
-					}(i));//立即执行函数，创建了10个执行期上下文，并存了10个不同的实参，相当于10个块级作用域
-					// 如果for循环使用let直接变为块级作用域，也能解决
-				}
-				return arr
-			}
-			let rolls = roll();
-			for(var j = 0; j < 10; j++) {
-				rolls[j]()
-			}
-		</script>
-	</body>
-
+    <body>
+        <script>
+            function roll() {
+                var arr = []
+                for (var i = 0; i < 10; i++) {
+                    //()提供一个作用域，单独把里面的内容框出来,变为表达式，表达式就能够执行了
+                    //立即执行函数，相当于立即把i传给了j
+                    ;(function (j) {
+                        //预解析时 只能得到   arr[j] = Function ， 并不会解析内部的表达式
+                        arr[j] = function () {
+                            console.log(j)
+                        }
+                    })(i) //立即执行函数，创建了10个执行期上下文，并存了10个不同的实参，相当于10个块级作用域
+                    // 如果for循环使用let直接变为块级作用域，也能解决
+                }
+                return arr
+            }
+            let rolls = roll()
+            for (var j = 0; j < 10; j++) {
+                rolls[j]()
+            }
+        </script>
+    </body>
 </html>
