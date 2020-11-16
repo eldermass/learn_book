@@ -1,3 +1,10 @@
+/*
+ * @Descripttion: 
+ * @Author: cy
+ * @Date: 2020-08-24 19:15:52
+ * @LastEditors: cy
+ * @LastEditTime: 2020-11-14 22:35:03
+ */
 {
     "rules": {
         "semi": "warn"

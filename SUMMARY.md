@@ -12,13 +12,16 @@
         -   [五层协议](文章/网络基础/internet五层协议.md)
 
     -   [计算机基础](文章/计算机基础/README.md)
+
         -   [位运算](文章/计算机基础/位运算.md)
         -   [base64 原理](文章/计算机基础/base64原理.md)
 
     -   [规范](文章/规范/README.md)
+
         -   [restful api](文章/规范/RESTFULAPI.md)
 
     -   [JavaScript](文章/JavaScript相关/README.md)
+
         -   [常用的 js 函数](文章/JavaScript相关/常用的js函数.md)
         -   [关于 js 继承](文章/JavaScript相关/关于js继承.md)
         -   [模拟 bind 实现](文章/JavaScript相关/模拟bind实现.md)
@@ -33,17 +36,16 @@
         -   [Promise 模拟实现](文章/JavaScript相关/Promise模拟实现.md)
         -   [Proxy 代理](文章/JavaScript相关/proxy.md)
 
--   [问题](问题/README.md)
+    -   [PHP](文章/php相关/README.md)
 
-    -   [php](问题/php/README.md)
-        -   [安装 Imagemagick](问题/php/安装imagemagick.md)
+        -   [安装 Imagemagick](文章/php相关/linux安装imagemagick.md)
 
 -   [学习](学习/README.md)
 
     -   [前端](学习/前端/README.md)
 
         -   [javascript](学习/前端/javascript/js.md)
-        -   [rxjs入门](学习/前端/rxjs/rxjs入门.md)
+        -   [rxjs 入门](学习/前端/rxjs/rxjs入门.md)
 
     -   [后端](学习/后端/README.md)
 
