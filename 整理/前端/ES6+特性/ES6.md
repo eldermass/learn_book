@@ -29,4 +29,3 @@ exports.a = b
 
 const a = require('./module')
 ```
-
