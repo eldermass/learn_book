@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>姓名：{{ name }}</h3>
+        <div>
+            <p>age: {{ age }}</p>
+        </div>
+    </div>
+    <script>
+        class Vue {
+            constructor(opt) {
+                this.options = opt
+                this.observe(opt.data)
+                this.compile(document.querySelector(opt.el))
+            }
+            observe(data) {
+                Object.keys(data).forEach(key => {
+                    let ob = new Observer()
+                    data['_' + key] = data[key]
+                    Object.defineProperty(data, key, {
+                        get() {
+                            if (Observer.target) {
+                                ob.subscribe(Observer.target)
+                                ob.update(data['_' + key], key)
+                            }
+                            return data['_' + key]
+                        },
+                        set(val) {
+                            ob.update(val, key)
+                            data['_' + key] = val
+                        }
+                    })
+                })
+            }
+            compile(node) {
+                [].forEach.call(node.childNodes, child => {
+                    if (!child.firstElementChild && /\{\{(.*)\}\}/.test(child.innerHTML)) {
+                        const key = RegExp.$1.trim()
+                        child.template = child.innerHTML
+
+                        Observer.target = child
+                        this.options.data[key]
+                        Observer.target = null
+                    } else if (child.firstElementChild) {
+                        this.compile(child)
+                    }
+                })
+
+            }
+        }
+
+        class Observer {
+            constructor() {
+                this.subs = []
+            }
+            subscribe(node) {
+                this.subs.push(node)
+            }
+            update(value, key) {
+                this.subs.forEach(node => {
+                    node.innerHTML = node.template.replace(new RegExp('\\{\\{\\s*' + key + '\\s*\\}\\}', 'mg'), value)
+                })
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let opt = { el: '#app', data: { name: '检索中', age: 0 } }
+            let vm = new Vue(opt)
+
+            setTimeout(() => {
+                opt.data.name = '张三'
+                opt.data.age = 29
+            }, 2000)
+        })
+    </script>
+</body>
+
+</html>
