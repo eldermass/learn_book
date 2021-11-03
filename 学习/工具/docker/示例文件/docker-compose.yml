@@ -54,6 +54,7 @@ services:
       lnmp-network:
         aliases:
           - service_nginx
+    # 是否拥有root权限
     privileged: true
     # 本服务依赖的服务，顺序在其后启动
     depends_on:
